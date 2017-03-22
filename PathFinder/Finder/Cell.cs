@@ -23,20 +23,15 @@ namespace Finder
 		public override bool Equals(object obj)
 		{
 			var cell = obj as Cell;
-			if (cell != null)
-			{
-				if (cell.X == this.X && cell.Y == this.Y)
-				{
-					return true;
-				}
-			}
-			return false;
+			return cell?.X == this.X && cell.Y == this.Y;
 		}
 	}
+   
 	public enum CellType
 	{
-		Road = 1,
-		None = 2,
-		BadGround =3
+		Road,
+		Grace,
+		Snow,
+		Marsh
 	}
 }
