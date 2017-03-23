@@ -32,6 +32,8 @@ namespace HommFinder.Extensions
 						return 1.729922279792746f;
 					case CellType.Marsh:
 						return 1.7292746113989637f;
+					case CellType.Block:
+						return Single.MaxValue;
 				}
 				return -1;
 			}

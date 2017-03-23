@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,37 @@ namespace HommFinder
 {
 	public class Cell
 	{
+		private double _value;
+
 		public Cell(int x, int y, CellType cellType)
 		{
 			X = x;
 			Y = y;
 			CellType = cellType;
+			
 		}
 
 		public int X { get; private set; }
 		public int Y { get; private set; }
-		public int Value { get; set; }
+
+		public double Value
+		{
+			get { return _value; }
+			set
+			{
+				_value = value;
+			}
+		}
+
 		public CellType CellType { get; private set; }
 
+		public void Refresh()
+		{
+			_value = Single.MaxValue;
+		}
 		public override bool Equals(object obj)
 		{
+			
 			var cell = obj as Cell;
 			if (cell != null)
 			{
@@ -32,6 +50,16 @@ namespace HommFinder
 			}
 			return false;
 		}
+
+		public bool NeedChangeValue(double newValue)
+		{
+			if (newValue < Value)
+			{
+				Value = newValue;
+				return true;
+			}
+			return false;
+		}
 	}
    
 	public enum CellType
@@ -39,7 +67,8 @@ namespace HommFinder
 		Road,
 		Grace,
 		Snow,
-		Marsh
+		Marsh,
+		Block
 	}
 	
 }
