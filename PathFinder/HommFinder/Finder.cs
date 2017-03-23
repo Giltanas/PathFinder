@@ -18,8 +18,10 @@ namespace HommFinder
 			
 		}
 
-		public Stack<Cell> GetMoves(Cell startCell, Cell endCell = null)
+		public Stack<Cell> GetMoves(Cell startCell, Cell endCell)
 		{
+			startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
+			endCell = _cells.Single(c => c.X == endCell.X && c.Y == endCell.Y);
 			foreach (var cell in _cells)
 			{
 				cell.Refresh();
@@ -27,21 +29,21 @@ namespace HommFinder
 
 			if (!_isWholePassBuilt)
 			{
-				startCell.Value = 0;
+				startCell.NeedChangeValue(0);
 				sendWeave(startCell, endCell);
 			}
-
+			
 			return endCell == null ? null : getMoves(startCell, endCell, new Stack<Cell>());
 		}
 
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
-			
+			cells.Push(new Cell(endCell.X, endCell.Y, endCell.CellType));
 			if (!endCell.Equals(startCell))
 			{
-				cells.Push(endCell);
 				var nearCells = getNearCells(endCell);
 				var newEndCell = nearCells.Single(nc=> nc.Value.Equals(nearCells.Min(c => c.Value)));
+
 				getMoves(startCell, newEndCell, cells);
 			}
 			return cells;
@@ -71,7 +73,7 @@ namespace HommFinder
 				var scell = GetCell(cell.X + dx[i], cell.Y + dy[i]);
 				if (scell != null)
 				{
-					nearCells.Add(cell);
+					nearCells.Add(scell);
 				}
 			}
 			return nearCells;
@@ -79,7 +81,12 @@ namespace HommFinder
 
 		private Cell GetCell(int X, int Y)
 		{
-			return _cells.Single(c => c.X == X && c.Y == Y);
+			var ret =  _cells.SingleOrDefault(c => c.X == X && c.Y == Y);
+			if (ret == null || ret.CellType == CellType.Block)
+			{
+				return null;
+			}
+			return ret;
 		}
 	}
 }

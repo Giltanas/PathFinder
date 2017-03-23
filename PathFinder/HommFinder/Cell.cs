@@ -35,7 +35,7 @@ namespace HommFinder
 
 		public void Refresh()
 		{
-			_value = Single.MaxValue;
+			Value = Single.MaxValue;
 		}
 		public override bool Equals(object obj)
 		{
@@ -53,7 +53,7 @@ namespace HommFinder
 
 		public bool NeedChangeValue(double newValue)
 		{
-			if (newValue < Value)
+			if (newValue < Value && CellType != CellType.Block)
 			{
 				Value = newValue;
 				return true;
@@ -65,7 +65,7 @@ namespace HommFinder
 	public enum CellType
 	{
 		Road,
-		Grace,
+		Grass,
 		Snow,
 		Marsh,
 		Block

@@ -26,7 +26,7 @@ namespace HommFinder.Extensions
 				{
 					case CellType.Road:
 						return 1f;
-					case CellType.Grace:
+					case CellType.Grass:
 						return 1.3316062176165804f;
 					case CellType.Snow:
 						return 1.729922279792746f;
