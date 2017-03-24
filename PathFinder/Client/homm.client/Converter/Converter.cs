@@ -11,7 +11,7 @@ namespace Homm.Client.Converter
 {
 	public static class Converter
 	{
-		public static IEnumerable<Direction> ConvertCellsToDirection(Stack<Cell> cells)
+		public static IEnumerable<Direction> ConvertCellPathToDirection(Stack<Cell> cells)
 		{
 			var direction = new List<Direction>();
 			var listCells = cells.ToList();
@@ -52,43 +52,72 @@ namespace Homm.Client.Converter
 			return direction;
 		}
 
-		public static Cell ConvertGMapObjectDataToCell(this MapObjectData mapObjectData)
+		public static Cell ConvertMapObjectDataToCell(this MapObjectData mapObjectData)
 		{
-			var cellType = CellType.Road;
-
-			switch (mapObjectData.Terrain)
+			var x = mapObjectData.Location.X;
+			var y = mapObjectData.Location.Y;
+			if (x % 2 == 1)
 			{
-				case Terrain.Road:
-					cellType = CellType.Road;
-					break;
-				case Terrain.Grass:
-					cellType = CellType.Grass;
-					break;
-				case Terrain.Snow:
-					cellType = CellType.Marsh;
-					break;
-				case Terrain.Marsh:
-					cellType = CellType.Marsh;
-					break;
-				case Terrain.Desert:
-					cellType = CellType.Snow;
-					break;
+				y += 1;
 			}
+			return new Cell(x,y, mapObjectData.GetMapObjectCellType());
+		}
+
+		public static CellType GetMapObjectCellType(this MapObjectData mapObjectData)
+		{
 			if (mapObjectData.Wall != null)
 			{
-				cellType = CellType.Block;
+				return CellType.Block;
 			}
 			if (mapObjectData.NeutralArmy != null)
 			{
 				//TODO: Check army strength 
-				cellType = CellType.Block;
+				return CellType.Block;
 			}
 			if (mapObjectData.Mine != null)
 			{
-				cellType = CellType.Block;
+				return CellType.Block;
 			}
+		switch (mapObjectData.Terrain)
+			{
+				case Terrain.Road:
+					return CellType.Road;
+				case Terrain.Grass:
+					return CellType.Grass;
 
-			return new Cell(mapObjectData.Location.X, mapObjectData.Location.Y, cellType);
+				case Terrain.Snow:
+					return CellType.Marsh;
+
+				case Terrain.Marsh:
+					return CellType.Marsh;
+
+				case Terrain.Desert:
+					return CellType.Snow;
+
+			}
+			return CellType.Block;
+		}
+		public static string GetMapObjectDataForPrint(this MapObjectData mapObject)
+		{
+			return mapObject.GetMapObjectCellType().GetCellTypeFroPrint();
+		}
+
+		public static string GetCellTypeFroPrint(this CellType cellType)
+		{
+			switch (cellType)
+			{
+				case CellType.Road:
+					return "1";
+				case CellType.Block:
+					return "#";
+				case CellType.Grass:
+					return "2";
+				case CellType.Marsh:
+					return "3";
+				case CellType.Snow:
+					return "4";
+			}
+			return string.Empty;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Homm.Client.Converter;
+using Homm.Client.Output;
 using HoMM.Sensors;
 using HoMM;
 using HoMM.ClientClasses;
@@ -14,7 +15,6 @@ namespace Homm.Client
 		// Вставьте сюда свой личный CvarcTag для того, чтобы учавствовать в онлайн соревнованиях.
 		public static readonly Guid CvarcTag = Guid.Parse("00000000-0000-0000-0000-000000000000");
 
-
 		public static void Main(string[] args)
 		{
 			if (args.Length == 0)
@@ -24,7 +24,7 @@ namespace Homm.Client
 
 			var client = new HommClient();
 
-			client.OnSensorDataReceived += Print;
+			//client.OnSensorDataReceived += Print;
 			client.OnInfo += OnInfo;
 
 			var sensorData = client.Configurate(
@@ -49,25 +49,25 @@ namespace Homm.Client
 				// Помните, что на сервере выбор стороны осуществляется случайным образом, поэтому ваш код
 				// должен работать одинаково хорошо в обоих случаях.
 			);
-
-			//var path = new[] { Direction.RightDown, Direction.RightUp, Direction.RightDown, Direction.RightUp, Direction.LeftDown, Direction.Down, Direction.RightDown, Direction.RightDown, Direction.RightUp };
-			//sensorData = client.HireUnits(1);
-			//foreach (var e in path)
-			//	sensorData = client.Move(e);
-			//sensorData = client.Move(Direction.RightDown);
+			var outPutPrinter = new CmdOutPutPrinter();
+			outPutPrinter.PrintMap(sensorData.Map.Objects, sensorData.Map.Width, sensorData.Map.Height+1);
 			var listCells = new List<Cell>();
 			foreach (var item in sensorData.Map.Objects)
 			{
-				listCells.Add(item.ConvertGMapObjectDataToCell());
+				listCells.Add(item.ConvertMapObjectDataToCell());
 			}
 
 			var pathFinder = new Finder(listCells);
 			var a = pathFinder.GetMoves(sensorData.Map.Objects
 				.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
-					.ConvertGMapObjectDataToCell(), sensorData.Map.Objects
-				.Single(o => o.Location.X == 9 && o.Location.Y == 2)
-					.ConvertGMapObjectDataToCell());
-			var b = Converter.Converter.ConvertCellsToDirection(a);
+					.ConvertMapObjectDataToCell(), sensorData.Map.Objects
+				.Single(o => o.Location.X == 10 && o.Location.Y == 0)
+					.ConvertMapObjectDataToCell());
+			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.Map.Width, sensorData.Map.Height + 1);
+			var b = Converter.Converter.ConvertCellPathToDirection(a);
+
+
+
 			foreach (var item in b)
 			{
 				client.Move(item);
@@ -76,34 +76,34 @@ namespace Homm.Client
 		}
 
 
-		static void Print(HommSensorData data)
-		{
-			Console.WriteLine("---------------------------------");
+		//static void Print(HommSensorData data)
+		//{
+		//	Console.WriteLine("---------------------------------");
 
-			//Console.WriteLine($"You are here: ({data.Location.X},{data.Location.Y})");
+		//	//Console.WriteLine($"You are here: ({data.Location.X},{data.Location.Y})");
 
-			//  Console.WriteLine($"You have {data.MyTreasury.Select(z => z.Value + " " + z.Key).Aggregate((a, b) => a + ", " + b)}");
+		//	//  Console.WriteLine($"You have {data.MyTreasury.Select(z => z.Value + " " + z.Key).Aggregate((a, b) => a + ", " + b)}");
 
-			//var location = data.Location.ToLocation();
+		//	//var location = data.Location.ToLocation();
 
-			//Console.Write("W: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.Up)));
+		//	//Console.Write("W: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.Up)));
 
-			//Console.Write("E: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.RightUp)));
+		//	//Console.Write("E: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.RightUp)));
 
-			//Console.Write("D: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.RightDown)));
+		//	//Console.Write("D: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.RightDown)));
 
-			//Console.Write("S: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.Down)));
+		//	//Console.Write("S: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.Down)));
 
-			//Console.Write("A: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.LeftDown)));
+		//	//Console.Write("A: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.LeftDown)));
 
-			//Console.Write("Q: ");
-			//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.LeftUp)));
-		}
+		//	//Console.Write("Q: ");
+		//	//Console.WriteLine(GetObjectAt(data.Map, location.NeighborAt(Direction.LeftUp)));
+		//}
 
 		//static string GetObjectAt(MapData map, Location location)
 		//{
@@ -118,7 +118,7 @@ namespace Homm.Client
 		static void OnInfo(string infoMessage)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(infoMessage);
+			//Console.WriteLine(infoMessage);
 			Console.ResetColor();
 		}
 

@@ -12,6 +12,7 @@ namespace HommFinder
 		private List<Cell> _cells;
 		private List<Union> _unions;
 		private bool _isWholePassBuilt = false;
+
 		public Finder(List<Cell> cells)
 		{
 			_cells = cells;
@@ -42,7 +43,12 @@ namespace HommFinder
 			if (!endCell.Equals(startCell))
 			{
 				var nearCells = getNearCells(endCell);
-				var newEndCell = nearCells.Single(nc=> nc.Value.Equals(nearCells.Min(c => c.Value)));
+				var sortedValueList = nearCells.FindAll(nc => nc.Value.Equals(nearCells.Min(c => c.Value)));
+				if (sortedValueList.Count > 1)
+				{
+					var a = 1;
+				}
+				var newEndCell = sortedValueList.FirstOrDefault(nc=> (int)nc.CellType == sortedValueList.Min(c=> (int)c.CellType));
 
 				getMoves(startCell, newEndCell, cells);
 			}
@@ -70,10 +76,10 @@ namespace HommFinder
 			var dy = new[] { 1, 1, 1, -1, -1, -1 };
 			for (int i = 0; i < 6; i++)
 			{
-				var scell = GetCell(cell.X + dx[i], cell.Y + dy[i]);
-				if (scell != null)
+				var nearCell = GetCell(cell.X + dx[i], cell.Y + dy[i]);
+				if (nearCell != null && nearCell.CellType != CellType.Block )
 				{
-					nearCells.Add(scell);
+					nearCells.Add(nearCell);
 				}
 			}
 			return nearCells;
@@ -82,7 +88,7 @@ namespace HommFinder
 		private Cell GetCell(int X, int Y)
 		{
 			var ret =  _cells.SingleOrDefault(c => c.X == X && c.Y == Y);
-			if (ret == null || ret.CellType == CellType.Block)
+			if (ret == null)
 			{
 				return null;
 			}

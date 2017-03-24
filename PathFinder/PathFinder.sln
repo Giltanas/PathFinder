@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HommFinder", "HommFinder\HommFinder.csproj", "{6C5240F6-F9B4-4149-944A-9EC5D204D461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homm.Client", "..\..\..\..\Desktop\cvarc\homm.client\Homm.Client.csproj", "{E4A3C95B-5D24-4814-9A3C-D0E83EA400D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homm.Client", "Client\homm.client\Homm.Client.csproj", "{E4A3C95B-5D24-4814-9A3C-D0E83EA400D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

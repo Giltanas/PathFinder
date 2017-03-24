@@ -11,7 +11,7 @@ namespace HommFinder
 	{
 		private double _value;
 
-		public Cell(int x, int y, CellType cellType)
+		public Cell(int x, int y, CellType cellType = CellType.None)
 		{
 			X = x;
 			Y = y;
@@ -43,7 +43,7 @@ namespace HommFinder
 			var cell = obj as Cell;
 			if (cell != null)
 			{
-				if (cell.X == this.X && cell.Y == this.Y)
+				if (cell.X == this.X && cell.Y == this.Y && cell.CellType == this.CellType)
 				{
 					return true;
 				}
@@ -51,6 +51,18 @@ namespace HommFinder
 			return false;
 		}
 
+		public bool SameLocation(object obj)
+		{
+			var cell = obj as Cell;
+			if (cell != null)
+			{
+				if (cell.X == this.X && cell.Y == this.Y)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 		public bool NeedChangeValue(double newValue)
 		{
 			if (newValue < Value && CellType != CellType.Block)
@@ -68,7 +80,8 @@ namespace HommFinder
 		Grass,
 		Snow,
 		Marsh,
-		Block
+		Block,
+		None
 	}
 	
 }
