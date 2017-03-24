@@ -1,0 +1,79 @@
+ManifestFileVersion: 0
+CRC: 389060407
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7d2f6a7dfd14ecf38a5f1e165bd6b761
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 88a9a3fe9089f4a3d847e240d364a623
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 12
+  Script: {instanceID: 0}
+- Class: 15
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 26
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/DaggerExplosion.prefab
+- Assets/Resources/Prefabs/InvisibilityRune.prefab
+- Assets/Resources/Prefabs/Hook.prefab
+- Assets/Resources/Prefabs/PudgePrefab.prefab
+- Assets/Low_poly_styled_trees/Assets/Prefabs/Trees/Tree.prefab
+- Assets/Resources/CircleIndicator.tga
+- Assets/Resources/GrassTexture.png
+- Assets/Resources/Prefabs/GoldXPRune.prefab
+- Assets/Resources/Materials/Transparent.mat
+- Assets/Background.png
+- Assets/Resources/Prefabs/IllusionRune.prefab
+- Assets/Resources/Prefabs/Ward.prefab
+- Assets/PudgeSource/Pudge.bytes
+- Assets/Resources/Prefabs/HasteRune.prefab
+- Assets/Resources/Prefabs/RegenerationRune.prefab
+- Assets/Resources/AngleIndicator.tga
+- Assets/Resources/Prefabs/Slardar.prefab
+- Assets/Resources/Prefabs/DoubleDamageRune.prefab
+Dependencies: []

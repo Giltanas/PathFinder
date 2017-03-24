@@ -1,0 +1,96 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   20.19.15.4531
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\I18N.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\I18N.Other.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\CVARC.Core.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\CVARC.Core.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\DotNetZip.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\DotNetZip.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Infrastructure.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Infrastructure.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityCommons.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\UnityCommons.dll into Unity Child Domain
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll (this message is harmless)
+Loading C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll into Unity Child Domain
+- Completed reload, in  0.070 seconds
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 3600x1080 at 0,0
+<RI> Initialized touch support.
+UnloadTime: 1.055235 ms
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Xml.Linq.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Xml.dll (this message is harmless)
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Data.dll (this message is harmless)
+Loaded settings, version=3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+**************  UNITY STARTED 3/11/2017 5:07:03 PM
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Platform assembly: C:\Users\fokyc\Desktop\CVARC\ucvarc1\Release\Binaries\ucvarc_Data\Managed\System.Configuration.dll (this message is harmless)
+DlcLoader.LoadAssemblies: Loading assembly pudge.dll
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Non platform assembly: data-10588008 (this message is harmless)
+Fallback handler could not load library C:/Users/fokyc/Desktop/CVARC/ucvarc1/Release/Binaries/ucvarc_Data/Mono/data-10588008.dll
+Dispatcher.FillLoader: pudge final is loaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.FillLoader: pudge debug is loaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DlcLoader.LoadAssemblies: Loaded assembly pudge.dll
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DlcLoader.LoadAssemblies: Loading assembly homm.dll
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Non platform assembly: data-105E58B8 (this message is harmless)
+Fallback handler could not load library C:/Users/fokyc/Desktop/CVARC/ucvarc1/Release/Binaries/ucvarc_Data/Mono/data-105E58B8.dll
+Dispatcher.FillLoader: homm Level1 is loaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.FillLoader: homm Level2 is loaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+DlcLoader.LoadAssemblies: Loaded assembly homm.dll
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1728 -> priority: 1 
+Dispatcher.OnDispose: GLOBAL EXIT
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

@@ -1,0 +1,10 @@
+**************  UNITY STARTED 3/11/2017 5:07:03 PM
+DlcLoader.LoadAssemblies: Loading assembly pudge.dll
+Dispatcher.FillLoader: pudge final is loaded
+Dispatcher.FillLoader: pudge debug is loaded
+DlcLoader.LoadAssemblies: Loaded assembly pudge.dll
+DlcLoader.LoadAssemblies: Loading assembly homm.dll
+Dispatcher.FillLoader: homm Level1 is loaded
+Dispatcher.FillLoader: homm Level2 is loaded
+DlcLoader.LoadAssemblies: Loaded assembly homm.dll
+Dispatcher.OnDispose: GLOBAL EXIT

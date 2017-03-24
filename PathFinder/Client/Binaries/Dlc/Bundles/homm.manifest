@@ -1,0 +1,68 @@
+ManifestFileVersion: 0
+CRC: 1398692651
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0af1489e29baf9949909db0f84b10ef8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1d7593e7cef527b203d8bbac90c7a89f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/desktop.prefab
+- Assets/Prefabs/dwelling.prefab
+- Assets/Prefabs/infantry.prefab
+- Assets/Prefabs/deathForest.prefab
+- Assets/Prefabs/hero.prefab
+- Assets/Prefabs/pickaxeMarker.prefab
+- Assets/Prefabs/roadTile.prefab
+- Assets/Prefabs/marshTile.prefab
+- Assets/Prefabs/circleMarker.prefab
+- Assets/Prefabs/militia.prefab
+- Assets/Prefabs/hexMarker.prefab
+- Assets/Prefabs/snowTile.prefab
+- Assets/Prefabs/mine.prefab
+- Assets/Prefabs/ranged.prefab
+- Assets/Prefabs/summerForest.prefab
+- Assets/Prefabs/resources.prefab
+- Assets/Prefabs/mountains.prefab
+- Assets/Backgrounds/bg.jpg
+- Assets/Prefabs/winterForest.prefab
+- Assets/Prefabs/grassTile.prefab
+- Assets/Prefabs/flag.prefab
+- Assets/Prefabs/castle.prefab
+- Assets/Prefabs/swordMarker.prefab
+- Assets/Prefabs/desertTile.prefab
+- Assets/Prefabs/cavalry.prefab
+Dependencies: []

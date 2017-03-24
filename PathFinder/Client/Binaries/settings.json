@@ -1,0 +1,22 @@
+{
+  "TutorialCompetitions": "homm",
+  "TutorialLevel": "level1",
+  "DlcBundles": [
+    "pudge",
+    "homm"
+  ],
+  "DlcAssemblies": [
+    "pudge.dll",
+    "homm.dll"
+  ],
+  "Version": 3,
+  "Debugging": {
+    "AlwaysOn": false,
+    "AlwaysOff": false,
+    "EnabledTypes": [
+    "DlcLoader",
+	  "Dispatcher",
+	  "PlayServer"
+    ]
+  }
+}
