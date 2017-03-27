@@ -9,7 +9,7 @@ using HommFinder;
 
 namespace Homm.Client.Converter
 {
-	public static class Converter
+	public static class ConverterExtensions
 	{
 		public static IEnumerable<Direction> ConvertCellPathToDirection(Stack<Cell> cells)
 		{

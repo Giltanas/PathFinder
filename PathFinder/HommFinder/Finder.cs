@@ -48,7 +48,7 @@ namespace HommFinder
 				{
 					var a = 1;
 				}
-				var newEndCell = sortedValueList.FirstOrDefault(nc=> (int)nc.CellType == sortedValueList.Min(c=> (int)c.CellType));
+				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.CellType.GetCellTypeWeight().Equals(sortedValueList.Min(c=> c.CellType.GetCellTypeWeight())));
 
 				getMoves(startCell, newEndCell, cells);
 			}
@@ -76,7 +76,7 @@ namespace HommFinder
 			var dy = new[] { 1, 1, 1, -1, -1, -1 };
 			for (int i = 0; i < 6; i++)
 			{
-				var nearCell = GetCell(cell.X + dx[i], cell.Y + dy[i]);
+				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
 				if (nearCell != null && nearCell.CellType != CellType.Block )
 				{
 					nearCells.Add(nearCell);
@@ -85,9 +85,9 @@ namespace HommFinder
 			return nearCells;
 		}
 
-		private Cell GetCell(int X, int Y)
+		private Cell getCell(int x, int y)
 		{
-			var ret =  _cells.SingleOrDefault(c => c.X == X && c.Y == Y);
+			var ret =  _cells.SingleOrDefault(c => c.X == x && c.Y == y);
 			if (ret == null)
 			{
 				return null;

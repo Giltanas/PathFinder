@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ActionManager.cs" />
     <Compile Include="Converter\Converter.cs" />
     <Compile Include="Homm.Client.Program.cs" />
     <Compile Include="Interfaces\IOutPutPrinter.cs" />
@@ -59,7 +60,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HommFinder\HommFinder.csproj">
