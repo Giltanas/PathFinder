@@ -2,63 +2,63 @@ Initialize engine version: 5.5.0f3 (38b4efef76f0)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: AMD Radeon HD 5450 (ID=0x68f9)
-    Vendor:   ATI
-    VRAM:     1010 MB
-    Driver:   15.201.1151.1008
+    Renderer: Intel(R) HD Graphics 530 (ID=0x1912)
+    Vendor:   Intel
+    VRAM:     2111 MB
+    Driver:   20.19.15.4474
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.Other.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\CVARC.Core.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\CVARC.Core.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\DotNetZip.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\DotNetZip.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Infrastructure.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Infrastructure.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll into Unity Child Domain
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll (this message is harmless)
-Loading C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll into Unity Child Domain
-- Completed reload, in  1.717 seconds
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.West.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\CVARC.Core.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\CVARC.Core.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\DotNetZip.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\DotNetZip.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Infrastructure.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Infrastructure.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Newtonsoft.Json.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll into Unity Child Domain
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll (this message is harmless)
+Loading C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll into Unity Child Domain
+- Completed reload, in  0.072 seconds
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.768327 ms
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.Linq.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.dll (this message is harmless)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Data.dll (this message is harmless)
+UnloadTime: 1.793107 ms
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.Linq.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Data.dll (this message is harmless)
 Loaded settings, version=3
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-**************  UNITY STARTED 3/27/2017 9:56:43 AM
+**************  UNITY STARTED 3/28/2017 2:34:50 PM
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Configuration.dll (this message is harmless)
+Platform assembly: C:\Users\tatiana.zhydeikina\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Configuration.dll (this message is harmless)
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-0E6A1A20 (this message is harmless)
-Fallback handler could not load library C:/Users/lytvynov/Documents/GitHub/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0E6A1A20.dll
+Non platform assembly: data-1064F6A8 (this message is harmless)
+Fallback handler could not load library C:/Users/tatiana.zhydeikina/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-1064F6A8.dll
 Dispatcher.FillLoader: pudge final is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -75,13 +75,17 @@ DlcLoader.LoadAssemblies: Loading assembly homm.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-0E70FCF0 (this message is harmless)
-Fallback handler could not load library C:/Users/lytvynov/Documents/GitHub/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0E70FCF0.dll
+Non platform assembly: data-106B8048 (this message is harmless)
+Fallback handler could not load library C:/Users/tatiana.zhydeikina/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-106B8048.dll
 Dispatcher.FillLoader: homm Level1 is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Dispatcher.FillLoader: homm Level2 is loaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.FillLoader: homm Level3 is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -110,57 +114,20 @@ Dispatcher.IntroductionTick: Starting remote game
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 0.564070 ms
+UnloadTime: 0.497315 ms
 
 Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 280.
-Total: 0.997997 ms (FindLiveObjects: 0.043494 ms CreateObjectMapping: 0.020388 ms MarkObjects: 0.923241 ms  DeleteObjects: 0.010194 ms)
-
-PlayServer.HasGame: Requested game homm.Level1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Game found in loader
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Accepted client Left
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Accepted 1 connections
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+Total: 1.099081 ms (FindLiveObjects: 0.019948 ms CreateObjectMapping: 0.062337 ms MarkObjects: 1.009315 ms  DeleteObjects: 0.006372 ms)
 
 game over. disposing
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-Platform assembly: C:\Users\lytvynov\Documents\GitHub\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.West.dll (this message is harmless)
-UnloadTime: 229.332840 ms
+UnloadTime: 125.076157 ms
 
-Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3142.
-Total: 3.580830 ms (FindLiveObjects: 0.327908 ms CreateObjectMapping: 0.229366 ms MarkObjects: 2.460164 ms  DeleteObjects: 0.562031 ms)
-
-Dispatcher.IntroductionTick: Starting remote game
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 0.642564 ms
-
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3136.
-Total: 3.156417 ms (FindLiveObjects: 0.294947 ms CreateObjectMapping: 0.211016 ms MarkObjects: 2.624968 ms  DeleteObjects: 0.024125 ms)
-
-game over. disposing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 112.507324 ms
-
-Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3142.
-Total: 3.823788 ms (FindLiveObjects: 0.330627 ms CreateObjectMapping: 0.238540 ms MarkObjects: 2.673219 ms  DeleteObjects: 0.580721 ms)
+Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 3.089175 ms (FindLiveObjects: 0.211393 ms CreateObjectMapping: 0.221367 ms MarkObjects: 1.925817 ms  DeleteObjects: 0.729488 ms)
 
 PlayServer.HasGame: Requested game homm.Level1
  
@@ -183,54 +150,18 @@ Dispatcher.IntroductionTick: Starting remote game
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 0.686399 ms
+UnloadTime: 0.549956 ms
 
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3136.
-Total: 3.136709 ms (FindLiveObjects: 0.290870 ms CreateObjectMapping: 0.201162 ms MarkObjects: 2.623608 ms  DeleteObjects: 0.019708 ms)
-
-PlayServer.HasGame: Requested game homm.Level1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Game found in loader
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Accepted client Left
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-PlayServer.HasGame: Accepted 1 connections
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3201.
+Total: 1.936068 ms (FindLiveObjects: 0.129939 ms CreateObjectMapping: 0.121073 ms MarkObjects: 1.672587 ms  DeleteObjects: 0.011359 ms)
 
 game over. disposing
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 64.104942 ms
+UnloadTime: 52.648144 ms
 
-Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3142.
-Total: 3.752090 ms (FindLiveObjects: 0.323151 ms CreateObjectMapping: 0.224948 ms MarkObjects: 2.583852 ms  DeleteObjects: 0.619118 ms)
-
-Dispatcher.IntroductionTick: Starting remote game
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 0.718680 ms
-
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3136.
-Total: 3.168990 ms (FindLiveObjects: 0.299025 ms CreateObjectMapping: 0.197084 ms MarkObjects: 2.653171 ms  DeleteObjects: 0.018349 ms)
-
-game over. disposing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 56.388050 ms
-
-Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3142.
-Total: 3.826846 ms (FindLiveObjects: 0.324170 ms CreateObjectMapping: 0.234802 ms MarkObjects: 2.641618 ms  DeleteObjects: 0.625235 ms)
+Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 2.962284 ms (FindLiveObjects: 0.343272 ms CreateObjectMapping: 0.358233 ms MarkObjects: 1.802250 ms  DeleteObjects: 0.457419 ms)
 
