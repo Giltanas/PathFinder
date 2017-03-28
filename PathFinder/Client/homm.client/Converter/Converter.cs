@@ -99,10 +99,10 @@ namespace Homm.Client.Converter
 		}
 		public static string GetMapObjectDataForPrint(this MapObjectData mapObject)
 		{
-			return mapObject.GetMapObjectCellType().GetCellTypeFroPrint();
+			return mapObject.GetMapObjectCellType().GetCellTypeForPrint();
 		}
 
-		public static string GetCellTypeFroPrint(this CellType cellType)
+		public static string GetCellTypeForPrint(this CellType cellType)
 		{
 			switch (cellType)
 			{

@@ -10,7 +10,7 @@ namespace HommFinder
 	public class Cell
 	{
 		private double _value;
-
+		private double _priopity;
 		public Cell(int x, int y, CellType cellType = CellType.None)
 		{
 			X = x;
@@ -25,12 +25,14 @@ namespace HommFinder
 		public double Value
 		{
 			get { return _value; }
-			set
-			{
-				_value = value;
-			}
+			set { _value = value; }
 		}
 
+		public double Priority
+		{
+			get { return _priopity; }
+			set { _priopity = value; }
+		}
 		public CellType CellType { get; private set; }
 
 		public void Refresh()
