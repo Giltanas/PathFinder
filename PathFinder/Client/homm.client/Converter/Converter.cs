@@ -63,59 +63,59 @@ namespace Homm.Client.Converter
 			return new Cell(x,y, mapObjectData.GetMapObjectCellType());
 		}
 
-		public static CellType GetMapObjectCellType(this MapObjectData mapObjectData)
+		public static TerrainCellType GetMapObjectCellType(this MapObjectData mapObjectData)
 		{
 			if (mapObjectData.Wall != null)
 			{
-				return CellType.Block;
+				return TerrainCellType.Block;
 			}
 			if (mapObjectData.NeutralArmy != null)
 			{
 				//TODO: Check army strength 
-				return CellType.Block;
+				return TerrainCellType.Block;
 			}
 			if (mapObjectData.Mine != null)
 			{
-				return CellType.Block;
+				return TerrainCellType.Block;
 			}
 		switch (mapObjectData.Terrain)
 			{
 				case Terrain.Road:
-					return CellType.Road;
+					return TerrainCellType.Road;
 				case Terrain.Grass:
-					return CellType.Grass;
+					return TerrainCellType.Grass;
 
 				case Terrain.Snow:
-					return CellType.Snow;
+					return TerrainCellType.Snow;
 
 				case Terrain.Marsh:
-					return CellType.Marsh;
+					return TerrainCellType.Marsh;
 
 				//value of desert`s passability = value of snow`s passability
 				case Terrain.Desert:
-					return CellType.Snow;
+					return TerrainCellType.Snow;
 
 			}
-			return CellType.Block;
+			return TerrainCellType.Block;
 		}
 		public static string GetMapObjectDataForPrint(this MapObjectData mapObject)
 		{
 			return mapObject.GetMapObjectCellType().GetCellTypeForPrint();
 		}
 
-		public static string GetCellTypeForPrint(this CellType cellType)
+		public static string GetCellTypeForPrint(this TerrainCellType cellType)
 		{
 			switch (cellType)
 			{
-				case CellType.Road:
+				case TerrainCellType.Road:
 					return "1";
-				case CellType.Block:
+				case TerrainCellType.Block:
 					return "#";
-				case CellType.Grass:
+				case TerrainCellType.Grass:
 					return "2";
-				case CellType.Marsh:
+				case TerrainCellType.Marsh:
 					return "3";
-				case CellType.Snow:
+				case TerrainCellType.Snow:
 					return "4";
 			}
 			return string.Empty;

@@ -11,7 +11,7 @@ namespace HommFinder
 	{
 		private double _value;
 		private double _priopity;
-		public Cell(int x, int y, CellType cellType = CellType.None)
+		public Cell(int x, int y, TerrainCellType cellType = TerrainCellType.None)
 		{
 			X = x;
 			Y = y;
@@ -33,7 +33,7 @@ namespace HommFinder
 			get { return _priopity; }
 			set { _priopity = value; }
 		}
-		public CellType CellType { get; private set; }
+		public TerrainCellType CellType { get; private set; }
 
 		public void Refresh()
 		{
@@ -67,7 +67,7 @@ namespace HommFinder
 		}
 		public bool NeedChangeValue(double newValue)
 		{
-			if (newValue < Value && CellType != CellType.Block)
+			if (newValue < Value && CellType != TerrainCellType.Block)
 			{
 				Value = newValue;
 				return true;
@@ -76,7 +76,7 @@ namespace HommFinder
 		}
 	}
    
-	public enum CellType
+	public enum TerrainCellType
 	{
 		Road,
 		Grass,

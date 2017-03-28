@@ -12,19 +12,19 @@ namespace HommFinder.Extensions
 		//1.3316062176165804 GRASS 
 		//1.7292746113989637 MARSH 
 		//1 - ROAD
-		public static double GetCellTypeWeight(this CellType cellType)
+		public static double GetCellTypeWeight(this TerrainCellType cellType)
 		{
 			switch (cellType)
 			{
-				case CellType.Road:
+				case TerrainCellType.Road:
 					return 1f;
-				case CellType.Grass:
+				case TerrainCellType.Grass:
 					return 1.3316062176165804f;
-				case CellType.Snow:
+				case TerrainCellType.Snow:
 					return 1.729922279792746f;
-				case CellType.Marsh:
+				case TerrainCellType.Marsh:
 					return 1.7292746113989637f;
-				case CellType.Block:
+				case TerrainCellType.Block:
 					return Single.MaxValue;
 			}
 			return -1;

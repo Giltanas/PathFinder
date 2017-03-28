@@ -77,7 +77,7 @@ namespace HommFinder
 			for (int i = 0; i < 6; i++)
 			{
 				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
-				if (nearCell != null && nearCell.CellType != CellType.Block )
+				if (nearCell != null && nearCell.CellType != TerrainCellType.Block )
 				{
 					nearCells.Add(nearCell);
 				}
