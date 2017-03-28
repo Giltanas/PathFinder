@@ -86,11 +86,12 @@ namespace Homm.Client.Converter
 					return CellType.Grass;
 
 				case Terrain.Snow:
-					return CellType.Marsh;
+					return CellType.Snow;
 
 				case Terrain.Marsh:
 					return CellType.Marsh;
 
+				//value of desert`s passability = value of snow`s passability
 				case Terrain.Desert:
 					return CellType.Snow;
 
