@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HommFinder.Extensions.Finder.Extensions;
+using HommFinder.Extensions;
 
 namespace HommFinder
 {
