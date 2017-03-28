@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HommFinder.Extensions;
+using HommFinder.Extensions.Finder.Extensions;
 
 namespace HommFinder
 {
 	public class Finder
 	{
 		private List<Cell> _cells;
-		private List<Union> _unions;
 		private bool _isWholePassBuilt = false;
 
 		public Finder(List<Cell> cells)
@@ -44,10 +44,6 @@ namespace HommFinder
 			{
 				var nearCells = getNearCells(endCell);
 				var sortedValueList = nearCells.FindAll(nc => nc.Value.Equals(nearCells.Min(c => c.Value)));
-				if (sortedValueList.Count > 1)
-				{
-					var a = 1;
-				}
 				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.TerrainCellType.GetTerrainCellTypeWeight().Equals(sortedValueList.Min(c=> c.TerrainCellType.GetTerrainCellTypeWeight())));
 
 				getMoves(startCell, newEndCell, cells);
