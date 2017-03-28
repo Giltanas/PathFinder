@@ -84,6 +84,23 @@ namespace HommFinder
 		Marsh,
 		Block,
 		None
+
 	}
-	
+
+	public enum ObjectCellType
+	{
+		DwellingInfantry,
+		DwellingRanged,
+		DwellingCavalry,
+		DwellingMilitia,
+		MineGold,
+		MineGlass,
+		MineIron,
+		MineEbony,
+		ResourceGold,
+		ResourceGlass,
+		ResourceIron,
+		ResourceEbony, 
+		None
+	}
 }
