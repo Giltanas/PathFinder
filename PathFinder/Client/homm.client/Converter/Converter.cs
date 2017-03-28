@@ -60,7 +60,7 @@ namespace Homm.Client.Converter
 			{
 				y += 1;
 			}
-			return new Cell(x,y, mapObjectData.GetMapObjectTerrainCellType());
+			return new Cell(x,y, mapObjectData.GetMapObjectTerrainCellType(), mapObjectData.GetMapObjectCellType());
 		}
 
 		public static ObjectCellType GetMapObjectCellType(this MapObjectData mapObjectData)

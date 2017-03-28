@@ -39,7 +39,7 @@ namespace HommFinder
 
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
-			cells.Push(new Cell(endCell.X, endCell.Y, endCell.CellType));
+			cells.Push(new Cell(endCell.X, endCell.Y, endCell.TerrainCellType, endCell.CellType));
 			if (!endCell.Equals(startCell))
 			{
 				var nearCells = getNearCells(endCell);
@@ -48,7 +48,7 @@ namespace HommFinder
 				{
 					var a = 1;
 				}
-				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.CellType.GetCellTypeWeight().Equals(sortedValueList.Min(c=> c.CellType.GetCellTypeWeight())));
+				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.TerrainCellType.GetCellTypeWeight().Equals(sortedValueList.Min(c=> c.TerrainCellType.GetCellTypeWeight())));
 
 				getMoves(startCell, newEndCell, cells);
 			}
@@ -64,7 +64,7 @@ namespace HommFinder
 
 			foreach (var nearCell in nearCells)
 			{
-				if (nearCell.NeedChangeValue(startCell.Value + startCell.CellType.GetCellTypeWeight()))
+				if (nearCell.NeedChangeValue(startCell.Value + startCell.TerrainCellType.GetCellTypeWeight()))
 					sendWeave(nearCell, endCell);
 			}
 		}
@@ -77,7 +77,7 @@ namespace HommFinder
 			for (int i = 0; i < 6; i++)
 			{
 				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
-				if (nearCell != null && nearCell.CellType != TerrainCellType.Block )
+				if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block )
 				{
 					nearCells.Add(nearCell);
 				}

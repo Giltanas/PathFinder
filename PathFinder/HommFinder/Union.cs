@@ -18,7 +18,7 @@ namespace HommFinder
 			CellA = cellA;
 			CellB = cellB;
 
-			Weight = cellA.CellType.GetCellTypeWeight();
+			Weight = cellA.TerrainCellType.GetCellTypeWeight();
 		}
 	}
 }
