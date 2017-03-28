@@ -56,9 +56,8 @@ namespace Homm.Client
 
 			var outPutPrinter = new CmdOutPutPrinter();
 			outPutPrinter.PrintMap(sensorData.Map.Objects, sensorData.Map.Width, sensorData.Map.Height+1);
-			var listCells = new List<Cell>();
-			
-			var pathFinder = new Finder(listCells);
+			var listCells = sensorData.Map.Objects.Select(item => item.ConvertMapObjectDataToCell()).ToList();
+		    var pathFinder = new Finder(listCells);
 
 			var a = pathFinder.GetMoves(sensorData.Map.Objects
 				.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
