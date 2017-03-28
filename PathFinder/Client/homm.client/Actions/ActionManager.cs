@@ -18,6 +18,7 @@ namespace Homm.Client.Actions
 		{
 			Map = new List<Cell>();
 		}
+
 		//TODO:Need to call this function every day if playing vs player, or you don't see whole map
 		public void UpdateMap(IEnumerable<MapObjectData> listObjects)
 		{
@@ -27,18 +28,16 @@ namespace Homm.Client.Actions
 				
 				Map.Add(item.ConvertMapObjectDataToCell());
 			}
-
 		}
 
-		public List<Direction> MoveToCell(int X, int Y)
-		{
-			
-		}
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			var finder = new Finder(Map);
-
+			return ConverterExtensions.ConvertCellPathToDirection(finder.GetMoves(CurrentCell, cell)) 
+				as List<Direction>;
+	
 		}
+
 		public List<Direction> MoveToCell(MapObjectData mapObj)
 		{
 			return MoveToCell(mapObj.ConvertMapObjectDataToCell());
