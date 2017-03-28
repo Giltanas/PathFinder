@@ -12,7 +12,7 @@ namespace HommFinder.Extensions
 		//1.3316062176165804 GRASS 
 		//1.7292746113989637 MARSH 
 		//1 - ROAD
-		public static double GetCellTypeWeight(this TerrainCellType cellType)
+		public static double GetTerrainCellTypeWeight(this TerrainCellType cellType)
 		{
 			switch (cellType)
 			{

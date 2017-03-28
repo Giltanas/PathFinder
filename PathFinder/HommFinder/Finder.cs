@@ -48,7 +48,7 @@ namespace HommFinder
 				{
 					var a = 1;
 				}
-				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.TerrainCellType.GetCellTypeWeight().Equals(sortedValueList.Min(c=> c.TerrainCellType.GetCellTypeWeight())));
+				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.TerrainCellType.GetTerrainCellTypeWeight().Equals(sortedValueList.Min(c=> c.TerrainCellType.GetTerrainCellTypeWeight())));
 
 				getMoves(startCell, newEndCell, cells);
 			}
@@ -64,7 +64,7 @@ namespace HommFinder
 
 			foreach (var nearCell in nearCells)
 			{
-				if (nearCell.NeedChangeValue(startCell.Value + startCell.TerrainCellType.GetCellTypeWeight()))
+				if (nearCell.NeedChangeValue(startCell.Value + startCell.TerrainCellType.GetTerrainCellTypeWeight()))
 					sendWeave(nearCell, endCell);
 			}
 		}
