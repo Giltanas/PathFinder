@@ -6,6 +6,7 @@ using HoMM.Sensors;
 using HoMM;
 using HoMM.ClientClasses;
 using System.Collections.Generic;
+using Homm.Client.Actions;
 using HommFinder;
 
 namespace Homm.Client
@@ -67,7 +68,8 @@ namespace Homm.Client
 			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.Map.Width, sensorData.Map.Height + 1);
 			var b = Converter.ConverterExtensions.ConvertCellPathToDirection(a);
 
-
+			//var actionManager = new ActionManager();
+			//var availableDwelings = actionManager.SearchAvailableDwellings();
 
 			foreach (var item in b)
 			{

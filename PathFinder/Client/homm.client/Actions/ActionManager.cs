@@ -44,7 +44,6 @@ namespace Homm.Client.Actions
 			var finder = new Finder(Map);
 			return ConverterExtensions.ConvertCellPathToDirection(finder.GetMoves(CurrentCell, cell)) 
 				as List<Direction>;
-	
 		}
 
 		public List<Direction> MoveToCell(MapObjectData mapObj)
