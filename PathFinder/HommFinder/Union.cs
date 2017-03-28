@@ -11,14 +11,15 @@ namespace HommFinder
 	{
 		public Cell CellA { get; private set; }
 		public Cell CellB { get; private set; }
+		public double TerrainWeight { get; private set; }
 		public double Weight { get; private set; }
-
 		public Union(Cell cellA, Cell cellB)
 		{
 			CellA = cellA;
 			CellB = cellB;
 
-			Weight = cellA.TerrainCellType.GetTerrainCellTypeWeight();
+			TerrainWeight = cellA.TerrainCellType.GetTerrainCellTypeWeight();
+			Weight = cellA.CellType.GetCellTypeWeight();
 		}
 	}
 }
