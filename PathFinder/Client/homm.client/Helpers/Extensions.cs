@@ -15,10 +15,10 @@ namespace Homm.Client.Helpers
 		{
 			var x = mapObjectData.Location.X;
 			var y = mapObjectData.Location.Y;
-			if (x % 2 == 1)
-			{
-				y += 1;
-			}
+			//if (x % 2 == 1)
+			//{
+			//	y += 1;
+			//}
 			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType());
 		}
 
@@ -26,10 +26,10 @@ namespace Homm.Client.Helpers
 		{
 			var x = location.X;
 			var y = location.Y;
-			if (x % 2 == 1)
-			{
-				y += 1;
-			}
+			//if (x % 2 == 1)
+			//{
+			//	y += 1;
+			//}
 			return new Cell(x, y);
 		}
 		public static ObjectCellType GetObjectCellType(this MapObjectData mapObjectData)

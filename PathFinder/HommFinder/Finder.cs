@@ -58,8 +58,16 @@ namespace HommFinder
 		private List<Cell> getNearCells(Cell cell)
 		{
 			var nearCells = new List<Cell>();
+
+			//X % 2 = 1
 			var dx = new[] { 1, -1, 0, 1, -1, 0 };
-			var dy = new[] { 1, 1, 1, -1, -1, -1 };
+			var dy = new[] { 0, 0, 1, -1, -1, -1 };
+			//X % 2 = 0
+			if (cell.X % 2 == 0)
+			{
+				dx = new[] {1, -1, 0, 1, -1, 0};
+				dy = new[] {0, 0, 1, 1, 1, -1};
+			}
 			for (int i = 0; i < 6; i++)
 			{
 				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
@@ -74,10 +82,6 @@ namespace HommFinder
 		private Cell getCell(int x, int y)
 		{
 			var ret = _cells.SingleOrDefault(c => c.X == x && c.Y == y);
-			if (ret == null)
-			{
-				return null;
-			}
 			return ret;
 		}
 
