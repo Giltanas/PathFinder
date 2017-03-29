@@ -58,18 +58,15 @@ namespace Homm.Client
 
 			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height+1);
 			var listCells = sensorData.Map.Objects.Select(item => item.ToCell()).ToList();
-		    var pathFinder = new Finder(listCells);
+		    var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
 
-			var a = pathFinder.GetMoves(sensorData.Map.Objects
-				.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
-					.ToCell(), sensorData.Map.Objects
-				.Single(o => o.Location.X == 10 && o.Location.Y == 0)
-					.ToCell());
+			var a = pathFinder.GetMoves(sensorData.Map.Objects.Single(o => o.Location.X == 10 && o.Location.Y == 0).ToCell());
+
 			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height + 1);
 			var b = Converter.ConvertCellPathToDirection(a);
 
-			//var actionManager = new ActionManager();
-			//var availableDwelings = actionManager.SearchAvailableDwellings();
+			var actionManager = new ActionManager(sensorData);
+			var availableDwelings = actionManager.SearchAvailableDwellings();
 
 			foreach (var item in b)
 			{

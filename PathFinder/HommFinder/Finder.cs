@@ -9,31 +9,26 @@ namespace HommFinder
 {
 	public class Finder
 	{
-		private List<Cell> _cells;
-		private bool _isWholePassBuilt = false;
-
-		public Finder(List<Cell> cells)
+		public List<Cell> _cells;
+		private Cell _startCell;
+		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
-			
-		}
-
-		public Stack<Cell> GetMoves(Cell startCell, Cell endCell)
-		{
-			startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
-			endCell = _cells.Single(c => c.X == endCell.X && c.Y == endCell.Y);
+			_startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
 			foreach (var cell in _cells)
 			{
 				cell.Refresh();
 			}
+			_startCell.NeedChangeValue(0);
+			sendWeave(_startCell);
+		}
 
-			if (!_isWholePassBuilt)
-			{
-				startCell.NeedChangeValue(0);
-				sendWeave(startCell, endCell);
-			}
-			
-			return endCell == null ? null : getMoves(startCell, endCell, new Stack<Cell>());
+		public Stack<Cell> GetMoves(Cell endCell=null)
+		{
+			return endCell == null ?
+				null : 
+				getMoves(_startCell,
+				_cells.SingleOrDefault(c => c.X == endCell.X && c.Y == endCell.Y),new Stack<Cell>());
 		}
 
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
@@ -43,18 +38,14 @@ namespace HommFinder
 			{
 				var nearCells = getNearCells(endCell);
 				var sortedValueList = nearCells.FindAll(nc => nc.Value.Equals(nearCells.Min(c => c.Value)));
-				var newEndCell = sortedValueList.FirstOrDefault(nc=> nc.TerrainCellType.GetTerrainCellTypeWeight().Equals(sortedValueList.Min(c=> c.TerrainCellType.GetTerrainCellTypeWeight())));
+				var newEndCell = sortedValueList.FirstOrDefault(nc => nc.TerrainCellType.GetTerrainCellTypeWeight().Equals(sortedValueList.Min(c => c.TerrainCellType.GetTerrainCellTypeWeight())));
 
 				getMoves(startCell, newEndCell, cells);
 			}
 			return cells;
 		}
-		private void sendWeave(Cell startCell, Cell endCell)
+		private void sendWeave(Cell startCell, Cell endCell=null)
 		{
-			if (endCell == null)
-			{
-				_isWholePassBuilt = true;
-			}
 			var nearCells = getNearCells(startCell);
 
 			foreach (var nearCell in nearCells)
@@ -67,12 +58,12 @@ namespace HommFinder
 		private List<Cell> getNearCells(Cell cell)
 		{
 			var nearCells = new List<Cell>();
-			var dx = new [] { 1, -1, 0, 1 , -1 ,0 };
+			var dx = new[] { 1, -1, 0, 1, -1, 0 };
 			var dy = new[] { 1, 1, 1, -1, -1, -1 };
 			for (int i = 0; i < 6; i++)
 			{
 				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
-				if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block )
+				if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
 				{
 					nearCells.Add(nearCell);
 				}
@@ -82,12 +73,31 @@ namespace HommFinder
 
 		private Cell getCell(int x, int y)
 		{
-			var ret =  _cells.SingleOrDefault(c => c.X == x && c.Y == y);
+			var ret = _cells.SingleOrDefault(c => c.X == x && c.Y == y);
 			if (ret == null)
 			{
 				return null;
 			}
 			return ret;
+		}
+
+		public List<Cell> SearchAvailableDwellings( )
+		{
+			return _cells.Where(i => (i.CellType == ObjectCellType.DwellingCavalry ||
+						   i.CellType == ObjectCellType.DwellingRanged ||
+						   i.CellType == ObjectCellType.DwellingInfantry ||
+						   i.CellType == ObjectCellType.DwellingMilitia)
+						   && !i.Value.Equals(Single.MaxValue)).ToList();
+
+		}
+
+		public List<Cell> SearchAvailableResources()
+		{
+			return _cells.Where(i => (i.CellType == ObjectCellType.ResourceGold ||
+						   i.CellType == ObjectCellType.ResourceEbony ||
+						   i.CellType == ObjectCellType.ResourceGlass ||
+						   i.CellType == ObjectCellType.ResourceIron)
+						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
 	}
 }

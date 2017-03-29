@@ -22,6 +22,16 @@ namespace Homm.Client.Helpers
 			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType());
 		}
 
+		public static Cell CreateCell(this LocationInfo location)
+		{
+			var x = location.X;
+			var y = location.Y;
+			if (x % 2 == 1)
+			{
+				y += 1;
+			}
+			return new Cell(x, y);
+		}
 		public static ObjectCellType GetObjectCellType(this MapObjectData mapObjectData)
 		{
 			if (mapObjectData.Dwelling != null)

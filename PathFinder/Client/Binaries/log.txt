@@ -516,3 +516,79 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+PlayServer.HasGame: Requested game homm.Level1
+PlayServer.HasGame: Game found in loader
+PlayServer.HasGame: Accepted client Left
+PlayServer.HasGame: Accepted 1 connections
+Dispatcher.IntroductionTick: Starting remote game
+Dispatcher.OnDispose: GLOBAL EXIT
