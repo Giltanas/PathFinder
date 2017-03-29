@@ -84,6 +84,10 @@ namespace Homm.Client.Helpers
 
 		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{
+		    if (mapObjectData.Location.X == 4 && mapObjectData.Location.Y == 5)
+		    {
+		        var a = 1;
+		    }
 			if (mapObjectData.Wall != null)
 			{
 				return TerrainCellType.Block;

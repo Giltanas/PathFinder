@@ -21,18 +21,25 @@ namespace HommFinder
 			}
 			_startCell.NeedChangeValue(0);
 			sendWeave(_startCell);
+		   
 		}
 
 		public Stack<Cell> GetMoves(Cell endCell=null)
 		{
-			return endCell == null ?
-				null : 
+			if (endCell == null)
+			{
+				return null;
+			}
+			endCell = _cells.SingleOrDefault(c=> c.X == endCell.X && c.Y == endCell.Y);
+			return endCell.Value == Single.MaxValue ?
+				new Stack<Cell>() : 
 				getMoves(_startCell,
 				_cells.SingleOrDefault(c => c.X == endCell.X && c.Y == endCell.Y),new Stack<Cell>());
 		}
 
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
+
 			cells.Push(new Cell(endCell.X, endCell.Y, endCell.TerrainCellType, endCell.CellType));
 			if (!endCell.Equals(startCell))
 			{
@@ -59,11 +66,11 @@ namespace HommFinder
 		{
 			var nearCells = new List<Cell>();
 
-			//X % 2 = 1
+			//X % 2 = 0
 			var dx = new[] { 1, -1, 0, 1, -1, 0 };
 			var dy = new[] { 0, 0, 1, -1, -1, -1 };
-			//X % 2 = 0
-			if (cell.X % 2 == 0)
+			//X % 2 = 1
+			if (cell.X % 2 == 1)
 			{
 				dx = new[] {1, -1, 0, 1, -1, 0};
 				dy = new[] {0, 0, 1, 1, 1, -1};

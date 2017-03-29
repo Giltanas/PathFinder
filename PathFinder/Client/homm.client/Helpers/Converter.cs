@@ -48,15 +48,15 @@ namespace Homm.Client.Helpers
 				{
 					direction.Add(Direction.LeftUp);
 				}
-			    if (x == -1 && y == 0)
-			    {
-			        direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.LeftDown : Direction.LeftUp);
-			    }
-                if (x == 1 && y == 0)
-                {
-                    direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.RightDown : Direction.RightUp);
-                }
-            }
+				if (x == -1 && y == 0)
+				{
+					direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.LeftDown : Direction.LeftUp);
+				}
+				if (x == 1 && y == 0)
+				{
+					direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.RightDown : Direction.RightUp);
+				}
+			}
 			return direction;
 		}
 	}
