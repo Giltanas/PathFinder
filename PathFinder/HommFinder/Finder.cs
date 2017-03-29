@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HommFinder.Extensions;
-using HommFinder.Extensions.Finder.Extensions;
 
 namespace HommFinder
 {

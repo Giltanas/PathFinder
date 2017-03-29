@@ -30,6 +30,15 @@ namespace Homm.Client.Actions
 			}
 		}
 
+		//TODO: implement method SearchAvailableDwellings (Available dwellings = available without fight)
+		public List<Cell> SearchAvailableDwellings()
+		{
+			return Map.Where(i => i.CellType == ObjectCellType.DwellingCavalry ||
+			               i.CellType == ObjectCellType.DwellingRanged ||
+			               i.CellType == ObjectCellType.DwellingInfantry ||
+			               i.CellType == ObjectCellType.DwellingMilitia).ToList();
+		}
+
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			var finder = new Finder(Map);
