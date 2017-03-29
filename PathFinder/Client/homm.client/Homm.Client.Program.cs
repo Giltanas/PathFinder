@@ -53,31 +53,29 @@ namespace Homm.Client
 
 
 
-
-			var outPutPrinter = new CmdOutPutPrinter();
-			outPutPrinter.PrintMap(sensorData.Map.Objects, sensorData.Map.Width, sensorData.Map.Height+1);
-
-			var listCells = sensorData.Map.Objects.Select(item => item.ConvertMapObjectDataToCell()).ToList();
-			var actionManager = new ActionManager(listCells);
-
-			var availableDwelings = actionManager.SearchAvailableDwellings();
-			var availableResources = actionManager.SearchAvailableResources();
-
-			//var pathFinder = new Finder(listCells);
-
-			//var a = pathFinder.GetMoves(sensorData.Map.Objects
-			//	.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
-			//		.ConvertMapObjectDataToCell(), sensorData.Map.Objects
-			//	.Single(o => o.Location.X == 10 && o.Location.Y == 0)
-			//		.ConvertMapObjectDataToCell());
-			//outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.Map.Width, sensorData.Map.Height + 1);
-			//var b = Converter.ConverterExtensions.ConvertCellPathToDirection(a);
 			
-			//foreach (var item in b)
-			//{
-			//	client.Move(item);
-			//}
+			var outPutPrinter = new CmdOutPutPrinter();
 
+			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height+1);
+			var listCells = sensorData.Map.Objects.Select(item => item.ConvertMapObjectDataToCell()).ToList();
+		    var pathFinder = new Finder(listCells);
+
+			var a = pathFinder.GetMoves(sensorData.Map.Objects
+				.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
+					.ConvertMapObjectDataToCell(), sensorData.Map.Objects
+				.Single(o => o.Location.X == 10 && o.Location.Y == 0)
+					.ConvertMapObjectDataToCell());
+			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height + 1);
+			var b = Converter.ConverterExtensions.ConvertCellPathToDirection(a);
+
+			//var actionManager = new ActionManager();
+			//var availableDwelings = actionManager.SearchAvailableDwellings();
+
+			foreach (var item in b)
+			{
+				client.Move(item);
+			}
+		
 			client.Exit();
 		}
 

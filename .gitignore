@@ -217,3 +217,5 @@ ModelManifest.xml
 log.txt
 output_log.txt
 >>>>>>> origin/master
+*.txt
+*.cvarcreplay
