@@ -14,7 +14,7 @@ namespace Homm.Client.Output
 {
 	public class CmdOutPutPrinter : IOutPutPrinter
 	{
-		public void PrintMap(IEnumerable<MapObjectData> objects, int width = 14, int height = 14)
+		public void PrintMap(IEnumerable<MapObjectData> objects, Dictionary<UnitType,int> myArmy, int width = 14, int height = 14)
 		{
 			
 			string[,] array = new string[width, height];
@@ -26,7 +26,7 @@ namespace Homm.Client.Output
 				{
 					y++;
 				}
-				array[x, y] = item.GetMapObjectDataForPrint();
+				array[x, y] = item.GetMapObjectDataForPrint(myArmy);
 			}
 			for(int i=0;i<height;i++)
 			{
@@ -47,7 +47,7 @@ namespace Homm.Client.Output
 			}
 		}
 
-		public void PrintPath(IEnumerable<MapObjectData> objects, IEnumerable<Cell> direction, int width = 14, int height = 14)
+		public void PrintPath(IEnumerable<MapObjectData> objects, IEnumerable<Cell> direction, Dictionary<UnitType, int> myArmy, int width = 14, int height = 14)
 		{
 			Console.WriteLine();
 			string[,] array = new string[width, height];
@@ -61,7 +61,7 @@ namespace Homm.Client.Output
 				{
 					y++;
 				}
-				array[x, y] = item.GetMapObjectDataForPrint();
+				array[x, y] = item.GetMapObjectDataForPrint(myArmy);
 			}
 			for (int i = 0; i < height; i++)
 			{

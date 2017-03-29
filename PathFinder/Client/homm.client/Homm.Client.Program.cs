@@ -53,9 +53,9 @@ namespace Homm.Client
 
 
 
-
+			
 			var outPutPrinter = new CmdOutPutPrinter();
-			outPutPrinter.PrintMap(sensorData.Map.Objects, sensorData.Map.Width, sensorData.Map.Height+1);
+			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height+1);
 			var listCells = sensorData.Map.Objects.Select(item => item.ConvertMapObjectDataToCell()).ToList();
 		    var pathFinder = new Finder(listCells);
 
@@ -64,7 +64,7 @@ namespace Homm.Client
 					.ConvertMapObjectDataToCell(), sensorData.Map.Objects
 				.Single(o => o.Location.X == 10 && o.Location.Y == 0)
 					.ConvertMapObjectDataToCell());
-			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.Map.Width, sensorData.Map.Height + 1);
+			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height + 1);
 			var b = Converter.ConverterExtensions.ConvertCellPathToDirection(a);
 
 			//var actionManager = new ActionManager();

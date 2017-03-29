@@ -12,7 +12,7 @@ namespace Homm.Client.Interfaces
 {
 	public interface IOutPutPrinter
 	{
-		void PrintMap(IEnumerable<MapObjectData> objects, int width, int height);
-		void PrintPath(IEnumerable<MapObjectData> objects, IEnumerable<Cell> direction, int width, int height);
+		void PrintMap(IEnumerable<MapObjectData> objects, Dictionary<UnitType,int> myArmy, int width, int height);
+		void PrintPath(IEnumerable<MapObjectData> objects, IEnumerable<Cell> direction, Dictionary<UnitType, int> myArmy, int width, int height);
 	}
 }

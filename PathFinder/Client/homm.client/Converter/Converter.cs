@@ -52,7 +52,7 @@ namespace Homm.Client.Converter
 			return direction;
 		}
 
-		public static Cell ConvertMapObjectDataToCell(this MapObjectData mapObjectData)
+		public static Cell ConvertMapObjectDataToCell(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy=null)
 		{
 			var x = mapObjectData.Location.X;
 			var y = mapObjectData.Location.Y;
@@ -60,7 +60,7 @@ namespace Homm.Client.Converter
 			{
 				y += 1;
 			}
-			return new Cell(x,y, mapObjectData.GetMapObjectTerrainCellType(), mapObjectData.GetMapObjectCellType());
+			return new Cell(x, y, mapObjectData.GetMapObjectTerrainCellType(myArmy), mapObjectData.GetMapObjectCellType());
 		}
 
 		public static ObjectCellType GetMapObjectCellType(this MapObjectData mapObjectData)
@@ -113,7 +113,7 @@ namespace Homm.Client.Converter
 			return ObjectCellType.None;
 		}
 
-		public static TerrainCellType GetMapObjectTerrainCellType(this MapObjectData mapObjectData)
+		public static TerrainCellType GetMapObjectTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy)
 		{
 			if (mapObjectData.Wall != null)
 			{
@@ -121,8 +121,10 @@ namespace Homm.Client.Converter
 			}
 			if (mapObjectData.NeutralArmy != null)
 			{
-				//TODO: Check army strength 
-				return TerrainCellType.Block;
+				if (CanDefeatArmy(myArmy,mapObjectData.NeutralArmy.Army))
+				{
+					return TerrainCellType.Block;
+				}
 			}
 			if (mapObjectData.Mine != null)
 			{
@@ -141,16 +143,16 @@ namespace Homm.Client.Converter
 				case Terrain.Marsh:
 					return TerrainCellType.Marsh;
 
-				//value of desert`s passability = value of snow`s passability
+				//value of desert`s possibility = value of snow`s possibility
 				case Terrain.Desert:
 					return TerrainCellType.Snow;
 
 			}
 			return TerrainCellType.Block;
 		}
-		public static string GetMapObjectDataForPrint(this MapObjectData mapObject)
+		public static string GetMapObjectDataForPrint(this MapObjectData mapObject, Dictionary<UnitType, int> armyA)
 		{
-			return mapObject.GetMapObjectTerrainCellType().GetCellTypeForPrint();
+			return mapObject.GetMapObjectTerrainCellType(armyA).GetCellTypeForPrint();
 		}
 
 		public static string GetCellTypeForPrint(this TerrainCellType cellType)
@@ -169,6 +171,12 @@ namespace Homm.Client.Converter
 					return "4";
 			}
 			return string.Empty;
+		}
+
+		public static bool CanDefeatArmy(Dictionary<UnitType, int> armyA, Dictionary<UnitType, int> armyB)
+		{
+			//TODO: implement logic, armyA or B can be null, need to check this
+			return false;
 		}
 	}
 }
