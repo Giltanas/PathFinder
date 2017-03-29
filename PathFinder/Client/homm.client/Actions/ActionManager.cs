@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HoMM;
-using Homm.Client.Converter;
+using Homm.Client.Helpers;
 using HoMM.ClientClasses;
 using HommFinder;
 
@@ -25,7 +25,7 @@ namespace Homm.Client.Actions
 			Map.Clear();
 			foreach (var item in listObjects)
 			{
-				Map.Add(item.ConvertMapObjectDataToCell());
+				Map.Add(item.ToCell());
 			}
 		}
 
@@ -51,13 +51,13 @@ namespace Homm.Client.Actions
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			var finder = new Finder(Map);
-			return ConverterExtensions.ConvertCellPathToDirection(finder.GetMoves(CurrentCell, cell)) 
+			return Converter.ConvertCellPathToDirection(finder.GetMoves(CurrentCell, cell)) 
 				as List<Direction>;
 		}
 
 		public List<Direction> MoveToCell(MapObjectData mapObj)
 		{
-			return MoveToCell(mapObj.ConvertMapObjectDataToCell());
+			return MoveToCell(mapObj.ToCell());
 		}
 	}
 }

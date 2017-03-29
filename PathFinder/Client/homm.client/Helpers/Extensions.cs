@@ -7,52 +7,11 @@ using HoMM;
 using HoMM.ClientClasses;
 using HommFinder;
 
-namespace Homm.Client.Converter
+namespace Homm.Client.Helpers
 {
-	public static class ConverterExtensions
+	public static class Extensions
 	{
-		public static IEnumerable<Direction> ConvertCellPathToDirection(Stack<Cell> cells)
-		{
-			var direction = new List<Direction>();
-			var listCells = cells.ToList();
-			for (int i = 1; i < cells.Count; i++)
-			{
-				var x = listCells[i].X - listCells[i - 1].X;
-				var y = listCells[i].Y - listCells[i - 1].Y;
-				if (x == 1 && y == 1)
-				{
-					direction.Add(Direction.RightDown);
-					continue;
-				}
-				if (x == 0 && y == 1)
-				{
-					direction.Add(Direction.Down);
-					continue;
-				}
-				if (x == -1 && y == 1)
-				{
-					direction.Add(Direction.LeftDown);
-					continue;
-				}
-				if (x == 1 && y == -1)
-				{
-					direction.Add(Direction.RightUp);
-					continue;
-				}
-				if (x == 0 && y == -1)
-				{
-					direction.Add(Direction.Up);
-					continue;
-				}
-				if (x == -1 && y == -1)
-				{
-					direction.Add(Direction.LeftUp);
-				}
-			}
-			return direction;
-		}
-
-		public static Cell ConvertMapObjectDataToCell(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy=null)
+		public static Cell ToCell(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{
 			var x = mapObjectData.Location.X;
 			var y = mapObjectData.Location.Y;
@@ -60,10 +19,10 @@ namespace Homm.Client.Converter
 			{
 				y += 1;
 			}
-			return new Cell(x, y, mapObjectData.GetMapObjectTerrainCellType(myArmy), mapObjectData.GetMapObjectCellType());
+			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType());
 		}
 
-		public static ObjectCellType GetMapObjectCellType(this MapObjectData mapObjectData)
+		public static ObjectCellType GetObjectCellType(this MapObjectData mapObjectData)
 		{
 			if (mapObjectData.Dwelling != null)
 			{
@@ -113,7 +72,7 @@ namespace Homm.Client.Converter
 			return ObjectCellType.None;
 		}
 
-		public static TerrainCellType GetMapObjectTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy=null)
+		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{
 			if (mapObjectData.Wall != null)
 			{
@@ -121,7 +80,7 @@ namespace Homm.Client.Converter
 			}
 			if (mapObjectData.NeutralArmy != null)
 			{
-				if (CanDefeatArmy(myArmy,mapObjectData.NeutralArmy.Army))
+				if (myArmy==null || Combat.Resolve(new ArmiesPair(myArmy, mapObjectData.NeutralArmy.Army)).IsDefenderWin)
 				{
 					return TerrainCellType.Block;
 				}
@@ -130,7 +89,7 @@ namespace Homm.Client.Converter
 			{
 				return TerrainCellType.Block;
 			}
-		switch (mapObjectData.Terrain)
+			switch (mapObjectData.Terrain)
 			{
 				case Terrain.Road:
 					return TerrainCellType.Road;
@@ -150,12 +109,12 @@ namespace Homm.Client.Converter
 			}
 			return TerrainCellType.Block;
 		}
-		public static string GetMapObjectDataForPrint(this MapObjectData mapObject, Dictionary<UnitType, int> armyA=null)
+		public static string ToDataForPrint(this MapObjectData mapObject, Dictionary<UnitType, int> armyA = null)
 		{
-			return mapObject.GetMapObjectTerrainCellType(armyA).GetCellTypeForPrint();
+			return mapObject.GetTerrainCellType(armyA).ToDataForPrint();
 		}
 
-		public static string GetCellTypeForPrint(this TerrainCellType cellType)
+		public static string ToDataForPrint(this TerrainCellType cellType)
 		{
 			switch (cellType)
 			{
@@ -171,11 +130,6 @@ namespace Homm.Client.Converter
 					return "4";
 			}
 			return string.Empty;
-		}
-
-		public static bool CanDefeatArmy(Dictionary<UnitType, int> armyA, Dictionary<UnitType, int> armyB)
-		{
-			return Combat.Resolve(new ArmiesPair(armyA,armyB)).IsAttackerWin;
 		}
 	}
 }

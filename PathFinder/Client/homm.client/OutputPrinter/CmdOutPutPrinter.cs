@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HoMM;
-using Homm.Client.Converter;
+using Homm.Client.Helpers;
 using Homm.Client.Interfaces;
 using HoMM.ClientClasses;
 using HoMM.Engine;
@@ -26,7 +26,7 @@ namespace Homm.Client.Output
 				{
 					y++;
 				}
-				array[x, y] = item.GetMapObjectDataForPrint(myArmy);
+				array[x, y] = item.ToDataForPrint(myArmy);
 			}
 			for(int i=0;i<height;i++)
 			{
@@ -61,7 +61,7 @@ namespace Homm.Client.Output
 				{
 					y++;
 				}
-				array[x, y] = item.GetMapObjectDataForPrint(myArmy);
+				array[x, y] = item.ToDataForPrint(myArmy);
 			}
 			for (int i = 0; i < height; i++)
 			{
