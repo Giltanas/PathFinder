@@ -22,10 +22,6 @@ namespace Homm.Client.Output
 			{
 				var x = item.Location.X;
 				var y = item.Location.Y;
-				if (x % 2 == 1)
-				{
-					y++;
-				}
 				array[x, y] = item.ToDataForPrint(myArmy);
 			}
 			for(int i=0;i<height;i++)
@@ -50,17 +46,14 @@ namespace Homm.Client.Output
 		public void PrintPath(IEnumerable<MapObjectData> objects, IEnumerable<Cell> direction, Dictionary<UnitType, int> myArmy, int width = 14, int height = 14)
 		{
 			Console.WriteLine();
-			string[,] array = new string[width, height];
+			string[,] array = new string[width+1, height+1];
 		
 
 			foreach (var item in objects)
 			{
 				var x = item.Location.X;
 				var y = item.Location.Y;
-				if (x % 2 == 1)
-				{
-					y++;
-				}
+
 				array[x, y] = item.ToDataForPrint(myArmy);
 			}
 			for (int i = 0; i < height; i++)
