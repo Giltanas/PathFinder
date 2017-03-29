@@ -113,7 +113,7 @@ namespace Homm.Client.Converter
 			return ObjectCellType.None;
 		}
 
-		public static TerrainCellType GetMapObjectTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy)
+		public static TerrainCellType GetMapObjectTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType,int> myArmy=null)
 		{
 			if (mapObjectData.Wall != null)
 			{
@@ -143,14 +143,14 @@ namespace Homm.Client.Converter
 				case Terrain.Marsh:
 					return TerrainCellType.Marsh;
 
-				//value of desert`s possibility = value of snow`s possibility
+				//value of desert mb equals value of snow`s 
 				case Terrain.Desert:
 					return TerrainCellType.Snow;
 
 			}
 			return TerrainCellType.Block;
 		}
-		public static string GetMapObjectDataForPrint(this MapObjectData mapObject, Dictionary<UnitType, int> armyA)
+		public static string GetMapObjectDataForPrint(this MapObjectData mapObject, Dictionary<UnitType, int> armyA=null)
 		{
 			return mapObject.GetMapObjectTerrainCellType(armyA).GetCellTypeForPrint();
 		}
@@ -175,8 +175,7 @@ namespace Homm.Client.Converter
 
 		public static bool CanDefeatArmy(Dictionary<UnitType, int> armyA, Dictionary<UnitType, int> armyB)
 		{
-			//TODO: implement logic, armyA or B can be null, need to check this
-			return false;
+			return Combat.Resolve(new ArmiesPair(armyA,armyB)).IsAttackerWin;
 		}
 	}
 }
