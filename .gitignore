@@ -210,12 +210,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-<<<<<<< HEAD
-*.txt
-=======
-
-log.txt
-output_log.txt
->>>>>>> origin/master
 *.txt
 *.cvarcreplay
