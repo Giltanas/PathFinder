@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HommFinder.Extensions
 {
@@ -27,16 +23,6 @@ namespace HommFinder.Extensions
 				case TerrainCellType.Block:
 					return Single.MaxValue;
 			}
-			return -1;
-		}
-
-		public static double GetCellTypeWeight(this ObjectCellType cellType)
-		{
-			switch (cellType)
-			{
-				//TODO: implement GetCellTypeWeight
-			}
-
 			return -1;
 		}
 	}
