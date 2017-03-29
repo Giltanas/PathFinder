@@ -14,9 +14,9 @@ namespace Homm.Client.Actions
 	{
 		public List<Cell> Map { get; private set; }
 		public Cell CurrentCell { get; private set; }
-		public ActionManager()
+		public ActionManager(List<Cell> map)
 		{
-			Map = new List<Cell>();
+			Map = map;
 		}
 
 		//TODO:Need to call this function every day if playing vs player, or you don't see whole map
@@ -25,18 +25,27 @@ namespace Homm.Client.Actions
 			Map.Clear();
 			foreach (var item in listObjects)
 			{
-				
 				Map.Add(item.ConvertMapObjectDataToCell());
 			}
 		}
 
-		//TODO: implement method SearchAvailableDwellings (Available dwellings = available without fight)
 		public List<Cell> SearchAvailableDwellings()
 		{
-			return Map.Where(i => i.CellType == ObjectCellType.DwellingCavalry ||
+			return  Map.Where(i => (i.CellType == ObjectCellType.DwellingCavalry ||
 			               i.CellType == ObjectCellType.DwellingRanged ||
 			               i.CellType == ObjectCellType.DwellingInfantry ||
-			               i.CellType == ObjectCellType.DwellingMilitia).ToList();
+			               i.CellType == ObjectCellType.DwellingMilitia) &&
+						   i.Value != Single.MaxValue).ToList();
+
+		}
+
+		public List<Cell> SearchAvailableResources()
+		{
+			return Map.Where(i => (i.CellType == ObjectCellType.ResourceGold ||
+						   i.CellType == ObjectCellType.ResourceEbony ||
+						   i.CellType == ObjectCellType.ResourceGlass ||
+						   i.CellType == ObjectCellType.ResourceIron) &&
+						   i.Value != Single.MaxValue).ToList();
 		}
 
 		public List<Direction> MoveToCell(Cell cell)
