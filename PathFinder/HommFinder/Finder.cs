@@ -28,7 +28,7 @@ namespace HommFinder
 		{
 			if (endCell == null)
 			{
-				return null;
+				return new Stack<Cell>();
 			}
 			endCell = _cells.SingleOrDefault(c=> c.X == endCell.X && c.Y == endCell.Y);
 			return endCell.Value == Single.MaxValue ?
