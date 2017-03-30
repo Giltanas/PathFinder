@@ -71,12 +71,16 @@ namespace Homm.Client
 			//}
 
 			var actionManager = new ActionManager(sensorData);
-			var path = actionManager.Play();
-			var b = Converter.ConvertCellPathToDirection(path);
-
-			foreach (var item in b)
+			//TODO: remove this cicle
+			while (true)
 			{
-				client.Move(item);
+				var path = actionManager.Play();
+				var b = Converter.ConvertCellPathToDirection(path);
+
+				foreach (var item in b)
+				{
+					client.Move(item);
+				}
 			}
 
 			client.Exit();
