@@ -202,3 +202,87 @@ UnloadTime: 793.097473 ms
 Unloading 233 unused Assets to reduce memory usage. Loaded Objects now: 3207.
 Total: 12.032802 ms (FindLiveObjects: 0.601911 ms CreateObjectMapping: 1.060741 ms MarkObjects: 8.254704 ms  DeleteObjects: 2.110615 ms)
 
+<RI.Hid> Failed to create device file:
+ 20 The process cannot access the file because it is being used by another process.
+
+ 
+(Filename:  Line: 54)
+
+PlayServer.HasGame: Requested game homm.Level1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Game found in loader
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted client Left
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted 1 connections
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.IntroductionTick: Starting remote game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+UnloadTime: 7.706523 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3201.
+Total: 15.922587 ms (FindLiveObjects: 0.263223 ms CreateObjectMapping: 0.650209 ms MarkObjects: 14.962065 ms  DeleteObjects: 0.045882 ms)
+
+game over. disposing
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+UnloadTime: 360.621796 ms
+
+Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 16.884922 ms (FindLiveObjects: 0.733523 ms CreateObjectMapping: 1.815394 ms MarkObjects: 12.136641 ms  DeleteObjects: 2.195740 ms)
+
+PlayServer.HasGame: Requested game homm.Level1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Game found in loader
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted client Left
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted 1 connections
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.IntroductionTick: Starting remote game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+UnloadTime: 1.065570 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3201.
+Total: 17.763943 ms (FindLiveObjects: 0.256582 ms CreateObjectMapping: 12.591245 ms MarkObjects: 4.889551 ms  DeleteObjects: 0.024752 ms)
+
+game over. disposing
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+UnloadTime: 866.959961 ms
+
+Unloading 261 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 14.208617 ms (FindLiveObjects: 0.629683 ms CreateObjectMapping: 1.063759 ms MarkObjects: 10.409389 ms  DeleteObjects: 2.102163 ms)
+
+<RI.Hid> Failed to create device file:
+ 20 The process cannot access the file because it is being used by another process.
+
+ 
+(Filename:  Line: 54)
+
