@@ -12,16 +12,18 @@ namespace Homm.Client.Actions
 {
 	public class ActionManager
 	{
-		public HommSensorData SensorData { get; private set; }
+		public HommSensorData SensorData { get; set; }
+		public  HommClient Client { get; private set; }
 		public List<Cell> Map { get; private set; } 
 		public Cell CurrentCell { get; private set; }
 		private Finder _finder;
 
-		public ActionManager(HommSensorData sensorData)
+		public ActionManager(HommClient client, HommSensorData sensorData)
 		{
+			Client = client;
 			SensorData = sensorData;
 			Map = new List<Cell>();
-			UpdateMap();			
+			//UpdateMap();			
 		}
 
 		//TODO:Need to call this function every day if playing vs player, or you don't see whole map
@@ -47,16 +49,25 @@ namespace Homm.Client.Actions
 		}
 
 		//TODO: change signature of this method
-		public Stack<Cell> Play()
+		public void Play()
 		{
-			var path = new Stack<Cell>();
+			UpdateMap();
+			var path = new List<Cell>();
 			var availableMines = _finder.SearchAvailableMines();
 			if (availableMines.Count != 0)
 			{
-				path = _finder.GetMoves(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value))));
+				path = _finder.GetMoves(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value)))).ToList();
 				if (path.Count != 0)
-					return path;
-
+				{
+					var moves = Converter.ConvertCellPathToDirection(path);
+					for (var index = 0; index < moves.Count; index++)
+					{
+						var move = moves[index];
+						//Logic moving interaption
+						Client.Move(move);
+						SensorData.Location = new LocationInfo(path[index+1].X,path[index+1].Y);
+					}
+				}
 				//TODO: search Resources near path
 				//TODO: search Dwellings near path			
 			}
@@ -64,9 +75,17 @@ namespace Homm.Client.Actions
 			var availableResources = _finder.SearchAvailableResources();
 			if (availableResources.Count != 0)
 			{
-				path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value))));
+				path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
 				if (path.Count != 0)
-					return path;
+				{
+					var moves = Converter.ConvertCellPathToDirection(path);
+					for (var index = 0; index < moves.Count; index++)
+					{
+						var move = moves[index];
+						//Logic moving interaption
+						SensorData = Client.Move(move);
+					}
+				}
 
 				//TODO: search Mines near path
 				//TODO: search Dwellings near path
@@ -77,13 +96,11 @@ namespace Homm.Client.Actions
 			{
 				path = _finder.GetMoves(availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value))));
 				if (path.Count != 0)
-					return path;
+					return;
 
 				//TODO: search Resources near path
 				//TODO: search Mines near path
 			}
-
-			return path;
 		}
 	}
 }

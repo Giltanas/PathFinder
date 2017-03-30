@@ -24,17 +24,17 @@ namespace HommFinder
 		   
 		}
 
-		public Stack<Cell> GetMoves(Cell endCell=null)
+		public List<Cell> GetMoves(Cell endCell=null)
 		{
 			if (endCell == null)
 			{
-				return new Stack<Cell>();
+				return new List<Cell>();
 			}
 			endCell = _cells.SingleOrDefault(c=> c.X == endCell.X && c.Y == endCell.Y);
 			return endCell.Value == Single.MaxValue ?
-				new Stack<Cell>() : 
+				new List<Cell>() : 
 				getMoves(_startCell,
-				_cells.SingleOrDefault(c => c.X == endCell.X && c.Y == endCell.Y),new Stack<Cell>());
+				_cells.SingleOrDefault(c => c.X == endCell.X && c.Y == endCell.Y),new Stack<Cell>()).ToList();
 		}
 
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)

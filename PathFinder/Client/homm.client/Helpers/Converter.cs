@@ -11,14 +11,14 @@ namespace Homm.Client.Helpers
 {
 	public static class Converter
 	{
-		public static IEnumerable<Direction> ConvertCellPathToDirection(Stack<Cell> cells)
+		public static List<Direction> ConvertCellPathToDirection(IList<Cell> cells)
 		{
 			var direction = new List<Direction>();
-			var listCells = cells.ToList();
+
 			for (int i = 1; i < cells.Count; i++)
 			{
-				var x = listCells[i].X - listCells[i - 1].X;
-				var y = listCells[i].Y - listCells[i - 1].Y;
+				var x = cells[i].X - cells[i - 1].X;
+				var y = cells[i].Y - cells[i - 1].Y;
 				if (x == 1 && y == 1)
 				{
 					direction.Add(Direction.RightDown);
@@ -50,11 +50,11 @@ namespace Homm.Client.Helpers
 				}
 				if (x == -1 && y == 0)
 				{
-					direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.LeftDown : Direction.LeftUp);
+					direction.Add(cells[i - 1].X % 2 == 0 ? Direction.LeftDown : Direction.LeftUp);
 				}
 				if (x == 1 && y == 0)
 				{
-					direction.Add(listCells[i - 1].X % 2 == 0 ? Direction.RightDown : Direction.RightUp);
+					direction.Add(cells[i - 1].X % 2 == 0 ? Direction.RightDown : Direction.RightUp);
 				}
 			}
 			return direction;

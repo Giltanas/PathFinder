@@ -27,7 +27,7 @@ namespace Homm.Client
 
 			//client.OnSensorDataReceived += Print;
 			client.OnInfo += OnInfo;
-
+			
 			var sensorData = client.Configurate(
 				ip, port, CvarcTag,
 
@@ -58,7 +58,7 @@ namespace Homm.Client
 
 			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
 			var listCells = sensorData.Map.Objects.Select(item => item.ToCell()).ToList();
-		    var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
+			var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
 
 			//var a = pathFinder.GetMoves(sensorData.Map.Objects.Single(o => o.Location.X == 10 && o.Location.Y == 10).ToCell());
 
@@ -70,15 +70,11 @@ namespace Homm.Client
 			//	client.Move(item);
 			//}
 
-			var actionManager = new ActionManager(sensorData);
+			var actionManager = new ActionManager(client, sensorData);
 			//TODO: remove this cicle
 			while (true)
 			{
-				var path = Converter.ConvertCellPathToDirection(actionManager.Play());
-				foreach (var item in path)
-				{
-					client.Move(item);
-				}
+				actionManager.Play();
 			}
 			client.Exit();
 		}
