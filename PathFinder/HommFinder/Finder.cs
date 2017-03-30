@@ -110,5 +110,14 @@ namespace HommFinder
 						   i.CellType == ObjectCellType.ResourceIron)
 						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
+
+		public List<Cell> SearchAvailableMines()
+		{
+			return _cells.Where(i => (i.CellType == ObjectCellType.MineEbony ||
+						   i.CellType == ObjectCellType.MineGlass ||
+						   i.CellType == ObjectCellType.MineGold ||
+						   i.CellType == ObjectCellType.MineIron)
+						   && !i.Value.Equals(Single.MaxValue)).ToList();
+		}
 	}
 }

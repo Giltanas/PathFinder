@@ -33,17 +33,7 @@ namespace Homm.Client.Actions
 
 			_finder = new Finder(Map,CurrentCell);
 		}
-		//TODO:: REMOVE THIS METHOD AFTER TEST
-		public List<Cell> SearchAvailableDwellings()
-		{
-			return _finder.SearchAvailableDwellings();
-		}
-		//TODO:: REMOVE THIS METHOD AFTER TEST
-		public List<Cell> SearchAvailableResources()
-		{
-			return _finder.SearchAvailableResources();
-		}
-
+	
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			UpdateMap();
@@ -54,6 +44,40 @@ namespace Homm.Client.Actions
 		public List<Direction> MoveToCell(MapObjectData mapObj)
 		{
 			return MoveToCell(mapObj.ToCell());
+		}
+
+		//TODO: change signature of this method
+		public Stack<Cell> Play()
+		{
+			var path = new Stack<Cell>();
+			var availableMines = _finder.SearchAvailableMines();
+			if (availableMines.Count != 0)
+			{
+				path = _finder.GetMoves(availableMines[0]);
+				return path;
+				//TODO: search Resources near path
+				//TODO: search Dwellings near path			
+			}
+
+			var availableResources = _finder.SearchAvailableResources();
+			if (availableResources.Count != 0)
+			{
+				path = _finder.GetMoves(availableResources[0]);
+				return path;
+				//TODO: search Mines near path
+				//TODO: search Dwellings near path
+			}
+
+			var availableDwellings = _finder.SearchAvailableDwellings();
+			if (availableDwellings.Count != 0)
+			{
+				path = _finder.GetMoves(availableDwellings[0]);
+				return path;
+				//TODO: search Resources near path
+				//TODO: search Mines near path
+			}
+
+			return path;
 		}
 	}
 }
