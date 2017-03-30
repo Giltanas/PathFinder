@@ -53,7 +53,7 @@ namespace Homm.Client.Actions
 			var availableMines = _finder.SearchAvailableMines();
 			if (availableMines.Count != 0)
 			{
-				path = _finder.GetMoves(availableMines.First(i => (Math.Abs(i.Value - availableMines.Max(m=>m.Value)) < 1000)));
+				path = _finder.GetMoves(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value))));
 				if (path.Count != 0)
 					return path;
 
@@ -64,7 +64,7 @@ namespace Homm.Client.Actions
 			var availableResources = _finder.SearchAvailableResources();
 			if (availableResources.Count != 0)
 			{
-				path = _finder.GetMoves(availableResources.First(i => (Math.Abs(i.Value - availableResources.Max(m => m.Value)) < 1000)));
+				path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value))));
 				if (path.Count != 0)
 					return path;
 
@@ -75,7 +75,7 @@ namespace Homm.Client.Actions
 			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
-				path = _finder.GetMoves(availableDwellings.First(i => (Math.Abs(i.Value - availableDwellings.Max(m => m.Value)) < 1000)));
+				path = _finder.GetMoves(availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value))));
 				if (path.Count != 0)
 					return path;
 
