@@ -53,8 +53,11 @@ namespace Homm.Client.Actions
 			var availableMines = _finder.SearchAvailableMines();
 			if (availableMines.Count != 0)
 			{
-				path = _finder.GetMoves(availableMines[0]);
-				return path;
+				path = searchPathToObject(availableMines);
+				if (path != null)
+				{
+					return path;
+				}
 				//TODO: search Resources near path
 				//TODO: search Dwellings near path			
 			}
@@ -62,8 +65,11 @@ namespace Homm.Client.Actions
 			var availableResources = _finder.SearchAvailableResources();
 			if (availableResources.Count != 0)
 			{
-				path = _finder.GetMoves(availableResources[0]);
-				return path;
+				path = searchPathToObject(availableResources);
+				if (path != null)
+				{
+					return path;
+				}
 				//TODO: search Mines near path
 				//TODO: search Dwellings near path
 			}
@@ -71,12 +77,30 @@ namespace Homm.Client.Actions
 			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
-				path = _finder.GetMoves(availableDwellings[0]);
-				return path;
+				path = searchPathToObject(availableDwellings);
+				if (path != null)
+				{
+					return path;
+				}
 				//TODO: search Resources near path
 				//TODO: search Mines near path
 			}
 
+			return path;
+		}
+
+
+		private Stack<Cell> searchPathToObject(List<Cell> mapObjects)
+		{
+			var path = new Stack<Cell>();
+			for (int i = 0; i < mapObjects.Count; i++)
+			{
+				path = _finder.GetMoves(mapObjects[i]);
+				if (path != null)
+				{
+					break;
+				}
+			}
 			return path;
 		}
 	}
