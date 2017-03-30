@@ -20,7 +20,7 @@ namespace HommFinder
 				cell.Refresh();
 			}
 			_startCell.NeedChangeValue(0);
-			sendWeave(_startCell);
+			sendWave(_startCell);
 		   
 		}
 
@@ -51,14 +51,14 @@ namespace HommFinder
 			}
 			return cells;
 		}
-		private void sendWeave(Cell startCell, Cell endCell=null)
+		private void sendWave(Cell startCell)
 		{
 			var nearCells = getNearCells(startCell);
 
 			foreach (var nearCell in nearCells)
 			{
 				if (nearCell.NeedChangeValue(startCell.Value + startCell.TerrainCellType.GetTerrainCellTypeWeight()))
-					sendWeave(nearCell, endCell);
+					sendWave(nearCell);
 			}
 		}
 
