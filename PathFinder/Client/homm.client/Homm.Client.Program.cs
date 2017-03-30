@@ -74,15 +74,12 @@ namespace Homm.Client
 			//TODO: remove this cicle
 			while (true)
 			{
-				var path = actionManager.Play();
-				var b = Converter.ConvertCellPathToDirection(path);
-
-				foreach (var item in b)
+				var path = Converter.ConvertCellPathToDirection(actionManager.Play());
+				foreach (var item in path)
 				{
 					client.Move(item);
 				}
 			}
-
 			client.Exit();
 		}
 
