@@ -17,13 +17,32 @@ namespace Homm.Client.Actions
 		public List<Cell> Map { get; private set; } 
 		public Cell CurrentCell { get; private set; }
 		private Finder _finder;
+		public MapType MapType { get; private set; }
+		public MapObjectData EnemyRespawn { get; private set; }
 
 		public ActionManager(HommClient client, HommSensorData sensorData)
 		{
 			Client = client;
 			SensorData = sensorData;
-			Map = new List<Cell>();
-			//UpdateMap();			
+			
+			var startCell  = sensorData.Location.CreateCell();
+
+			EnemyRespawn =
+				startCell.SameLocation(new Cell(0, 0)) ?
+				sensorData.Map.Objects.SingleOrDefault(o => o.Location.X == 13 && o.Location.Y == 13) :
+				sensorData.Map.Objects.SingleOrDefault(o => o.Location.X == 0 && o.Location.Y == 0);
+			MapType = MapType.Single;
+
+			if (sensorData.Map.Objects.Count < sensorData.Map.Height * sensorData.Map.Width)
+			{
+				MapType = MapType.DualHard;
+			}
+			else if (EnemyRespawn.Hero != null)
+			{
+				MapType = MapType.Dual;
+			}
+			
+			Map = new List<Cell>();		
 		}
 
 		//TODO:Need to call this function every day if playing vs player, or you don't see whole map
@@ -39,15 +58,14 @@ namespace Homm.Client.Actions
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			UpdateMap();
-			return Converter.ConvertCellPathToDirection(_finder.GetMoves(cell)) 
-				as List<Direction>;
+			return Converter.ConvertCellPathToDirection(_finder.GetMoves(cell));
 		}
 
 		public List<Direction> MoveToCell(MapObjectData mapObj)
 		{
 			return MoveToCell(mapObj.ToCell());
 		}
-
+		//TODO:: implement 3 methods for different types of map(single, dual, dualHard)
 		//TODO: change signature of this method
 		public void Play()
 		{
@@ -102,5 +120,13 @@ namespace Homm.Client.Actions
 				//TODO: search Mines near path
 			}
 		}
+	}
+
+	public enum MapType
+	{
+		Single,
+		Dual,
+		//mode without open map
+		DualHard
 	}
 }
