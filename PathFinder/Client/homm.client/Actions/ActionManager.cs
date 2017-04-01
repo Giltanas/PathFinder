@@ -82,8 +82,7 @@ namespace Homm.Client.Actions
 					{
 						var move = moves[index];
 						//Logic moving interaption
-						Client.Move(move);
-						SensorData.Location = new LocationInfo(path[index+1].X,path[index+1].Y);
+						SensorData = Client.Move(move);
 					}
 				}
 				//TODO: search Resources near path
@@ -114,7 +113,15 @@ namespace Homm.Client.Actions
 			{
 				path = _finder.GetMoves(availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value))));
 				if (path.Count != 0)
-					return;
+				{
+					var moves = Converter.ConvertCellPathToDirection(path);
+					for (var index = 0; index < moves.Count; index++)
+					{
+						var move = moves[index];
+						//Logic moving interaption
+						SensorData = Client.Move(move);
+					}
+				}
 
 				//TODO: search Resources near path
 				//TODO: search Mines near path
