@@ -19,7 +19,14 @@ namespace Homm.Client.Helpers
 			//{
 			//	y += 1;
 			//}
-			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType());
+			int resourcesValue = 0;
+			if (mapObjectData.Dwelling != null)
+			    resourcesValue = mapObjectData.Dwelling.AvailableToBuyCount;
+			
+			if (mapObjectData.ResourcePile != null)
+			    resourcesValue = mapObjectData.ResourcePile.Amount;
+			
+			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType(), resourcesValue);
 		}
 
 		public static Cell CreateCell(this LocationInfo location)
@@ -84,10 +91,10 @@ namespace Homm.Client.Helpers
 
 		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{
-		    if (mapObjectData.Location.X == 4 && mapObjectData.Location.Y == 5)
-		    {
-		        var a = 1;
-		    }
+			if (mapObjectData.Location.X == 4 && mapObjectData.Location.Y == 5)
+			{
+				var a = 1;
+			}
 			if (mapObjectData.Wall != null)
 			{
 				return TerrainCellType.Block;

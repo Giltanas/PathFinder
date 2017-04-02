@@ -76,15 +76,7 @@ namespace Homm.Client.Actions
 			{
 				path = _finder.GetMoves(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value)))).ToList();
 				if (path.Count != 0)
-				{
-					var moves = Converter.ConvertCellPathToDirection(path);
-					for (var index = 0; index < moves.Count; index++)
-					{
-						var move = moves[index];
-						//Logic moving interaption
-						SensorData = Client.Move(move);
-					}
-				}
+				move(path);
 				//TODO: search Resources near path
 				//TODO: search Dwellings near path			
 			}
@@ -93,16 +85,7 @@ namespace Homm.Client.Actions
 			if (availableResources.Count != 0)
 			{
 				path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
-				if (path.Count != 0)
-				{
-					var moves = Converter.ConvertCellPathToDirection(path);
-					for (var index = 0; index < moves.Count; index++)
-					{
-						var move = moves[index];
-						//Logic moving interaption
-						SensorData = Client.Move(move);
-					}
-				}
+				move(path);
 
 				//TODO: search Mines near path
 				//TODO: search Dwellings near path
@@ -111,20 +94,69 @@ namespace Homm.Client.Actions
 			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
-				path = _finder.GetMoves(availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value))));
-				if (path.Count != 0)
-				{
-					var moves = Converter.ConvertCellPathToDirection(path);
-					for (var index = 0; index < moves.Count; index++)
-					{
-						var move = moves[index];
-						//Logic moving interaption
-						SensorData = Client.Move(move);
-					}
-				}
+				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
+                if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+                {
+                    if (SensorData.MyTreasury[Resource.Gold] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+                    {
+                        path = _finder.GetMoves(dwellingCheck);
+                        move(path);
+                    }
+                }
 
-				//TODO: search Resources near path
-				//TODO: search Mines near path
+                if (dwellingCheck.CellType == ObjectCellType.DwellingInfantry) 
+			    {
+			        if (SensorData.MyTreasury[Resource.Gold] >= 
+                        UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold] &&
+                        SensorData.MyTreasury[Resource.Iron] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron])
+			        {
+                        path = _finder.GetMoves(dwellingCheck);
+                        move(path);
+                    }
+			    }
+
+                if (dwellingCheck.CellType == ObjectCellType.DwellingCavalry)
+                {
+                    if (SensorData.MyTreasury[Resource.Gold] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] &&
+                        SensorData.MyTreasury[Resource.Ebony] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony])
+                    {
+                        path = _finder.GetMoves(dwellingCheck);
+                        move(path);
+                    }
+                }
+
+                if (dwellingCheck.CellType == ObjectCellType.DwellingRanged)
+                {
+                    if (SensorData.MyTreasury[Resource.Gold] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold] &&
+                        SensorData.MyTreasury[Resource.Glass] >=
+                        UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass])
+                    {
+                        path = _finder.GetMoves(dwellingCheck);
+                        move(path);
+                    }
+                }
+
+                //TODO: search Resources near path
+                //TODO: search Mines near path
+            }
+		}
+
+		private void move(List<Cell> path)
+		{
+			if (path.Count != 0)
+			{
+				var moves = Converter.ConvertCellPathToDirection(path);
+				for (var index = 0; index < moves.Count; index++)
+				{
+					var move = moves[index];
+					//Logic moving interaption
+					SensorData = Client.Move(move);
+				}
 			}
 		}
 	}

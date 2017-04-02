@@ -10,13 +10,16 @@ namespace HommFinder
 	public class Cell
 	{
 		private double _value;
+		//c# does not exist realization of extention properties so use field
+		private int _resourcesValue;
 		private double _priopity;
-		public Cell(int x, int y, TerrainCellType terrainCellType = TerrainCellType.None, ObjectCellType cellType = ObjectCellType.None)
+		public Cell(int x, int y, TerrainCellType terrainCellType = TerrainCellType.None, ObjectCellType cellType = ObjectCellType.None, int resourcesValue = 0)
 		{
 			X = x;
 			Y = y;
 			TerrainCellType = terrainCellType;
 			CellType = cellType;
+		    _resourcesValue = resourcesValue;
 		}
 
 		public int X { get; private set; }
@@ -28,11 +31,18 @@ namespace HommFinder
 			set { _value = value; }
 		}
 
+	    public int ResourcesValue
+	    {
+            get { return _resourcesValue; }
+            set { _resourcesValue = value; }
+	    }
+
 		public double Priority
 		{
 			get { return _priopity; }
 			set { _priopity = value; }
 		}
+
 		public TerrainCellType TerrainCellType { get; private set; }
 		public ObjectCellType CellType { get; private set; }
 		public void Refresh()
