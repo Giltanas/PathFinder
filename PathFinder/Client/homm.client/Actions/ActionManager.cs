@@ -58,7 +58,7 @@ namespace Homm.Client.Actions
 		public List<Direction> MoveToCell(Cell cell)
 		{
 			UpdateMap();
-			return Converter.ConvertCellPathToDirection(_finder.GetMoves(cell));
+			return Converter.ConvertCellPathToDirection(_finder.GetMovesStraightToCell(cell));
 		}
 
 		public List<Direction> MoveToCell(MapObjectData mapObj)
@@ -74,7 +74,7 @@ namespace Homm.Client.Actions
 			var availableMines = _finder.SearchAvailableMines();
 			if (availableMines.Count != 0)
 			{
-				path = _finder.GetMoves(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value)))).ToList();
+				path = _finder.GetMovesStraightToCell(availableMines.First(i => i.Value.Equals(availableMines.Min(m=>m.Value)))).ToList();
 				if (path.Count != 0)
 				move(path);
 				//TODO: search Resources near path
@@ -84,7 +84,7 @@ namespace Homm.Client.Actions
 			var availableResources = _finder.SearchAvailableResources();
 			if (availableResources.Count != 0)
 			{
-				path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
+				path = _finder.GetMovesStraightToCell(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
 				move(path);
 
 				//TODO: search Mines near path
@@ -95,26 +95,26 @@ namespace Homm.Client.Actions
 			if (availableDwellings.Count != 0)
 			{
 				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
-			    path = _finder.checkDwellingCavalry(dwellingCheck, SensorData);
+				path = _finder.checkDwellingCavalry(dwellingCheck, SensorData);
 
-                if(path.Count == 0)
-                    path = _finder.checkDwellingInfantry(dwellingCheck, SensorData);
+				if(path.Count == 0)
+					path = _finder.checkDwellingInfantry(dwellingCheck, SensorData);
 
-                if (path.Count == 0)
-                    path = _finder.checkDwellingMilitia(dwellingCheck, SensorData);
+				if (path.Count == 0)
+					path = _finder.checkDwellingMilitia(dwellingCheck, SensorData);
 
-                if (path.Count == 0)
-                    path = _finder.checkDwellingRanged(dwellingCheck, SensorData);
+				if (path.Count == 0)
+					path = _finder.checkDwellingRanged(dwellingCheck, SensorData);
 
-                if (path.Count == 0)
-                    move(path);
+				if (path.Count == 0)
+					move(path);
 
-                //TODO: search Resources near path
-                //TODO: search Mines near path
-            }
+				//TODO: search Resources near path
+				//TODO: search Mines near path
+			}
 		}
 
-        private void move(List<Cell> path)
+		private void move(List<Cell> path)
 		{
 			if (path.Count != 0)
 			{
