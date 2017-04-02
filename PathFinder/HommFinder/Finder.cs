@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HommFinder.Extensions;
+using HoMM;
+using HoMM.ClientClasses;
 
 namespace HommFinder
 {
@@ -119,5 +121,67 @@ namespace HommFinder
 						   i.CellType == ObjectCellType.MineIron)
 						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
-	}
+
+        public List<Cell> checkDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
+        {
+            var path = new List<Cell>();
+            if (dwellingCheck.CellType == ObjectCellType.DwellingRanged)
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold] &&
+                    SensorData.MyTreasury[Resource.Glass] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass])
+                {
+                    path = GetMoves(dwellingCheck);
+                }
+            }
+            return path;
+        }
+
+        public List<Cell> checkDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
+        {
+            var path = new List<Cell>();
+            if (dwellingCheck.CellType == ObjectCellType.DwellingCavalry)
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] &&
+                    SensorData.MyTreasury[Resource.Ebony] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony])
+                {
+                    path = GetMoves(dwellingCheck);
+                }
+            }
+            return path;
+        }
+
+        public List<Cell> checkDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
+        {
+            var path = new List<Cell>();
+            if (dwellingCheck.CellType == ObjectCellType.DwellingInfantry)
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold] &&
+                    SensorData.MyTreasury[Resource.Iron] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron])
+                {
+                    path = GetMoves(dwellingCheck);
+                }
+            }
+            return path;
+        }
+
+        public List<Cell> checkDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+        {
+            var path = new List<Cell>();
+            if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+                {
+                    path = GetMoves(dwellingCheck);
+                }
+            }
+            return path;
+        }
+    }
 }

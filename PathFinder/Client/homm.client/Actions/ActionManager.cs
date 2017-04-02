@@ -95,58 +95,26 @@ namespace Homm.Client.Actions
 			if (availableDwellings.Count != 0)
 			{
 				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
-                if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
-                {
-                    if (SensorData.MyTreasury[Resource.Gold] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
-                    {
-                        path = _finder.GetMoves(dwellingCheck);
-                        move(path);
-                    }
-                }
+			    path = _finder.checkDwellingCavalry(dwellingCheck, SensorData);
 
-                if (dwellingCheck.CellType == ObjectCellType.DwellingInfantry) 
-			    {
-			        if (SensorData.MyTreasury[Resource.Gold] >= 
-                        UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold] &&
-                        SensorData.MyTreasury[Resource.Iron] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron])
-			        {
-                        path = _finder.GetMoves(dwellingCheck);
-                        move(path);
-                    }
-			    }
+                if(path.Count == 0)
+                    path = _finder.checkDwellingInfantry(dwellingCheck, SensorData);
 
-                if (dwellingCheck.CellType == ObjectCellType.DwellingCavalry)
-                {
-                    if (SensorData.MyTreasury[Resource.Gold] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] &&
-                        SensorData.MyTreasury[Resource.Ebony] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony])
-                    {
-                        path = _finder.GetMoves(dwellingCheck);
-                        move(path);
-                    }
-                }
+                if (path.Count == 0)
+                    path = _finder.checkDwellingMilitia(dwellingCheck, SensorData);
 
-                if (dwellingCheck.CellType == ObjectCellType.DwellingRanged)
-                {
-                    if (SensorData.MyTreasury[Resource.Gold] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold] &&
-                        SensorData.MyTreasury[Resource.Glass] >=
-                        UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass])
-                    {
-                        path = _finder.GetMoves(dwellingCheck);
-                        move(path);
-                    }
-                }
+                if (path.Count == 0)
+                    path = _finder.checkDwellingRanged(dwellingCheck, SensorData);
+
+                if (path.Count == 0)
+                    move(path);
 
                 //TODO: search Resources near path
                 //TODO: search Mines near path
             }
 		}
 
-		private void move(List<Cell> path)
+        private void move(List<Cell> path)
 		{
 			if (path.Count != 0)
 			{

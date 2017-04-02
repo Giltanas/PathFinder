@@ -76,6 +76,7 @@ namespace HommFinder
 			}
 			return false;
 		}
+
 		public bool NeedChangeValue(double newValue)
 		{
 			if (newValue < Value && TerrainCellType != TerrainCellType.Block)
