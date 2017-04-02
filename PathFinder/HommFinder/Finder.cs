@@ -79,7 +79,7 @@ namespace HommFinder
                            && !i.Value.Equals(Single.MaxValue)).ToList();
         }
 
-        public List<Cell> checkDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingRanged)
@@ -91,11 +91,20 @@ namespace HommFinder
                 {
                     path = GetMovesStraightToCell(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceGlass)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingCavalry)
@@ -107,11 +116,20 @@ namespace HommFinder
                 {
                     path = GetMovesStraightToCell(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceEbony)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingInfantry)
@@ -123,19 +141,95 @@ namespace HommFinder
                 {
                     path = GetMovesStraightToCell(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceIron)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
-            if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+            var missingTreasury = existTreasuryForDwellingMilitia(dwellingCheck, SensorData);
+            if (missingTreasury.Count == 0)
             {
-                if (SensorData.MyTreasury[Resource.Gold] >=
-                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+                path = GetMoves(dwellingCheck);
+            }  
+            else
+            {
+                //TODO:: check resources near path
+                var localPath = findResourcesForDwellingMilitia(missingTreasury);
+                if (localPath.Count != 0)
+                   path = localPath;
+            }
+
+            return path;
+        }
+
+	    private Dictionary<Resource, int> existTreasuryForDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+	    {
+	        if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+	        {
+	            if (SensorData.MyTreasury[Resource.Gold] >=
+	                UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+	            {
+                    return new Dictionary<Resource, int>();
+	            }
+	        }
+	        var missingResources = new Dictionary<Resource, int>
+	        {
+	            {
+	                Resource.Gold, UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
+	                               SensorData.MyTreasury[Resource.Gold]
+	            }
+	        };
+	        return missingResources;
+	    }
+
+	    private List<Cell> findResourcesForDwellingMilitia(Dictionary<Resource, int> missingTreasury)
+	    {
+	        var goldCellList = new List<Cell>();
+	        while (missingTreasury[Resource.Gold] >= 0 && 
+                _cells.Where(o => (o.CellType == ObjectCellType.ResourceGold)
+                && !o.Value.Equals(Single.MaxValue) && !goldCellList.Contains(o)).ToList().Count != 0)
+            {
+                var localList = findGold(goldCellList);
+                foreach (var item in localList)
                 {
-                    path = GetMovesStraightToCell(dwellingCheck);
+                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
+                }
+                goldCellList.AddRange(localList);
+            }
+
+            var goldCellPath = new List<Cell>();
+            foreach (var goldCell in goldCellList)
+            {
+                goldCellPath.AddRange(GetMoves(goldCell));
+            }
+            
+            return goldCellPath;
+        }
+
+	    private List<Cell> findGold(List<Cell> goldCellPath)
+	    {
+	        var goldCellList = _cells.Where(o => (o.CellType == ObjectCellType.ResourceGold)
+	                           && !o.Value.Equals(Single.MaxValue) && !goldCellPath.Contains(o)).ToList();
+
+            for (int i = 0; i < goldCellList.Count; i++)
+	        {
+                var cell = goldCellList.ElementAt(i);
+                var localPath = GetMoves(cell);
+	            if (localPath.Count <= ValidVerificationStepNumber)
+	            {
+                    goldCellPath.Add(cell);
+                    return goldCellPath;
                 }
             }
             return path;

@@ -81,38 +81,38 @@ namespace Homm.Client.Actions
 				//TODO: search Dwellings near path			
 			}
 
-			var availableResources = _finder.SearchAvailableResources();
-			if (availableResources.Count != 0)
-			{
-				path = _finder.GetMovesStraightToCell(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
-				move(path);
-
-				//TODO: search Mines near path
-				//TODO: search Dwellings near path
-			}
-
 			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
 				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
-				path = _finder.checkDwellingCavalry(dwellingCheck, SensorData);
+			    path = _finder.CheckDwellingCavalry(dwellingCheck, SensorData);
 
-				if(path.Count == 0)
-					path = _finder.checkDwellingInfantry(dwellingCheck, SensorData);
+                if(path.Count == 0)
+                    path = _finder.CheckDwellingInfantry(dwellingCheck, SensorData);
 
-				if (path.Count == 0)
-					path = _finder.checkDwellingMilitia(dwellingCheck, SensorData);
+                if (path.Count == 0)
+                    path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
 
-				if (path.Count == 0)
-					path = _finder.checkDwellingRanged(dwellingCheck, SensorData);
+                if (path.Count == 0)
+                    path = _finder.CheckDwellingRanged(dwellingCheck, SensorData);
 
 				if (path.Count == 0)
 					move(path);
 
-				//TODO: search Resources near path
-				//TODO: search Mines near path
-			}
-		}
+                //TODO: search Resources near path
+                //TODO: search Mines near path
+            }
+
+            var availableResources = _finder.SearchAvailableResources();
+            if (availableResources.Count != 0)
+            {
+                path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
+                move(path);
+
+                //TODO: search Mines near path
+                //TODO: search Dwellings near path
+            }
+        }
 
 		private void move(List<Cell> path)
 		{
