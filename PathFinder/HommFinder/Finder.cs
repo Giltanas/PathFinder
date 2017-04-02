@@ -32,7 +32,12 @@ namespace HommFinder
 			var moves = GetMovesStraightToCell(endCell);
 			foreach (var move in moves)
 			{
-			   // getNearCells(move).SingleOrDefault(c=> c.CellType == )
+			    var resourceCell = getNearCells(move).FirstOrDefault(c => c.CellType.MainType == MainCellType.Resource);
+
+                if (resourceCell != null)
+			    {
+			        
+			    }
 
 			}
 			return  new List<Cell>();

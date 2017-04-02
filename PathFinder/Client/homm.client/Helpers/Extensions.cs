@@ -58,8 +58,8 @@ namespace Homm.Client.Helpers
 
 			if (mapObjectData.Mine != null)
 			{
-                
-				switch (mapObjectData.Mine.Resource)
+                oct.MainType = MainCellType.Mine;
+                switch (mapObjectData.Mine.Resource)
 				{
 					case Resource.Ebony:
 						oct.SubCellType =  SubCellType.MineEbony;
@@ -78,7 +78,8 @@ namespace Homm.Client.Helpers
 
 			if (mapObjectData.ResourcePile != null)
 			{
-				switch (mapObjectData.ResourcePile.Resource)
+                oct.MainType = MainCellType.Resource;
+                switch (mapObjectData.ResourcePile.Resource)
 				{
 					case Resource.Ebony:
                         oct.SubCellType = SubCellType.ResourceEbony;

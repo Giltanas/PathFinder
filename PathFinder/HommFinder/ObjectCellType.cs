@@ -8,8 +8,8 @@ namespace HommFinder
 {
     public class ObjectCellType
     {
-        public MainCellType MainType { get; set; }
-        public SubCellType SubCellType { get; set; }
+        public MainCellType MainType { get; set; } = MainCellType.None;
+        public SubCellType SubCellType { get; set; } = SubCellType.None;
 
     }
 }

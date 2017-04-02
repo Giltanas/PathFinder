@@ -120,7 +120,8 @@ namespace HommFinder
         MineGold,
         MineGlass,
         MineIron,
-        MineEbony
+        MineEbony,
+        None
     }
 }
 
