@@ -14,6 +14,7 @@ namespace HommFinder
 		public List<Cell> _cells;
 		private Cell _startCell;
         const int ValidVerificationStepNumber = 5;
+	    private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
@@ -201,44 +202,82 @@ namespace HommFinder
         public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
-            if (existTreasuryDwellingMilitia(dwellingCheck, SensorData))
+            var missingTreasury = existTreasuryForDwellingMilitia(dwellingCheck, SensorData);
+            if (missingTreasury.Count == 0)
             {
                 path = GetMoves(dwellingCheck);
             }  
             else
             {
                 //TODO:: check resources near path
-                var localPath = findResourcesForDwellingMilitia();
-                if (findResourcesForDwellingMilitia().Count !=0)
-                    if (existTreasuryDwellingMilitia(dwellingCheck, SensorData))
-                        path = localPath;
+                var localPath = findResourcesForDwellingMilitia(missingTreasury);
+                if (localPath.Count != 0)
+                   path = localPath;
             }
 
             return path;
         }
 
-	    private bool existTreasuryDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+	    private Dictionary<Resource, int> existTreasuryForDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
 	    {
 	        if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
 	        {
 	            if (SensorData.MyTreasury[Resource.Gold] >=
 	                UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
 	            {
-	                return true;
+                    return new Dictionary<Resource, int>();
 	            }
 	        }
-	        return false;
+	        var missingResources = new Dictionary<Resource, int>
+	        {
+	            {
+	                Resource.Gold, UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
+	                               SensorData.MyTreasury[Resource.Gold]
+	            }
+	        };
+	        return missingResources;
 	    }
 
-	    private int findResourcesForDwellingMilitia()
+	    private List<Cell> findResourcesForDwellingMilitia(Dictionary<Resource, int> missingTreasury)
 	    {
-         //   var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold)
-         //                && !i.Value.Equals(Single.MaxValue)));
-	        //if (localPath.Count <= ValidVerificationStepNumber)
-	        //    return localPath;
-         //   else
-         //       return new List<Cell>();
+	        var goldCellList = new List<Cell>();
+	        while (missingTreasury[Resource.Gold] >= 0 && 
+                _cells.Where(o => (o.CellType == ObjectCellType.ResourceGold)
+                && !o.Value.Equals(Single.MaxValue) && !goldCellList.Contains(o)).ToList().Count != 0)
+            {
+                var localList = findGold(goldCellList);
+                foreach (var item in localList)
+                {
+                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
+                }
+                goldCellList.AddRange(localList);
+            }
 
+            var goldCellPath = new List<Cell>();
+            foreach (var goldCell in goldCellList)
+            {
+                goldCellPath.AddRange(GetMoves(goldCell));
+            }
+            
+            return goldCellPath;
         }
+
+	    private List<Cell> findGold(List<Cell> goldCellPath)
+	    {
+	        var goldCellList = _cells.Where(o => (o.CellType == ObjectCellType.ResourceGold)
+	                           && !o.Value.Equals(Single.MaxValue) && !goldCellPath.Contains(o)).ToList();
+
+            for (int i = 0; i < goldCellList.Count; i++)
+	        {
+                var cell = goldCellList.ElementAt(i);
+                var localPath = GetMoves(cell);
+	            if (localPath.Count <= ValidVerificationStepNumber)
+	            {
+                    goldCellPath.Add(cell);
+                    return goldCellPath;
+                }
+            }
+            return null;
+	    }
     }
 }

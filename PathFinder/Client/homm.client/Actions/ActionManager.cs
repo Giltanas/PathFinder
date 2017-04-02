@@ -90,8 +90,8 @@ namespace Homm.Client.Actions
                 if(path.Count == 0)
                     path = _finder.CheckDwellingInfantry(dwellingCheck, SensorData);
 
-                //if (path.Count == 0)
-                //    path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
+                if (path.Count == 0)
+                    path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
 
                 if (path.Count == 0)
                     path = _finder.CheckDwellingRanged(dwellingCheck, SensorData);
