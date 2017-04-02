@@ -130,3 +130,9 @@ UnloadTime: 3967.445557 ms
 Unloading 248 unused Assets to reduce memory usage. Loaded Objects now: 3207.
 Total: 59.074429 ms (FindLiveObjects: 0.760081 ms CreateObjectMapping: 1.521369 ms MarkObjects: 53.746010 ms  DeleteObjects: 3.044550 ms)
 
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 178 -> priority: 1 
+Dispatcher.OnDispose: GLOBAL EXIT
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

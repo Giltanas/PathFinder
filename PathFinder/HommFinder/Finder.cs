@@ -13,6 +13,7 @@ namespace HommFinder
 	{
 		public List<Cell> _cells;
 		private Cell _startCell;
+        const int ValidVerificationStepNumber = 5;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
@@ -122,7 +123,7 @@ namespace HommFinder
 						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
 
-        public List<Cell> checkDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingRanged)
@@ -134,11 +135,20 @@ namespace HommFinder
                 {
                     path = GetMoves(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceGlass)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingCavalry)
@@ -150,11 +160,20 @@ namespace HommFinder
                 {
                     path = GetMoves(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceEbony)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
             if (dwellingCheck.CellType == ObjectCellType.DwellingInfantry)
@@ -166,22 +185,60 @@ namespace HommFinder
                 {
                     path = GetMoves(dwellingCheck);
                 }
+                else
+                {
+                    //TODO:: check resources near path
+                    var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold ||
+                           i.CellType == ObjectCellType.ResourceIron)
+                           && !i.Value.Equals(Single.MaxValue)));
+                    if (localPath.Count < ValidVerificationStepNumber)
+                        path = localPath;
+                }
             }
             return path;
         }
 
-        public List<Cell> checkDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
         {
             var path = new List<Cell>();
-            if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+            if (existTreasuryDwellingMilitia(dwellingCheck, SensorData))
             {
-                if (SensorData.MyTreasury[Resource.Gold] >=
-                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
-                {
-                    path = GetMoves(dwellingCheck);
-                }
+                path = GetMoves(dwellingCheck);
+            }  
+            else
+            {
+                //TODO:: check resources near path
+                var localPath = findResourcesForDwellingMilitia();
+                if (findResourcesForDwellingMilitia().Count !=0)
+                    if (existTreasuryDwellingMilitia(dwellingCheck, SensorData))
+                        path = localPath;
             }
+
             return path;
+        }
+
+	    private bool existTreasuryDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+	    {
+	        if (dwellingCheck.CellType == ObjectCellType.DwellingMilitia)
+	        {
+	            if (SensorData.MyTreasury[Resource.Gold] >=
+	                UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+	            {
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+
+	    private int findResourcesForDwellingMilitia()
+	    {
+         //   var localPath = GetMoves(_cells.First(i => (i.CellType == ObjectCellType.ResourceGold)
+         //                && !i.Value.Equals(Single.MaxValue)));
+	        //if (localPath.Count <= ValidVerificationStepNumber)
+	        //    return localPath;
+         //   else
+         //       return new List<Cell>();
+
         }
     }
 }
