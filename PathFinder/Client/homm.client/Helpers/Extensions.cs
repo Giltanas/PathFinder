@@ -31,44 +31,49 @@ namespace Homm.Client.Helpers
 
 		public static Cell CreateCell(this LocationInfo location)
 		{
-			var x = location.X;
-			var y = location.Y;
-			//if (x % 2 == 1)
-			//{
-			//	y += 1;
-			//}
-			return new Cell(x, y);
+			return new Cell(location.X, location.Y);
 		}
 		public static ObjectCellType GetObjectCellType(this MapObjectData mapObjectData)
 		{
+            var oct = new ObjectCellType();
 			if (mapObjectData.Dwelling != null)
 			{
+                oct.MainType = MainCellType.Dwelling;
 				switch (mapObjectData.Dwelling.UnitType)
 				{
 					case UnitType.Ranged:
-						return ObjectCellType.DwellingRanged;
+				        oct.SubCellType = SubCellType.DwellingRanged;
+				        break;
 					case UnitType.Infantry:
-						return ObjectCellType.DwellingInfantry;
-					case UnitType.Militia:
-						return ObjectCellType.DwellingMilitia;
-					case UnitType.Cavalry:
-						return ObjectCellType.DwellingCavalry;
+                        oct.SubCellType = SubCellType.DwellingInfantry;
+				        break;
+                    case UnitType.Militia:
+                        oct.SubCellType = SubCellType.DwellingMilitia;
+                        break;
+                    case UnitType.Cavalry:
+                        oct.SubCellType = SubCellType.DwellingCavalry;
+				        break;
 				}
-			}
+            }
 
 			if (mapObjectData.Mine != null)
 			{
+                
 				switch (mapObjectData.Mine.Resource)
 				{
 					case Resource.Ebony:
-						return ObjectCellType.MineEbony;
-					case Resource.Glass:
-						return ObjectCellType.MineGlass;
-					case Resource.Gold:
-						return ObjectCellType.MineGold;
-					case Resource.Iron:
-						return ObjectCellType.MineIron;
-				}
+						oct.SubCellType =  SubCellType.MineEbony;
+                        break;
+				   case Resource.Glass:
+                        oct.SubCellType = SubCellType.MineGlass;
+                        break;
+                    case Resource.Gold:
+                        oct.SubCellType = SubCellType.MineGold;
+                        break;
+                    case Resource.Iron:
+                        oct.SubCellType = SubCellType.MineIron;
+                        break;
+                }
 			}
 
 			if (mapObjectData.ResourcePile != null)
@@ -76,18 +81,22 @@ namespace Homm.Client.Helpers
 				switch (mapObjectData.ResourcePile.Resource)
 				{
 					case Resource.Ebony:
-						return ObjectCellType.ResourceEbony;
-					case Resource.Glass:
-						return ObjectCellType.ResourceGlass;
-					case Resource.Gold:
-						return ObjectCellType.ResourceGold;
-					case Resource.Iron:
-						return ObjectCellType.ResourceIron;
-				}
+                        oct.SubCellType = SubCellType.ResourceEbony;
+                        break;
+                    case Resource.Glass:
+                        oct.SubCellType = SubCellType.ResourceGlass;
+                        break;
+                    case Resource.Gold:
+                        oct.SubCellType = SubCellType.MineGold;
+                        break;
+                    case Resource.Iron:
+                        oct.SubCellType = SubCellType.MineIron;
+                        break;
+                }
 			}
 
-			return ObjectCellType.None;
-		}
+            return oct;
+        }
 
 		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{

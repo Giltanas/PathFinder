@@ -106,7 +106,7 @@ namespace Homm.Client.Actions
             var availableResources = _finder.SearchAvailableResources();
             if (availableResources.Count != 0)
             {
-                path = _finder.GetMoves(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
+                path = _finder.GetMovesStraightToCell(availableResources.First(i => i.Value.Equals(availableResources.Min(m => m.Value)))).ToList();
                 move(path);
 
                 //TODO: search Mines near path
