@@ -119,3 +119,14 @@ UnloadTime: 4.740403 ms
 Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 280.
 Total: 4.124610 ms (FindLiveObjects: 0.117121 ms CreateObjectMapping: 0.127384 ms MarkObjects: 3.820939 ms  DeleteObjects: 0.034411 ms)
 
+game over. disposing
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.West.dll (this message is harmless)
+UnloadTime: 3391.245117 ms
+
+Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 49.705418 ms (FindLiveObjects: 8.423696 ms CreateObjectMapping: 4.486237 ms MarkObjects: 32.096737 ms  DeleteObjects: 4.694521 ms)
+
