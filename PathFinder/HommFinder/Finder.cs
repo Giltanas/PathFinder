@@ -234,9 +234,10 @@ namespace HommFinder
 			var goldCellPath = new List<Cell>();
 			var startCell = _startCell;
 
-		    for (int y = 0; y < goldCellList.Count; y++)
+		    for (int y = 0; y < goldCellList.Count-1; y++)
 		    {
-                goldCellPath.AddRange(GetMovesStraightToCell(goldCellList[y]));
+                var finderNew = new Finder(_cells, goldCellList[y]);
+                goldCellPath.AddRange(finderNew.GetMovesStraightToCell(goldCellList[y+1]));
             }
 			_startCell = goldCellList[goldCellList.Count - 1];
 			goldCellPath.AddRange(GetMovesStraightToCell(startCell));
