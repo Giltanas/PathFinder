@@ -132,31 +132,6 @@ namespace HommFinder
 			return path;
 		}
 
-		public List<Cell> CheckDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
-		{
-			var path = new List<Cell>();
-			if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
-			{
-				if (SensorData.MyTreasury[Resource.Gold] >=
-					UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] &&
-					SensorData.MyTreasury[Resource.Ebony] >=
-					UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony])
-				{
-					path = GetMovesStraightToCell(dwellingCheck);
-				}
-				else
-				{
-					//TODO:: check resources near path
-					var localPath = GetMovesStraightToCell(_cells.First(i => (i.CellType.SubCellType == SubCellType.ResourceGold ||
-						   i.CellType.SubCellType == SubCellType.ResourceEbony)
-						   && !i.Value.Equals(Single.MaxValue)));
-					if (localPath.Count < ValidVerificationStepNumber)
-						path = localPath;
-				}
-			}
-			return path;
-		}
-
 		public List<Cell> CheckDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
 		{
 			var path = new List<Cell>();
@@ -182,10 +157,30 @@ namespace HommFinder
 			return path;
 		}
 
-		public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
+        {
+            var path = new List<Cell>();
+            var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData);
+            if (missingTreasury.Count == 0)
+            {
+                path = GetMovesStraightToCell(dwellingCheck);
+            }
+            else
+            {
+                //TODO:: check resources near path
+                var localPath = GetMovesStraightToCell(_cells.First(i => (i.CellType.SubCellType == SubCellType.ResourceGold ||
+                        i.CellType.SubCellType == SubCellType.ResourceEbony)
+                        && !i.Value.Equals(Single.MaxValue)));
+                if (localPath.Count < ValidVerificationStepNumber)
+                    path = localPath;
+            }
+            return path;
+        }
+
+        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
 		{
 			var path = new List<Cell>();
-			var missingTreasury = existTreasuryForDwellingMilitia(dwellingCheck, SensorData);
+			var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData);
 			if (missingTreasury.Count == 0)
 			{
 				path = GetMovesStraightToCell(dwellingCheck);
@@ -201,24 +196,79 @@ namespace HommFinder
 			return path;
 		}
 
-		private Dictionary<Resource, int> existTreasuryForDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+		private Dictionary<Resource, int> existTreasuryForDwelling(Cell dwellingCheck,
+            HommSensorData localSensorData)
 		{
-			if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
+		    var missingResources = new Dictionary<Resource, int>();
+		    if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
+		    {
+		        if (localSensorData.MyTreasury[Resource.Gold] >=
+		            UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] &&
+		            localSensorData.MyTreasury[Resource.Ebony] >=
+		            UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony])
+		        {
+		            return new Dictionary<Resource, int>();
+		        }
+
+                missingResources.Add(Resource.Gold, 
+                    UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold] - 
+                    localSensorData.MyTreasury[Resource.Gold]);
+
+                missingResources.Add(Resource.Ebony,
+                    UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony] - 
+                    localSensorData.MyTreasury[Resource.Ebony]);
+		    }
+
+            if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
+            {
+                if (localSensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold] &&
+                    localSensorData.MyTreasury[Resource.Iron] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron])
+                {
+                    return new Dictionary<Resource, int>();
+                }
+
+                missingResources.Add(Resource.Gold,
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold] -
+                    localSensorData.MyTreasury[Resource.Gold]);
+
+                missingResources.Add(Resource.Ebony,
+                    UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Ebony] -
+                    localSensorData.MyTreasury[Resource.Ebony]);
+            }
+
+            if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
+            {
+                if (localSensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold] &&
+                    localSensorData.MyTreasury[Resource.Glass] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass])
+                {
+                    return new Dictionary<Resource, int>();
+                }
+
+                missingResources.Add(Resource.Gold,
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold] -
+                    localSensorData.MyTreasury[Resource.Gold]);
+
+                missingResources.Add(Resource.Glass,
+                    UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass] -
+                    localSensorData.MyTreasury[Resource.Glass]);
+            }
+
+            if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
 			{
-				if (SensorData.MyTreasury[Resource.Gold] >=
+				if (localSensorData.MyTreasury[Resource.Gold] >=
 					UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
 				{
 					return new Dictionary<Resource, int>();
 				}
-			}
-			var missingResources = new Dictionary<Resource, int>
-
-			{
-				{
-					Resource.Gold, UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
-								   SensorData.MyTreasury[Resource.Gold]
-				}
-			};
+                missingResources.Add(Resource.Gold, 
+                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] - 
+                    localSensorData.MyTreasury[Resource.Gold]);
+            }
+	
 			return missingResources;
 		}
 
@@ -229,12 +279,11 @@ namespace HommFinder
 				_cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
 				&& !o.Value.Equals(Single.MaxValue) && !goldCellList.Contains(o)).ToList().Count != 0)
 			{
-				/*var localList = */findGold(goldCellList);
+				findGold(goldCellList);
 				foreach (var item in goldCellList)
 				{
 					missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
 				}
-				//goldCellList.AddRange(localList);
 			}
 
 			var goldCellPath = new List<Cell>();
@@ -251,6 +300,55 @@ namespace HommFinder
             }   
 			return goldCellPath;
 		}
+
+	    private List<Cell> findResourcesForDwellingCavalry(Dictionary<Resource, int> missingTreasury)
+	    {
+            var goldEbonyCellList = new List<Cell>();
+	        while ((missingTreasury[Resource.Gold] >= 0 && missingTreasury[Resource.Ebony] >= 0) &&
+	               _cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold ||
+	                                  o.CellType.SubCellType == SubCellType.ResourceEbony) &&
+	                                 !o.Value.Equals(Single.MaxValue)).ToList().Count != 0)
+	        {
+	            findGold(goldEbonyCellList);
+                foreach (var item in goldEbonyCellList)
+                {
+                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
+                }
+            }
+
+            var goldCellPath = new List<Cell>();
+            if (goldEbonyCellList.Count > 0)
+            {
+                goldCellPath.AddRange(GetMovesStraightToCell(goldEbonyCellList[0]));
+                for (int y = 1; y < goldEbonyCellList.Count; y++)
+                {
+                    var finderNew = new Finder(_cells, goldEbonyCellList[y]);
+                    goldCellPath.AddRange(finderNew.GetMovesStraightToCell(goldEbonyCellList[y + 1]));
+                }
+                var finderToEnd = new Finder(_cells, goldEbonyCellList[goldEbonyCellList.Count - 1]);
+                goldCellPath.AddRange(finderToEnd.GetMovesStraightToCell(_startCell));
+            }
+            return goldCellPath;
+        }
+
+	    private List<Cell> findEbony(List<Cell> ebonyCellPath)
+	    {
+            var ebonyCellList = _cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceEbony)
+                               && !o.Value.Equals(Single.MaxValue) && !ebonyCellPath.Contains(o)).ToList();
+
+            for (int i = 0; i < ebonyCellList.Count; i++)
+            {
+                //TODO:: hear can be error
+                var cell = ebonyCellList.ElementAt(i);
+                var localPath = GetMovesStraightToCell(cell);
+                if (localPath.Count <= ValidVerificationStepNumber)
+                {
+                    ebonyCellPath.Add(cell);
+                    return ebonyCellPath;
+                }
+            }
+            return null;
+        }
 
 		private List<Cell> findGold(List<Cell> goldCellPath)
 		{
@@ -269,6 +367,7 @@ namespace HommFinder
 			}
 			return null;
 		}
+
 		private List<Cell> getNearCells(Cell cell)
 		{
 			var nearCells = new List<Cell>();
