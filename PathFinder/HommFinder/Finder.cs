@@ -245,7 +245,7 @@ namespace HommFinder
                     var finderNew = new Finder(_cells, goldCellList[y]);
                     goldCellPath.AddRange(finderNew.GetMovesStraightToCell(goldCellList[y + 1]));
                 }
-                var finderToEnd = new Finder(_cells, goldCellList[goldCellList.Count - 1]);
+                var finderToEnd = new Finder(_cells, goldCellList[goldCellList.Count]);
                 goldCellPath.AddRange(finderToEnd.GetMovesStraightToCell(_startCell));
             }   
 			return goldCellPath;
