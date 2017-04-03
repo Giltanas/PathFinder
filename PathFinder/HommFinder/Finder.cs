@@ -13,9 +13,9 @@ namespace HommFinder
 	{
 		public List<Cell> _cells;
 		private Cell _startCell;
-        const int ValidVerificationStepNumber = 5;
-        private Dictionary<Resource, int> _plusResources;
-        public Finder(List<Cell> cells, Cell startCell)
+		const int ValidVerificationStepNumber = 5;
+		private Dictionary<Resource, int> _plusResources;
+		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
 			_startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
@@ -27,20 +27,44 @@ namespace HommFinder
 			sendWave(_startCell);
 		}
 		
-		public List<Cell> GetSmartPath(Cell startCell, Cell endCell )
+		public List<Cell> GetSmartPath(Cell startCell, Cell endCell, List<Cell> smartPath=null )
 		{
-			var moves = GetMovesStraightToCell(endCell);
+			startCell = _cells.Find(c=> c.SameLocation(startCell));
+			endCell = _cells.Find(c => c.SameLocation(endCell));
+
+			if (startCell == null || endCell == null || endCell.TerrainCellType==TerrainCellType.Block)
+			{
+				return null;
+			}
+
+			var moves = new Finder(_cells,startCell).GetMovesStraightToCell(endCell);
+			if (smartPath == null)
+			{
+				smartPath = new List<Cell>();
+			}
 			foreach (var move in moves)
 			{
-			    var resourceCell = getNearCells(move).FirstOrDefault(c => c.CellType.MainType == MainCellType.Resource);
+				
+				smartPath.Add(move);
 
-                if (resourceCell != null)
-			    {
-			        
-			    }
+				if (move.Equals(endCell))
+				{
+					return smartPath;
+				}
+
+				var nearCells = getNearCells(move).FindAll(c => c.CellType.MainType == MainCellType.Resource);
+				foreach (var resourceCell in nearCells.Where(resourceCell => resourceCell != null && !smartPath.Contains(resourceCell)))
+				{
+					if (resourceCell.Equals(endCell))
+					{
+						smartPath.Add(endCell);
+						return smartPath;
+					}
+					return GetSmartPath(resourceCell, endCell, smartPath);
+				}
 
 			}
-			return  new List<Cell>();
+			return  smartPath;
 		}
 		public List<Cell> GetMovesStraightToCell(Cell endCell=null)
 		{
@@ -48,11 +72,11 @@ namespace HommFinder
 			{
 				return new List<Cell>();
 			}
-			endCell = _cells.SingleOrDefault(c=> c.X == endCell.X && c.Y == endCell.Y);
+			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
 			return endCell.Value == Single.MaxValue ?
 				new List<Cell>() : 
 				getMoves(_startCell,
-				_cells.SingleOrDefault(c => c.X == endCell.X && c.Y == endCell.Y),
+				_cells.SingleOrDefault(c => c.SameLocation(endCell)),
 				new Stack<Cell>()).ToList();
 		}
 
@@ -269,7 +293,7 @@ namespace HommFinder
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
 
-			cells.Push(new Cell(endCell.X, endCell.Y, endCell.TerrainCellType, endCell.CellType));
+			cells.Push(_cells.Find(c=> c.SameLocation(endCell)));
 			if (!endCell.Equals(startCell))
 			{
 				var nearCells = getNearCells(endCell);
