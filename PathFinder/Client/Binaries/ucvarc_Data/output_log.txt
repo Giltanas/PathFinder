@@ -31,7 +31,7 @@ Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binar
 Loading C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll into Unity Child Domain
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll (this message is harmless)
 Loading C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll into Unity Child Domain
-- Completed reload, in  0.160 seconds
+- Completed reload, in  0.185 seconds
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
@@ -39,7 +39,7 @@ XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 2.969091 ms
+UnloadTime: 3.073534 ms
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.Linq.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.dll (this message is harmless)
@@ -48,7 +48,7 @@ Loaded settings, version=3
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-**************  UNITY STARTED 4/3/2017 11:41:16 PM
+**************  UNITY STARTED 4/4/2017 12:08:32 AM
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -57,8 +57,8 @@ DlcLoader.LoadAssemblies: Loading assembly pudge.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-10315420 (this message is harmless)
-Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-10315420.dll
+Non platform assembly: data-10314E58 (this message is harmless)
+Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-10314E58.dll
 Dispatcher.FillLoader: pudge final is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -75,8 +75,8 @@ DlcLoader.LoadAssemblies: Loading assembly homm.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-103693C8 (this message is harmless)
-Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-103693C8.dll
+Non platform assembly: data-10375068 (this message is harmless)
+Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-10375068.dll
 Dispatcher.FillLoader: homm Level1 is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -114,10 +114,10 @@ Dispatcher.IntroductionTick: Starting remote game
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 4.740403 ms
+UnloadTime: 0.524028 ms
 
 Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 280.
-Total: 4.124610 ms (FindLiveObjects: 0.117121 ms CreateObjectMapping: 0.127384 ms MarkObjects: 3.820939 ms  DeleteObjects: 0.034411 ms)
+Total: 0.872374 ms (FindLiveObjects: 0.027771 ms CreateObjectMapping: 0.028374 ms MarkObjects: 0.805965 ms  DeleteObjects: 0.006640 ms)
 
 game over. disposing
  
@@ -125,13 +125,39 @@ game over. disposing
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.West.dll (this message is harmless)
-UnloadTime: 3391.245117 ms
+UnloadTime: 1523.281616 ms
 
 Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
-Total: 49.705418 ms (FindLiveObjects: 8.423696 ms CreateObjectMapping: 4.486237 ms MarkObjects: 32.096737 ms  DeleteObjects: 4.694521 ms)
+Total: 14.594913 ms (FindLiveObjects: 0.722048 ms CreateObjectMapping: 1.194760 ms MarkObjects: 9.266487 ms  DeleteObjects: 3.408599 ms)
+
+PlayServer.HasGame: Requested game homm.Level1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Game found in loader
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted client Left
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+PlayServer.HasGame: Accepted 1 connections
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dispatcher.IntroductionTick: Starting remote game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
+UnloadTime: 92.357574 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3201.
+Total: 198.708755 ms (FindLiveObjects: 2.005555 ms CreateObjectMapping: 6.815386 ms MarkObjects: 189.756805 ms  DeleteObjects: 0.127988 ms)
 
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 31ec -> priority: 1 
+  Thread -> id: 1f0 -> priority: 1 
 Dispatcher.OnDispose: GLOBAL EXIT
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
