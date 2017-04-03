@@ -78,8 +78,11 @@ namespace HommFinder
 			}
 
 			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
-
-			return endCell.Value == Single.MaxValue ?
+		    if (endCell.SameLocation(_startCell))
+		    {
+		        return  new List<Cell>();
+		    }
+			return endCell.Value.Equals(Single.MaxValue) ?
 				new List<Cell>() : 
 				getMoves(_startCell,
 				_cells.SingleOrDefault(c => c.SameLocation(endCell)),
