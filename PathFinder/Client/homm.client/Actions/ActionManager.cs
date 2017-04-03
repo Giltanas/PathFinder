@@ -71,7 +71,7 @@ namespace Homm.Client.Actions
 		{
 			UpdateMap();
 
-		    var path = new List<Cell>();
+		    
 			//var path = _finder.GetSmartPath(CurrentCell,new Cell(4,4));
 			//move(path);
 

@@ -14,7 +14,11 @@ namespace HommFinder
 		public List<Cell> _cells;
 		private Cell _startCell;
 		const int ValidVerificationStepNumber = 5;
-		private Dictionary<Resource, int> _plusResources;
+	    private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
+	    private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
+        private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
+		private static readonly	int[] dy1 = new[] { 0, 0, 1, 1, 1, -1 };
+	    private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
@@ -72,7 +76,9 @@ namespace HommFinder
 			{
 				return new List<Cell>();
 			}
+
 			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
+
 			return endCell.Value == Single.MaxValue ?
 				new List<Cell>() : 
 				getMoves(_startCell,
@@ -265,25 +271,33 @@ namespace HommFinder
 			var nearCells = new List<Cell>();
 
 		//X % 2 = 0
-  			var dx = new[] { 1, -1, 0, 1, -1, 0 };
-  			var dy = new[] { 0, 0, 1, -1, -1, -1 };
- 			//X % 2 = 0
- 			//if (cell.X % 2 == 0)
- 			//X % 2 = 1
- 
-			if (cell.X % 2 == 1)
+
+
+		    if (cell.X % 2 == 0)
+		    {
+                for (int i = 0; i < 6; i++)
+                {
+                    var nearCell = getCell(cell.X + dx0[i], cell.Y + dy0[i]);
+                    if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
+                    {
+                        nearCells.Add(nearCell);
+                    }
+                }
+            }
+
+		    //X % 2 = 1
+            if (cell.X % 2 == 1)
 			{
-				dx = new[] { 1, -1, 0, 1, -1, 0 };
-				dy = new[] { 0, 0, 1, 1, 1, -1 };
-			}
-			for (int i = 0; i < 6; i++)
-			{
-				var nearCell = getCell(cell.X + dx[i], cell.Y + dy[i]);
-				if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
-				{
-					nearCells.Add(nearCell);
-				}
-			}
+                for (int i = 0; i < 6; i++)
+                {
+                    var nearCell = getCell(cell.X + dx1[i], cell.Y + dy1[i]);
+                    if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
+                    {
+                        nearCells.Add(nearCell);
+                    }
+                }
+            }
+
 			return nearCells;
 		}
 
