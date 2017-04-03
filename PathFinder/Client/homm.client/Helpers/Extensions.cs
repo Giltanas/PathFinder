@@ -88,10 +88,10 @@ namespace Homm.Client.Helpers
                         oct.SubCellType = SubCellType.ResourceGlass;
                         break;
                     case Resource.Gold:
-                        oct.SubCellType = SubCellType.MineGold;
+                        oct.SubCellType = SubCellType.ResourceGold;
                         break;
                     case Resource.Iron:
-                        oct.SubCellType = SubCellType.MineIron;
+                        oct.SubCellType = SubCellType.ResourceIron;
                         break;
                 }
 			}
