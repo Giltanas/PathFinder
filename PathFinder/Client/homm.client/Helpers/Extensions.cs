@@ -78,6 +78,7 @@ namespace Homm.Client.Helpers
 				switch (mapObjectData.ResourcePile.Resource)
 				{
 					case Resource.Ebony:
+<<<<<<< HEAD
 						oct.SubCellType = SubCellType.ResourceEbony;
 						break;
 					case Resource.Glass:
@@ -90,6 +91,20 @@ namespace Homm.Client.Helpers
 						oct.SubCellType = SubCellType.ResourceIron;
 						break;
 				}
+=======
+                        oct.SubCellType = SubCellType.ResourceEbony;
+                        break;
+                    case Resource.Glass:
+                        oct.SubCellType = SubCellType.ResourceGlass;
+                        break;
+                    case Resource.Gold:
+                        oct.SubCellType = SubCellType.ResourceGold;
+                        break;
+                    case Resource.Iron:
+                        oct.SubCellType = SubCellType.ResourceIron;
+                        break;
+                }
+>>>>>>> refs/remotes/origin/master
 			}
 
 			return oct;

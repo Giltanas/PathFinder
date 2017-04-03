@@ -47,10 +47,12 @@ namespace Homm.Client.Helpers
 				if (x == -1 && y == -1)
 				{
 					direction.Add(Direction.LeftUp);
+					continue;
 				}
 				if (x == -1 && y == 0)
 				{
 					direction.Add(cells[i - 1].X % 2 == 0 ? Direction.LeftDown : Direction.LeftUp);
+					continue;
 				}
 				if (x == 1 && y == 0)
 				{

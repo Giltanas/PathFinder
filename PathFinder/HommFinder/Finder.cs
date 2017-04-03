@@ -206,6 +206,7 @@ namespace HommFinder
 				}
 			}
 			var missingResources = new Dictionary<Resource, int>
+
 			{
 				{
 					Resource.Gold, UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
@@ -218,24 +219,25 @@ namespace HommFinder
 		private List<Cell> findResourcesForDwellingMilitia(Dictionary<Resource, int> missingTreasury)
 		{
 			var goldCellList = new List<Cell>();
-			while (missingTreasury[Resource.Gold] >= 0 && 
+			while (missingTreasury[Resource.Gold] >= 0 &&
 				_cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
 				&& !o.Value.Equals(Single.MaxValue) && !goldCellList.Contains(o)).ToList().Count != 0)
 			{
-				var localList = findGold(goldCellList);
-				foreach (var item in localList)
+				/*var localList = */findGold(goldCellList);
+				foreach (var item in goldCellList)
 				{
 					missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
 				}
-				goldCellList.AddRange(localList);
+				//goldCellList.AddRange(localList);
 			}
 
 			var goldCellPath = new List<Cell>();
+			var startCell = _startCell;
 			foreach (var goldCell in goldCellList)
 			{
 				goldCellPath.AddRange(GetMovesStraightToCell(goldCell));
 			}
-			
+			goldCellPath.AddRange(GetMovesStraightToCell(startCell));
 			return goldCellPath;
 		}
 
