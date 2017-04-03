@@ -70,7 +70,7 @@ namespace Homm.Client.Actions
 		public void Play()
 		{
 			UpdateMap();
-			var path = _finder.GetMovesStraightToCell(new Cell(0,7));
+			var path = _finder.GetSmartPath(CurrentCell,new Cell(4,4));
 			move(path);
 			//var availableMines = _finder.SearchAvailableMines();
 			//if (availableMines.Count != 0)

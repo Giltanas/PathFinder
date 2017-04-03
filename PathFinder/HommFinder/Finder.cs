@@ -260,16 +260,14 @@ namespace HommFinder
 		{
 			var nearCells = new List<Cell>();
 
-			int[] dx;
-			int[] dy;
-			//X % 2 = 0
+		//X % 2 = 0
+  			var dx = new[] { 1, -1, 0, 1, -1, 0 };
+  			var dy = new[] { 0, 0, 1, -1, -1, -1 };
+ 			//X % 2 = 0
+ 			//if (cell.X % 2 == 0)
+ 			//X % 2 = 1
+ 
 			if (cell.X % 2 == 1)
-			{
-				dx = new[] { 1, -1, 0, 1, -1, 0 };
-				dy = new[] { 0, 0, 1, -1, -1, -1 };
-			}
-			//X % 2 = 1
-			else
 			{
 				dx = new[] { 1, -1, 0, 1, -1, 0 };
 				dy = new[] { 0, 0, 1, 1, 1, -1 };
