@@ -71,8 +71,9 @@ namespace Homm.Client.Actions
 		{
 			UpdateMap();
 
-			var path = _finder.GetSmartPath(CurrentCell,new Cell(4,4));
-			move(path);
+		    var path = new List<Cell>();
+			//var path = _finder.GetSmartPath(CurrentCell,new Cell(4,4));
+			//move(path);
 
 
 			//var availableMines = _finder.SearchAvailableMines();

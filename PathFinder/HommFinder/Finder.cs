@@ -233,10 +233,12 @@ namespace HommFinder
 
 			var goldCellPath = new List<Cell>();
 			var startCell = _startCell;
-			foreach (var goldCell in goldCellList)
-			{
-				goldCellPath.AddRange(GetMovesStraightToCell(goldCell));
-			}
+
+		    for (int y = 0; y < goldCellList.Count; y++)
+		    {
+                goldCellPath.AddRange(GetMovesStraightToCell(goldCellList[y]));
+            }
+			_startCell = goldCellList[goldCellList.Count - 1];
 			goldCellPath.AddRange(GetMovesStraightToCell(startCell));
 			return goldCellPath;
 		}
@@ -292,7 +294,6 @@ namespace HommFinder
 		}
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
-
 			cells.Push(_cells.Find(c=> c.SameLocation(endCell)));
 			if (!endCell.Equals(startCell))
 			{
