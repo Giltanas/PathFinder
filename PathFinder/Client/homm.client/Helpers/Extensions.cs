@@ -15,16 +15,12 @@ namespace Homm.Client.Helpers
 		{
 			var x = mapObjectData.Location.X;
 			var y = mapObjectData.Location.Y;
-			//if (x % 2 == 1)
-			//{
-			//	y += 1;
-			//}
 			int resourcesValue = 0;
 			if (mapObjectData.Dwelling != null)
-			    resourcesValue = mapObjectData.Dwelling.AvailableToBuyCount;
+				resourcesValue = mapObjectData.Dwelling.AvailableToBuyCount;
 			
 			if (mapObjectData.ResourcePile != null)
-			    resourcesValue = mapObjectData.ResourcePile.Amount;
+				resourcesValue = mapObjectData.ResourcePile.Amount;
 			
 			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType(), resourcesValue);
 		}
@@ -35,53 +31,67 @@ namespace Homm.Client.Helpers
 		}
 		public static ObjectCellType GetObjectCellType(this MapObjectData mapObjectData)
 		{
-            var oct = new ObjectCellType();
+			var oct = new ObjectCellType();
 			if (mapObjectData.Dwelling != null)
 			{
-                oct.MainType = MainCellType.Dwelling;
+				oct.MainType = MainCellType.Dwelling;
 				switch (mapObjectData.Dwelling.UnitType)
 				{
 					case UnitType.Ranged:
-				        oct.SubCellType = SubCellType.DwellingRanged;
-				        break;
+						oct.SubCellType = SubCellType.DwellingRanged;
+						break;
 					case UnitType.Infantry:
-                        oct.SubCellType = SubCellType.DwellingInfantry;
-				        break;
-                    case UnitType.Militia:
-                        oct.SubCellType = SubCellType.DwellingMilitia;
-                        break;
-                    case UnitType.Cavalry:
-                        oct.SubCellType = SubCellType.DwellingCavalry;
-				        break;
+						oct.SubCellType = SubCellType.DwellingInfantry;
+						break;
+					case UnitType.Militia:
+						oct.SubCellType = SubCellType.DwellingMilitia;
+						break;
+					case UnitType.Cavalry:
+						oct.SubCellType = SubCellType.DwellingCavalry;
+						break;
 				}
-            }
+			}
 
 			if (mapObjectData.Mine != null)
 			{
-                oct.MainType = MainCellType.Mine;
-                switch (mapObjectData.Mine.Resource)
+				oct.MainType = MainCellType.Mine;
+				switch (mapObjectData.Mine.Resource)
 				{
 					case Resource.Ebony:
 						oct.SubCellType =  SubCellType.MineEbony;
-                        break;
+						break;
 				   case Resource.Glass:
-                        oct.SubCellType = SubCellType.MineGlass;
-                        break;
-                    case Resource.Gold:
-                        oct.SubCellType = SubCellType.MineGold;
-                        break;
-                    case Resource.Iron:
-                        oct.SubCellType = SubCellType.MineIron;
-                        break;
-                }
+						oct.SubCellType = SubCellType.MineGlass;
+						break;
+					case Resource.Gold:
+						oct.SubCellType = SubCellType.MineGold;
+						break;
+					case Resource.Iron:
+						oct.SubCellType = SubCellType.MineIron;
+						break;
+				}
 			}
 
 			if (mapObjectData.ResourcePile != null)
 			{
-                oct.MainType = MainCellType.Resource;
-                switch (mapObjectData.ResourcePile.Resource)
+				oct.MainType = MainCellType.Resource;
+				switch (mapObjectData.ResourcePile.Resource)
 				{
 					case Resource.Ebony:
+<<<<<<< HEAD
+						oct.SubCellType = SubCellType.ResourceEbony;
+						break;
+					case Resource.Glass:
+						oct.SubCellType = SubCellType.ResourceGlass;
+						break;
+					case Resource.Gold:
+						oct.SubCellType = SubCellType.ResourceGold;
+						break;
+					case Resource.Iron:
+						oct.SubCellType = SubCellType.ResourceIron;
+						break;
+				}
+=======
                         oct.SubCellType = SubCellType.ResourceEbony;
                         break;
                     case Resource.Glass:
@@ -94,10 +104,11 @@ namespace Homm.Client.Helpers
                         oct.SubCellType = SubCellType.ResourceIron;
                         break;
                 }
+>>>>>>> refs/remotes/origin/master
 			}
 
-            return oct;
-        }
+			return oct;
+		}
 
 		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{

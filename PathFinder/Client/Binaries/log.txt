@@ -1237,6 +1237,9 @@ PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
 Dispatcher.OnDispose: GLOBAL EXIT
+<<<<<<< HEAD
+**************  UNITY STARTED 4/3/2017 5:01:44 PM
+=======
 **************  UNITY STARTED 4/3/2017 2:40:46 PM
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
 Dispatcher.FillLoader: pudge final is loaded
@@ -1291,6 +1294,7 @@ PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 2:50:16 PM
+>>>>>>> refs/remotes/origin/master
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
 Dispatcher.FillLoader: pudge final is loaded
 Dispatcher.FillLoader: pudge debug is loaded
@@ -1320,6 +1324,8 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 3:12:23 PM
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
@@ -1331,6 +1337,7 @@ Dispatcher.FillLoader: homm Level1 is loaded
 Dispatcher.FillLoader: homm Level2 is loaded
 Dispatcher.FillLoader: homm Level3 is loaded
 DlcLoader.LoadAssemblies: Loaded assembly homm.dll
+>>>>>>> refs/remotes/origin/master
 PlayServer.HasGame: Requested game homm.Level1
 PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
@@ -1476,6 +1483,8 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 3:56:15 PM
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
@@ -1487,6 +1496,7 @@ Dispatcher.FillLoader: homm Level1 is loaded
 Dispatcher.FillLoader: homm Level2 is loaded
 Dispatcher.FillLoader: homm Level3 is loaded
 DlcLoader.LoadAssemblies: Loaded assembly homm.dll
+>>>>>>> refs/remotes/origin/master
 PlayServer.HasGame: Requested game homm.Level1
 PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
@@ -1507,6 +1517,8 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 4:12:32 PM
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
@@ -1518,13 +1530,18 @@ Dispatcher.FillLoader: homm Level1 is loaded
 Dispatcher.FillLoader: homm Level2 is loaded
 Dispatcher.FillLoader: homm Level3 is loaded
 DlcLoader.LoadAssemblies: Loaded assembly homm.dll
+>>>>>>> refs/remotes/origin/master
 PlayServer.HasGame: Requested game homm.Level1
 PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+**************  UNITY STARTED 4/3/2017 6:35:25 PM
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 4:13:00 PM
+>>>>>>> refs/remotes/origin/master
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
 Dispatcher.FillLoader: pudge final is loaded
 Dispatcher.FillLoader: pudge debug is loaded
@@ -1544,6 +1561,8 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
 **************  UNITY STARTED 4/3/2017 4:17:36 PM
 DlcLoader.LoadAssemblies: Loading assembly pudge.dll
@@ -1560,6 +1579,7 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+>>>>>>> refs/remotes/origin/master
 PlayServer.HasGame: Requested game homm.Level1
 PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
@@ -1610,4 +1630,7 @@ PlayServer.HasGame: Game found in loader
 PlayServer.HasGame: Accepted client Left
 PlayServer.HasGame: Accepted 1 connections
 Dispatcher.IntroductionTick: Starting remote game
+<<<<<<< HEAD
+=======
 Dispatcher.OnDispose: GLOBAL EXIT
+>>>>>>> refs/remotes/origin/master
