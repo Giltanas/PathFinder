@@ -70,12 +70,11 @@ namespace Homm.Client.Actions
 		public void Play()
 		{
 			UpdateMap();
-<<<<<<< HEAD
+
 			var path = _finder.GetSmartPath(CurrentCell,new Cell(4,4));
 			move(path);
-=======
-			var path = new List<Cell>();
->>>>>>> refs/remotes/origin/master
+
+
 			//var availableMines = _finder.SearchAvailableMines();
 			//if (availableMines.Count != 0)
 			//{
@@ -86,7 +85,6 @@ namespace Homm.Client.Actions
 			//	//TODO: search Dwellings near path			
 			//}
 
-<<<<<<< HEAD
 			//var availableDwellings = _finder.SearchAvailableDwellings();
 			//if (availableDwellings.Count != 0)
 			//{
@@ -118,8 +116,8 @@ namespace Homm.Client.Actions
 			//	//TODO: search Mines near path
 			//	//TODO: search Dwellings near path
 			//}
-		}
-=======
+	
+
 			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
@@ -152,7 +150,6 @@ namespace Homm.Client.Actions
             //    //TODO: search Dwellings near path
             //}
         }
->>>>>>> refs/remotes/origin/master
 
 		private void move(List<Cell> path)
 		{
