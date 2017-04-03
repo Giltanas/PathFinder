@@ -274,36 +274,18 @@ namespace HommFinder
 		private List<Cell> getNearCells(Cell cell)
 		{
 			var nearCells = new List<Cell>();
-
-		//X % 2 = 0
-
-
-		    if (cell.X % 2 == 0)
+		    for (int i = 0; i < 6; i++)
 		    {
-                for (int i = 0; i < 6; i++)
+		        Cell nearCell = null;
+
+                nearCell = cell.X % 2 == 0 ? getCell(cell.X + dx0[i], cell.Y + dy0[i]) : getCell(cell.X + dx1[i], cell.Y + dy1[i]);
+
+                if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
                 {
-                    var nearCell = getCell(cell.X + dx0[i], cell.Y + dy0[i]);
-                    if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
-                    {
-                        nearCells.Add(nearCell);
-                    }
+                    nearCells.Add(nearCell);
                 }
             }
-
-		    //X % 2 = 1
-            if (cell.X % 2 == 1)
-			{
-                for (int i = 0; i < 6; i++)
-                {
-                    var nearCell = getCell(cell.X + dx1[i], cell.Y + dy1[i]);
-                    if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
-                    {
-                        nearCells.Add(nearCell);
-                    }
-                }
-            }
-
-			return nearCells;
+		    return nearCells;
 		}
 
 		private Cell getCell(int x, int y)
