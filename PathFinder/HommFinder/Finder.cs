@@ -78,8 +78,11 @@ namespace HommFinder
 			}
 
 			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
-
-			return endCell.Value == Single.MaxValue ?
+		    if (endCell.SameLocation(_startCell))
+		    {
+		        return  new List<Cell>();
+		    }
+			return endCell.Value.Equals(Single.MaxValue) ?
 				new List<Cell>() : 
 				getMoves(_startCell,
 				_cells.SingleOrDefault(c => c.SameLocation(endCell)),
@@ -246,7 +249,7 @@ namespace HommFinder
                     var finderNew = new Finder(_cells, goldCellList[y]);
                     goldCellPath.AddRange(finderNew.GetMovesStraightToCell(goldCellList[y + 1]));
                 }
-                _startCell = goldCellList[goldCellList.Count - 1];
+                startCell = goldCellList[goldCellList.Count - 1];
                 goldCellPath.AddRange(GetMovesStraightToCell(startCell));
             }   
 			return goldCellPath;
