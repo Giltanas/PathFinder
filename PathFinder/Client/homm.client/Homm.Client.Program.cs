@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Homm.Client.Converter;
+using Homm.Client.Helpers;
 using Homm.Client.Output;
 using HoMM.Sensors;
 using HoMM;
@@ -27,7 +27,7 @@ namespace Homm.Client
 
 			//client.OnSensorDataReceived += Print;
 			client.OnInfo += OnInfo;
-
+			
 			var sensorData = client.Configurate(
 				ip, port, CvarcTag,
 
@@ -56,26 +56,26 @@ namespace Homm.Client
 			
 			var outPutPrinter = new CmdOutPutPrinter();
 
-			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height+1);
-			var listCells = sensorData.Map.Objects.Select(item => item.ConvertMapObjectDataToCell()).ToList();
-		    var pathFinder = new Finder(listCells);
+			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
+			var listCells = sensorData.Map.Objects.Select(item => item.ToCell()).ToList();
+			var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
 
-			var a = pathFinder.GetMoves(sensorData.Map.Objects
-				.Single(o => o.Location.X == sensorData.Location.X && o.Location.Y == sensorData.Location.Y)
-					.ConvertMapObjectDataToCell(), sensorData.Map.Objects
-				.Single(o => o.Location.X == 10 && o.Location.Y == 0)
-					.ConvertMapObjectDataToCell());
-			outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height + 1);
-			var b = Converter.ConverterExtensions.ConvertCellPathToDirection(a);
+			//var a = pathFinder.GetMoves(sensorData.Map.Objects.Single(o => o.Location.X == 10 && o.Location.Y == 10).ToCell());
 
-			//var actionManager = new ActionManager();
-			//var availableDwelings = actionManager.SearchAvailableDwellings();
+			//outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
+			//var b = Converter.ConvertCellPathToDirection(a);
 
-			foreach (var item in b)
+			//foreach (var item in b)
+			//{
+			//	client.Move(item);
+			//}
+
+			var actionManager = new ActionManager(client, sensorData);
+			//TODO: remove this cicle
+			while (true)
 			{
-				client.Move(item);
+				actionManager.Play();
 			}
-		
 			client.Exit();
 		}
 
