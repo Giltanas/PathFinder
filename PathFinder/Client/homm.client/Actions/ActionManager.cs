@@ -207,6 +207,11 @@ namespace Homm.Client.Actions
 				}
 			}
 		}
+
+		private void aiLogic()
+		{
+			
+		}
 	}
 
 	public enum MapType

@@ -13,12 +13,12 @@ namespace HommFinder
 	{
 		public List<Cell> _cells;
 		private Cell _startCell;
-		const int ValidVerificationStepNumber = 20;
-	    private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
-	    private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
-        private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
+		const int ValidVerificationStepNumber = 5;
+		private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
+		private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
+		private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
 		private static readonly	int[] dy1 = new[] { 0, 0, 1, 1, 1, -1 };
-	    private Dictionary<Resource, int> _plusResources;
+		private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
 			_cells = cells;
@@ -69,6 +69,12 @@ namespace HommFinder
 
 			}
 			return  smartPath;
+		}
+
+		public bool CanDoSomething(Dictionary<Resource,int> myTreasure)
+		{
+			//Implement checking can do something to reach more points
+			return true;
 		}
 		public List<Cell> GetMovesStraightToCell(Cell endCell=null)
 		{
@@ -282,18 +288,18 @@ namespace HommFinder
 		private List<Cell> getNearCells(Cell cell)
 		{
 			var nearCells = new List<Cell>();
-		    for (int i = 0; i < 6; i++)
-		    {
-		        Cell nearCell = null;
+			for (int i = 0; i < 6; i++)
+			{
+				Cell nearCell = null;
 
-                nearCell = cell.X % 2 == 0 ? getCell(cell.X + dx0[i], cell.Y + dy0[i]) : getCell(cell.X + dx1[i], cell.Y + dy1[i]);
+				nearCell = cell.X % 2 == 0 ? getCell(cell.X + dx0[i], cell.Y + dy0[i]) : getCell(cell.X + dx1[i], cell.Y + dy1[i]);
 
-                if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
-                {
-                    nearCells.Add(nearCell);
-                }
-            }
-		    return nearCells;
+				if (nearCell != null && nearCell.TerrainCellType != TerrainCellType.Block)
+				{
+					nearCells.Add(nearCell);
+				}
+			}
+			return nearCells;
 		}
 
 		private Cell getCell(int x, int y)
