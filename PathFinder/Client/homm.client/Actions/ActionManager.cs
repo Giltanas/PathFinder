@@ -71,17 +71,17 @@ namespace Homm.Client.Actions
 		{
 			UpdateMap();
 			
-            var path = new List<Cell>();
+			var path = new List<Cell>();
 
-            var availableDwellings = _finder.SearchAvailableDwellings();
+			var availableDwellings = _finder.SearchAvailableDwellings();
 			if (availableDwellings.Count != 0)
 			{
 				//TODO:: write right search of dwellings
 				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
-				//var dwellingCheck = availableDwellings.First(i => i.CellType.SubCellType == SubCellType.DwellingRanged);
-				if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
+				//var dwellingCheck = availableDwellings.FirstOrDefault(i => i.CellType.SubCellType == SubCellType.DwellingInfantry);
+				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
 				{
-					path = _finder.CheckDwellingCavalry(dwellingCheck, SensorData);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Cavalry, Resource.Ebony);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -89,9 +89,9 @@ namespace Homm.Client.Actions
 					}
 				}
 
-				if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
+				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
 				{
-					path = _finder.CheckDwellingInfantry(dwellingCheck, SensorData);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Infantry, Resource.Iron);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -100,24 +100,22 @@ namespace Homm.Client.Actions
 					}
 				}
 
-				if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
-			    {
-                    path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
+				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
+				{
+					path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
 					if (path.Count != 0)
 					{
 						move(path);
 						SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwellingCheck));
 					}
-                }
+				}
 
-
-				if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
+				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
 				{
-					path = _finder.CheckDwellingRanged(dwellingCheck, SensorData);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Ranged, Resource.Glass);
 					if (path.Count != 0)
 					{
 						move(path);
-						//TODO:: fix error : he does not hire units
 						SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwellingCheck));
 					}
 				}
@@ -125,7 +123,7 @@ namespace Homm.Client.Actions
 				//TODO: search Resources near path
 				//TODO: search Mines near path
 			}
-        }
+		}
 
 		private int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
 		{
@@ -146,7 +144,7 @@ namespace Homm.Client.Actions
 				var maxAmountEbony = (int)SensorData.MyTreasury[Resource.Ebony] / UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony];
 				int amountOfUnitsToBuy;
 
-				if (maxAmountGold > maxAmountEbony)
+				if (maxAmountGold < maxAmountEbony)
 					amountOfUnitsToBuy = maxAmountGold;
 				else
 					amountOfUnitsToBuy = maxAmountEbony;
@@ -163,7 +161,7 @@ namespace Homm.Client.Actions
 				var maxAmountIron = (int)SensorData.MyTreasury[Resource.Iron] / UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron];
 				int amountOfUnitsToBuy;
 
-				if (maxAmountGold > maxAmountIron)
+				if (maxAmountGold < maxAmountIron)
 					amountOfUnitsToBuy = maxAmountGold;
 				else
 					amountOfUnitsToBuy = maxAmountIron;
@@ -181,7 +179,7 @@ namespace Homm.Client.Actions
 				var maxAmountGlass = (int)SensorData.MyTreasury[Resource.Glass] / UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass];
 				int amountOfUnitsToBuy;
 
-				if (maxAmountGold > maxAmountGlass)
+				if (maxAmountGold < maxAmountGlass)
 					amountOfUnitsToBuy = maxAmountGold;
 				else
 					amountOfUnitsToBuy = maxAmountGlass;

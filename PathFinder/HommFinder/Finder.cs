@@ -107,60 +107,24 @@ namespace HommFinder
 						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
 
-		public List<Cell> CheckDwellingRanged(Cell dwellingCheck, HommSensorData SensorData)
-		{
-			var path = new List<Cell>();
-			var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, UnitType.Ranged, Resource.Glass);
-			if (missingTreasury.Count == 0)
-			{
-				path = GetMovesStraightToCell(dwellingCheck);
-			}
-			else
-			{
-				//TODO:: check resources near path
-				var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, Resource.Glass);
-				if (localPath.Count < ValidVerificationStepNumber)
-					path = localPath;
-			}
-			return path;
-		}
-
-		public List<Cell> CheckDwellingInfantry(Cell dwellingCheck, HommSensorData SensorData)
-		{
-			var path = new List<Cell>();
-			var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, UnitType.Infantry, Resource.Iron);
-			if (missingTreasury.Count == 0)
-			{
-				path = GetMovesStraightToCell(dwellingCheck);
-			}
-			else
-			{
-				//TODO:: check resources near path
-				var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, Resource.Iron);
-				if (localPath.Count < ValidVerificationStepNumber)
-					path = localPath;
-			}
-			return path;
-		}
-
-        public List<Cell> CheckDwellingCavalry(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwelling(Cell dwellingCheck, HommSensorData SensorData, UnitType unitType, Resource resource)
         {
             var path = new List<Cell>();
-            var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, UnitType.Cavalry, Resource.Ebony);
+            var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, unitType, resource);
             if (missingTreasury.Count == 0)
             {
                 path = GetMovesStraightToCell(dwellingCheck);
             }
             else
             {
-				//TODO:: check resources near path
-				var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, Resource.Ebony);
+                //TODO:: check resources near path
+                var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, resource);
                 if (localPath.Count < ValidVerificationStepNumber)
                     path = localPath;
             }
             return path;
         }
-
+       
         public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
 		{
 			var path = new List<Cell>();
@@ -186,36 +150,36 @@ namespace HommFinder
 
 		    var missingResources = new Dictionary<Resource, int>();
 
-			if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
-			{
-				if (localSensorData.MyTreasury[Resource.Gold] >=
-					UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
-				{
-					return new Dictionary<Resource, int>();
-				}
-				missingResources.Add(Resource.Gold,
-					UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
-					localSensorData.MyTreasury[Resource.Gold]);
-			}
-
-			
-		    if (localSensorData.MyTreasury[Resource.Gold] >=
-		        UnitsConstants.Current.UnitCost[unitType][Resource.Gold] &&
-		        localSensorData.MyTreasury[resource] >=
-		        UnitsConstants.Current.UnitCost[unitType][resource])
+		    if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
 		    {
-		        return new Dictionary<Resource, int>();
+		        if (localSensorData.MyTreasury[Resource.Gold] >=
+		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+		        {
+		            return new Dictionary<Resource, int>();
+		        }
+		        missingResources.Add(Resource.Gold,
+		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
+		            localSensorData.MyTreasury[Resource.Gold]);
 		    }
+		    else
+		    {
+                if (localSensorData.MyTreasury[Resource.Gold] >=
+                UnitsConstants.Current.UnitCost[unitType][Resource.Gold] &&
+                localSensorData.MyTreasury[resource] >=
+                UnitsConstants.Current.UnitCost[unitType][resource])
+                {
+                    return new Dictionary<Resource, int>();
+                }
 
-            missingResources.Add(Resource.Gold, 
-                UnitsConstants.Current.UnitCost[unitType][Resource.Gold] - 
-                localSensorData.MyTreasury[Resource.Gold]);
+                missingResources.Add(Resource.Gold,
+                    UnitsConstants.Current.UnitCost[unitType][Resource.Gold] -
+                    localSensorData.MyTreasury[Resource.Gold]);
 
-            missingResources.Add(resource,
-                UnitsConstants.Current.UnitCost[unitType][resource] - 
-                localSensorData.MyTreasury[resource]);
-		   
-
+                missingResources.Add(resource,
+                    UnitsConstants.Current.UnitCost[unitType][resource] -
+                    localSensorData.MyTreasury[resource]);
+            }			
+		    
 			return missingResources;
 		}
 
