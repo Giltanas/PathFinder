@@ -71,10 +71,10 @@ namespace Homm.Client
 			//}
 
 			var actionManager = new ActionManager(client, sensorData);
-			//TODO: remove this cicle
-			while (true)
-			{
-				actionManager.Play();
+            //TODO: remove this cicle
+            while (true)
+            {
+                actionManager.Play();
 			}
 			client.Exit();
 		}
