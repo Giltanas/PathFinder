@@ -98,7 +98,6 @@ namespace HommFinder
 		{
 			return _cells.Where(i => (i.CellType.MainType == MainCellType.Dwelling)
 						   && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue>0)).ToList();
-
 		}
 
 		public List<Cell> SearchAvailableResources()
@@ -113,10 +112,10 @@ namespace HommFinder
 						   && !i.Value.Equals(Single.MaxValue)).ToList();
 		}
 
-        public List<Cell> CheckDwelling(Cell dwellingCheck, HommSensorData SensorData, UnitType unitType, Resource resource)
+        public List<Cell> CheckDwelling(Cell dwellingCheck, Dictionary<Resource, int> myTreasury, UnitType unitType, Resource resource)
         {
             var path = new List<Cell>();
-            var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, unitType, resource);
+            var missingTreasury = existTreasuryForDwelling(dwellingCheck, myTreasury, unitType, resource);
             if (missingTreasury.Count == 0)
             {
                 path = GetMovesStraightToCell(dwellingCheck);
@@ -131,10 +130,10 @@ namespace HommFinder
             return path;
         }
        
-        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, HommSensorData SensorData)
+        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, Dictionary<Resource, int> myTreasury)
 		{
 			var path = new List<Cell>();
-			var missingTreasury = existTreasuryForDwelling(dwellingCheck, SensorData, UnitType.Militia);
+			var missingTreasury = existTreasuryForDwelling(dwellingCheck, myTreasury, UnitType.Militia);
 			if (missingTreasury.Count == 0)
 			{
 				path = GetMovesStraightToCell(dwellingCheck);
@@ -151,27 +150,27 @@ namespace HommFinder
 		}
 
 		private Dictionary<Resource, int> existTreasuryForDwelling(Cell dwellingCheck,
-            HommSensorData localSensorData, UnitType unitType, Resource resource = new Resource())
+            Dictionary<Resource, int > myTreasury, UnitType unitType, Resource resource = new Resource())
 		{
 
 		    var missingResources = new Dictionary<Resource, int>();
 
 		    if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
 		    {
-		        if (localSensorData.MyTreasury[Resource.Gold] >=
+		        if (myTreasury[Resource.Gold] >=
 		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
 		        {
 		            return new Dictionary<Resource, int>();
 		        }
 		        missingResources.Add(Resource.Gold,
 		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
-		            localSensorData.MyTreasury[Resource.Gold]);
+		            myTreasury[Resource.Gold]);
 		    }
 		    else
 		    {
-                if (localSensorData.MyTreasury[Resource.Gold] >=
+                if (myTreasury[Resource.Gold] >=
                 UnitsConstants.Current.UnitCost[unitType][Resource.Gold] &&
-                localSensorData.MyTreasury[resource] >=
+                myTreasury[resource] >=
                 UnitsConstants.Current.UnitCost[unitType][resource])
                 {
                     return new Dictionary<Resource, int>();
@@ -179,11 +178,11 @@ namespace HommFinder
 
                 missingResources.Add(Resource.Gold,
                     UnitsConstants.Current.UnitCost[unitType][Resource.Gold] -
-                    localSensorData.MyTreasury[Resource.Gold]);
+                    myTreasury[Resource.Gold]);
 
                 missingResources.Add(resource,
                     UnitsConstants.Current.UnitCost[unitType][resource] -
-                    localSensorData.MyTreasury[resource]);
+                    myTreasury[resource]);
             }			
 		    
 			return missingResources;
@@ -206,14 +205,14 @@ namespace HommFinder
 			var goldCellPath = new List<Cell>();
 		    if (goldCellList.Count > 0)
 		    {
-                goldCellPath.AddRange(GetMovesStraightToCell(goldCellList[0]));
+               // goldCellPath.AddRange(GetSmartPath(goldCellList[0]));
                 for (int y = 1; y < goldCellList.Count; y++)
                 {
                     var finderNew = new Finder(_cells, goldCellList[y]);
-                    goldCellPath.AddRange(finderNew.GetMovesStraightToCell(goldCellList[y]));
+                    goldCellPath.AddRange(finderNew.GetSmartPath(goldCellList[y-1],goldCellList[y]));
                 }
                 var finderToEnd = new Finder(_cells, goldCellList[goldCellList.Count - 1]);
-                goldCellPath.AddRange(finderToEnd.GetMovesStraightToCell(dwelling));
+                goldCellPath.AddRange(finderToEnd.GetSmartPath(goldCellList[goldCellList.Count - 1], dwelling));
             }   
 			return goldCellPath;
 		}
@@ -255,14 +254,14 @@ namespace HommFinder
 			var cellPath = new List<Cell>();
 			if (cellList.Count > 0)
 			{
-				cellPath.AddRange(GetMovesStraightToCell(cellList[0]));
+				//cellPath.AddRange(GetMovesStraightToCell(cellList[0]));
 				for (int y = 1; y < cellList.Count; y++)
 				{
 					var finderNew = new Finder(_cells, cellList[y]);
-					cellPath.AddRange(finderNew.GetMovesStraightToCell(cellList[y]));
+					cellPath.AddRange(finderNew.GetSmartPath(cellList[y-1], cellList[y]));
 				}
 				var finderToEnd = new Finder(_cells, cellList[cellList.Count - 1]);
-				cellPath.AddRange(finderToEnd.GetMovesStraightToCell(dwelling));
+				cellPath.AddRange(finderToEnd.GetSmartPath(cellList[cellList.Count - 1],dwelling));
 			}
 			return cellPath;
 		}

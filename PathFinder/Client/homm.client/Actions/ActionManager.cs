@@ -81,7 +81,7 @@ namespace Homm.Client.Actions
 				//var dwellingCheck = availableDwellings.FirstOrDefault(i => i.CellType.SubCellType == SubCellType.DwellingInfantry);
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Cavalry, Resource.Ebony);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Cavalry, Resource.Ebony);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -91,18 +91,17 @@ namespace Homm.Client.Actions
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Infantry, Resource.Iron);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Infantry, Resource.Iron);
 					if (path.Count != 0)
 					{
 						move(path);
-						//TODO:: fix error : he does not hire units
 						SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwellingCheck));
 					}
 				}
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
 				{
-					path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData);
+					path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData.MyTreasury);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -112,7 +111,7 @@ namespace Homm.Client.Actions
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData, UnitType.Ranged, Resource.Glass);
+					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Ranged, Resource.Glass);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -130,64 +129,36 @@ namespace Homm.Client.Actions
 			//TODO:: add SubCellType check on others Dwelling
 			if (subCellType == SubCellType.DwellingMilitia)
 			{
-				var amountOfUnitsToBuy = (int)SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold];
-				if (dwellingCheck.ResourcesValue >= amountOfUnitsToBuy)
-					return amountOfUnitsToBuy;
-				else
-					return dwellingCheck.ResourcesValue;
-				
+			    var amountOfUnitsToBuy = SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold];
+			    return dwellingCheck.ResourcesValue >= amountOfUnitsToBuy ? amountOfUnitsToBuy : dwellingCheck.ResourcesValue;
 			}
 
 			if (subCellType == SubCellType.DwellingCavalry)
 			{
-				var maxAmountGold = (int)SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold];
-				var maxAmountEbony = (int)SensorData.MyTreasury[Resource.Ebony] / UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony];
-				int amountOfUnitsToBuy;
+				var maxAmountGold = SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Gold];
+				var maxAmountEbony = SensorData.MyTreasury[Resource.Ebony] / UnitsConstants.Current.UnitCost[UnitType.Cavalry][Resource.Ebony];
+			    var amountOfUnitsToBuy = maxAmountGold < maxAmountEbony ? maxAmountGold : maxAmountEbony;
 
-				if (maxAmountGold < maxAmountEbony)
-					amountOfUnitsToBuy = maxAmountGold;
-				else
-					amountOfUnitsToBuy = maxAmountEbony;
-
-				if (dwellingCheck.ResourcesValue >= amountOfUnitsToBuy)
-					return amountOfUnitsToBuy;
-				else
-					return dwellingCheck.ResourcesValue;
+				return dwellingCheck.ResourcesValue >= amountOfUnitsToBuy ? amountOfUnitsToBuy : dwellingCheck.ResourcesValue;
 			}
 
 			if (subCellType == SubCellType.DwellingInfantry)
 			{
-				var maxAmountGold = (int)SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold];
-				var maxAmountIron = (int)SensorData.MyTreasury[Resource.Iron] / UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron];
-				int amountOfUnitsToBuy;
+				var maxAmountGold = SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Gold];
+				var maxAmountIron = SensorData.MyTreasury[Resource.Iron] / UnitsConstants.Current.UnitCost[UnitType.Infantry][Resource.Iron];
+			    var amountOfUnitsToBuy = maxAmountGold < maxAmountIron ? maxAmountGold : maxAmountIron;
 
-				if (maxAmountGold < maxAmountIron)
-					amountOfUnitsToBuy = maxAmountGold;
-				else
-					amountOfUnitsToBuy = maxAmountIron;
-
-				if (dwellingCheck.ResourcesValue >= amountOfUnitsToBuy)
-					return amountOfUnitsToBuy;
-				else
-					return dwellingCheck.ResourcesValue;
+				return dwellingCheck.ResourcesValue >= amountOfUnitsToBuy ? amountOfUnitsToBuy : dwellingCheck.ResourcesValue;
 
 			}
 
 			if (subCellType == SubCellType.DwellingRanged)
 			{
-				var maxAmountGold = (int)SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold];
-				var maxAmountGlass = (int)SensorData.MyTreasury[Resource.Glass] / UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass];
-				int amountOfUnitsToBuy;
+				var maxAmountGold = SensorData.MyTreasury[Resource.Gold] / UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Gold];
+				var maxAmountGlass = SensorData.MyTreasury[Resource.Glass] / UnitsConstants.Current.UnitCost[UnitType.Ranged][Resource.Glass];
+			    var amountOfUnitsToBuy = maxAmountGold < maxAmountGlass ? maxAmountGold : maxAmountGlass;
 
-				if (maxAmountGold < maxAmountGlass)
-					amountOfUnitsToBuy = maxAmountGold;
-				else
-					amountOfUnitsToBuy = maxAmountGlass;
-
-				if (dwellingCheck.ResourcesValue >= amountOfUnitsToBuy)
-					return amountOfUnitsToBuy;
-				else
-					return dwellingCheck.ResourcesValue;
+				return dwellingCheck.ResourcesValue >= amountOfUnitsToBuy ? amountOfUnitsToBuy : dwellingCheck.ResourcesValue;
 
 			}
 
