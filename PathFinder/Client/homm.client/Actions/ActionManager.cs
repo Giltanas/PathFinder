@@ -19,7 +19,7 @@ namespace Homm.Client.Actions
 		private Finder _finder;
 		public MapType MapType { get; private set; }
 		public MapObjectData EnemyRespawn { get; private set; }
-        const int ValidVerificationStepNumber = 20;
+        const int ValidVerificationStepNumber = 40;
 
         public ActionManager(HommClient client, HommSensorData sensorData)
 		{
@@ -238,7 +238,7 @@ namespace Homm.Client.Actions
             if (cellList.Count > 0)
             {
                 cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), cellList[0]));
-                move(cellPath);
+               
                 for (int y = 1; y < cellList.Count; y++)
                 {
                     var finderNew = new Finder(finderCells, cellList[y]);
