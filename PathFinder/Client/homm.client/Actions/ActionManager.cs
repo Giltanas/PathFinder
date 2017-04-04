@@ -19,8 +19,9 @@ namespace Homm.Client.Actions
 		private Finder _finder;
 		public MapType MapType { get; private set; }
 		public MapObjectData EnemyRespawn { get; private set; }
+        const int ValidVerificationStepNumber = 20;
 
-		public ActionManager(HommClient client, HommSensorData sensorData)
+        public ActionManager(HommClient client, HommSensorData sensorData)
 		{
 			Client = client;
 			SensorData = sensorData;
@@ -73,15 +74,14 @@ namespace Homm.Client.Actions
 			
 			var path = new List<Cell>();
 
-			var availableDwellings = _finder.SearchAvailableDwellings();
+			var availableDwellings = SearchAvailableDwellings(_finder._cells);
 			if (availableDwellings.Count != 0)
 			{
 				//TODO:: write right search of dwellings
-				var dwellingCheck = availableDwellings.First(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
-				//var dwellingCheck = availableDwellings.FirstOrDefault(i => i.CellType.SubCellType == SubCellType.DwellingInfantry);
+				var dwellingCheck = availableDwellings.FirstOrDefault(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Cavalry, Resource.Ebony);
+					path = CheckDwelling(dwellingCheck, UnitType.Cavalry, Resource.Ebony);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -91,7 +91,7 @@ namespace Homm.Client.Actions
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Infantry, Resource.Iron);
+					path = CheckDwelling(dwellingCheck, UnitType.Infantry, Resource.Iron);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -101,7 +101,7 @@ namespace Homm.Client.Actions
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
 				{
-					path = _finder.CheckDwellingMilitia(dwellingCheck, SensorData.MyTreasury);
+					path = CheckDwelling(dwellingCheck, UnitType.Militia, Resource.Gold);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -111,7 +111,7 @@ namespace Homm.Client.Actions
 
 				if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
 				{
-					path = _finder.CheckDwelling(dwellingCheck, SensorData.MyTreasury, UnitType.Ranged, Resource.Glass);
+					path = CheckDwelling(dwellingCheck, UnitType.Ranged, Resource.Glass);
 					if (path.Count != 0)
 					{
 						move(path);
@@ -124,7 +124,152 @@ namespace Homm.Client.Actions
 			}
 		}
 
-		private int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
+        public List<Cell> SearchAvailableDwellings(List<Cell> finderCells)
+        {
+            return finderCells.Where(i => (i.CellType.MainType == MainCellType.Dwelling)
+                           && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).ToList();
+        }
+
+        public List<Cell> SearchAvailableResources(List<Cell> finderCells)
+        {
+            return finderCells.Where(i => (i.CellType.MainType == MainCellType.Resource)
+                           && !i.Value.Equals(Single.MaxValue)).ToList();
+        }
+
+        public List<Cell> SearchAvailableMines(List<Cell> finderCells)
+        {
+            return finderCells.Where(i => (i.CellType.MainType == MainCellType.Mine)
+                           && !i.Value.Equals(Single.MaxValue)).ToList();
+        }
+
+        public List<Cell> CheckDwelling(Cell dwellingCheck, UnitType unitType, Resource resource)
+        {
+            var path = new List<Cell>();
+            var missingTreasury = existTreasuryForDwelling(dwellingCheck, unitType, resource);
+            if (missingTreasury.Count == 0)
+            {
+                path = _finder.GetMovesStraightToCell(dwellingCheck);
+            }
+            else
+            {
+                var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, resource, _finder._cells);
+                if (localPath.Count < ValidVerificationStepNumber)
+                    path = localPath;
+            }
+            return path;
+        }
+
+        private Dictionary<Resource, int> existTreasuryForDwelling(Cell dwellingCheck, UnitType unitType, Resource resource = new Resource())
+        {
+
+            var missingResources = new Dictionary<Resource, int>();
+
+            if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
+                {
+                    return new Dictionary<Resource, int>();
+                }
+                missingResources.Add(Resource.Gold,
+                    UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
+                    SensorData.MyTreasury[Resource.Gold]);
+            }
+            else
+            {
+                if (SensorData.MyTreasury[Resource.Gold] >=
+                UnitsConstants.Current.UnitCost[unitType][Resource.Gold] &&
+                SensorData.MyTreasury[resource] >=
+                UnitsConstants.Current.UnitCost[unitType][resource])
+                {
+                    return new Dictionary<Resource, int>();
+                }
+
+                missingResources.Add(Resource.Gold,
+                    UnitsConstants.Current.UnitCost[unitType][Resource.Gold] -
+                    SensorData.MyTreasury[Resource.Gold]);
+
+                missingResources.Add(resource,
+                    UnitsConstants.Current.UnitCost[unitType][resource] -
+                    SensorData.MyTreasury[resource]);
+            }
+
+            return missingResources;
+        }
+
+        private List<Cell> findResourcesForDwelling(Dictionary<Resource, int> missingTreasury, 
+            Cell dwelling, Resource resource, List<Cell> finderCells)
+        {
+            var subCellType = new SubCellType();
+            if (resource == Resource.Ebony)
+                subCellType = SubCellType.ResourceEbony;
+            if (resource == Resource.Iron)
+                subCellType = SubCellType.ResourceIron;
+            if (resource == Resource.Glass)
+                subCellType = SubCellType.ResourceGlass;
+            
+            var cellList = new List<Cell>();
+            while (missingTreasury[Resource.Gold] >= 0 &&
+                finderCells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
+                && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
+            {
+                cellList = fillResourceCells(cellList, SubCellType.ResourceGold, finderCells);
+                foreach (var item in cellList)
+                {
+                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
+                }
+            }
+
+            if (!(resource == Resource.Gold))
+            {
+                while (missingTreasury[resource] >= 0 &&
+                finderCells.Where(o => (o.CellType.SubCellType == subCellType)
+                && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
+                {
+                    fillResourceCells(cellList, subCellType, finderCells);
+                    foreach (var item in cellList)
+                    {
+                        missingTreasury[resource] = missingTreasury[resource] - item.ResourcesValue;
+                    }
+                }
+            }
+
+            var cellPath = new List<Cell>();
+            if (cellList.Count > 0)
+            {
+                cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), cellList[0]));
+                move(cellPath);
+                for (int y = 1; y < cellList.Count; y++)
+                {
+                    var finderNew = new Finder(finderCells, cellList[y]);
+                    cellPath.AddRange(finderNew.GetSmartPath(cellList[y - 1], cellList[y]));
+                }
+                var finderToEnd = new Finder(finderCells, cellList[cellList.Count - 1]);
+                cellPath.AddRange(finderToEnd.GetSmartPath(cellList[cellList.Count - 1], dwelling));
+            }
+            return cellPath;
+        }
+
+        private List<Cell> fillResourceCells(List<Cell> cellPath, SubCellType subCellType, 
+            List<Cell> finderCells)
+        {
+            var сellList = finderCells.Where(o => (o.CellType.SubCellType == subCellType)
+                                && !o.Value.Equals(Single.MaxValue) && !cellPath.Contains(o)).ToList();
+
+            for (int i = 0; i < сellList.Count; i++)
+            {
+                var cell = сellList.ElementAt(i);
+                var localPath =_finder.GetMovesStraightToCell(cell);
+                if (localPath.Count <= ValidVerificationStepNumber)
+                {
+                    cellPath.Add(cell);
+                    return cellPath;
+                }
+            }
+            return null;
+        }
+
+        private int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
 		{
 			//TODO:: add SubCellType check on others Dwelling
 			if (subCellType == SubCellType.DwellingMilitia)

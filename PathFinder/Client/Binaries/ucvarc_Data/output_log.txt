@@ -31,7 +31,7 @@ Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binar
 Loading C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\UnityCommons.dll into Unity Child Domain
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll (this message is harmless)
 Loading C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\Ionic.Zip.dll into Unity Child Domain
-- Completed reload, in  0.682 seconds
+- Completed reload, in  1.147 seconds
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
@@ -39,7 +39,7 @@ XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 123.340820 ms
+UnloadTime: 16.241304 ms
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Runtime.Serialization.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.Linq.dll (this message is harmless)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\System.Xml.dll (this message is harmless)
@@ -48,7 +48,7 @@ Loaded settings, version=3
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-**************  UNITY STARTED 4/4/2017 10:45:29 PM
+**************  UNITY STARTED 4/5/2017 1:41:14 AM
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -57,8 +57,8 @@ DlcLoader.LoadAssemblies: Loading assembly pudge.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-0E60F3A0 (this message is harmless)
-Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0E60F3A0.dll
+Non platform assembly: data-0EF56D18 (this message is harmless)
+Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0EF56D18.dll
 Dispatcher.FillLoader: pudge final is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -75,8 +75,8 @@ DlcLoader.LoadAssemblies: Loading assembly homm.dll
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Non platform assembly: data-0E67D7A8 (this message is harmless)
-Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0E67D7A8.dll
+Non platform assembly: data-0EFB1E50 (this message is harmless)
+Fallback handler could not load library C:/Users/Tatiana/Documents/PathFinder/PathFinder/Client/Binaries/ucvarc_Data/Mono/data-0EFB1E50.dll
 Dispatcher.FillLoader: homm Level1 is loaded
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -114,10 +114,10 @@ Dispatcher.IntroductionTick: Starting remote game
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 1.255739 ms
+UnloadTime: 3.276998 ms
 
 Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 280.
-Total: 2.413073 ms (FindLiveObjects: 0.065805 ms CreateObjectMapping: 0.051316 ms MarkObjects: 2.267576 ms  DeleteObjects: 0.015696 ms)
+Total: 4.138508 ms (FindLiveObjects: 0.086935 ms CreateObjectMapping: 0.112292 ms MarkObjects: 3.865022 ms  DeleteObjects: 0.035015 ms)
 
 game over. disposing
  
@@ -125,10 +125,10 @@ game over. disposing
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
 Platform assembly: C:\Users\Tatiana\Documents\PathFinder\PathFinder\Client\Binaries\ucvarc_Data\Managed\I18N.West.dll (this message is harmless)
-UnloadTime: 1379.260010 ms
+UnloadTime: 3529.128906 ms
 
-Unloading 228 unused Assets to reduce memory usage. Loaded Objects now: 3207.
-Total: 18.968311 ms (FindLiveObjects: 0.496258 ms CreateObjectMapping: 0.624851 ms MarkObjects: 16.110901 ms  DeleteObjects: 1.733886 ms)
+Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
+Total: 51.879562 ms (FindLiveObjects: 1.531036 ms CreateObjectMapping: 2.999890 ms MarkObjects: 37.474777 ms  DeleteObjects: 9.870235 ms)
 
 PlayServer.HasGame: Requested game homm.Level1
  
@@ -151,18 +151,8 @@ Dispatcher.IntroductionTick: Starting remote game
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 26.976673 ms
+UnloadTime: 3.772653 ms
 
 Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 3201.
-Total: 109.560287 ms (FindLiveObjects: 1.359579 ms CreateObjectMapping: 3.017398 ms MarkObjects: 105.092148 ms  DeleteObjects: 0.087539 ms)
-
-game over. disposing
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 2)
-UnloadTime: 1561.079590 ms
-
-Unloading 226 unused Assets to reduce memory usage. Loaded Objects now: 3207.
-Total: 50.580959 ms (FindLiveObjects: 1.695248 ms CreateObjectMapping: 9.302738 ms MarkObjects: 29.563620 ms  DeleteObjects: 9.989169 ms)
+Total: 25.257879 ms (FindLiveObjects: 0.663489 ms CreateObjectMapping: 3.362122 ms MarkObjects: 21.147141 ms  DeleteObjects: 0.080898 ms)
 
