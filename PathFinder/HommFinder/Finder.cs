@@ -11,13 +11,13 @@ namespace HommFinder
 {
 	public class Finder
 	{
-		public List<Cell> _cells;
-		private Cell _startCell;
+		private readonly List<Cell> _cells;
+		private readonly Cell _startCell;
 		const int ValidVerificationStepNumber = 5;
-		private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
-		private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
-		private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
-		private static readonly	int[] dy1 = new[] { 0, 0, 1, 1, 1, -1 };
+		private static readonly int[] dx0 =  { 1, -1, 0, 1, -1, 0 };
+		private static readonly int[] dy0 =  { 0, 0, 1, -1, -1, -1 };
+		private static readonly int[] dx1 =  { 1, -1, 0, 1, -1, 0 };
+		private static readonly	int[] dy1 =  { 0, 0, 1, 1, 1, -1 };
 		private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
@@ -69,12 +69,6 @@ namespace HommFinder
 
 			}
 			return  smartPath;
-		}
-
-		public bool CanDoSomething(Dictionary<Resource,int> myTreasure)
-		{
-			//Implement checking can do something to reach more points
-			return true;
 		}
 		public List<Cell> GetMovesStraightToCell(Cell endCell=null)
 		{
