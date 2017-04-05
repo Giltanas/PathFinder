@@ -115,10 +115,6 @@ namespace Homm.Client.Helpers
 					return TerrainCellType.Block;
 				}
 			}
-			if (mapObjectData.Mine != null)
-			{
-				return TerrainCellType.Block;
-			}
 			switch (mapObjectData.Terrain)
 			{
 				case Terrain.Road:

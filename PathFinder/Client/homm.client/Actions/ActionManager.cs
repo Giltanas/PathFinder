@@ -50,7 +50,7 @@ namespace Homm.Client.Actions
 		public void UpdateMap()
 		{
 			Map.Clear();
-			Map = SensorData.Map.Objects.Select(item => item.ToCell()).ToList();
+			Map = SensorData.Map.Objects.Select(item => item.ToCell(SensorData.MyArmy)).ToList();
 			CurrentCell = SensorData.Location.CreateCell();
 
 			_finder = new Finder(Map,CurrentCell);
@@ -71,75 +71,77 @@ namespace Homm.Client.Actions
 		public void Play()
 		{
 			UpdateMap();
-		    var path = workingWithMines();
-		    if (path.Count == 0)
-		        path = workingWithDwellings();
+		    workingWithMines();
+		    workingWithDwellings();
 		}
 
-        private List<Cell> workingWithMines()
+	    private void workingWithMines()
 	    {
-            var path = new List<Cell>();
+	        var path = new List<Cell>();
 
 	        var availableMines = searchAvailableMines(_finder._cells);
 	        for (int i = 0; i < availableMines.Count; i++)
 	        {
-	            path.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), availableMines[i]));
+	            path.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), (availableMines[i])));
 	        }
-	
-            return path;
+
+	        if (path.Count != 0)
+	        {
+	            move(path);
+	        }
 	    }
 
-	    private List<Cell> workingWithDwellings()
+	    private void workingWithDwellings()
 	    {
             var path = new List<Cell>();
 
 	        var availableDwellings = searchAvailableDwellings(_finder._cells);
-	        if (availableDwellings.Count == 0) return path;
-
-	        var dwellingCheck = availableDwellings.FirstOrDefault(i =>
-	            i.Value.Equals(availableDwellings.Min(m => m.Value)) &&
-	            i.ResourcesValue > 0 && !i.Value.Equals(Single.MaxValue));
-
-	        if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
+	        if (availableDwellings.Count != 0)
 	        {
-	            path = useDwelling(dwellingCheck, UnitType.Cavalry, Resource.Ebony);
-	            if (path.Count != 0)
-	            {
-	                move(path);
-	                SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwellingCheck));
-	            }
-	        }
+                var dwellingCheck = availableDwellings.FirstOrDefault(i =>
+                i.Value.Equals(availableDwellings.Min(m => m.Value)) &&
+                i.ResourcesValue > 0 && !i.Value.Equals(Single.MaxValue));
 
-	        if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
-	        {
-	            path = useDwelling(dwellingCheck, UnitType.Infantry, Resource.Iron);
-	            if (path.Count != 0)
-	            {
-	                move(path);
-	                SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwellingCheck));
-	            }
-	        }
+                if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingCavalry)
+                {
+                    path = useDwelling(dwellingCheck, UnitType.Cavalry, Resource.Ebony);
+                    if (path.Count != 0)
+                    {
+                        move(path);
+                        SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwellingCheck));
+                    }
+                }
 
-	        if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
-	        {
-	            path = useDwelling(dwellingCheck, UnitType.Militia, Resource.Gold);
-	            if (path.Count != 0)
-	            {
-	                move(path);
-	                SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwellingCheck));
-	            }
-	        }
+                if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingInfantry)
+                {
+                    path = useDwelling(dwellingCheck, UnitType.Infantry, Resource.Iron);
+                    if (path.Count != 0)
+                    {
+                        move(path);
+                        SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwellingCheck));
+                    }
+                }
 
-	        if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
-	        {
-	            path = useDwelling(dwellingCheck, UnitType.Ranged, Resource.Glass);
-	            if (path.Count != 0)
-	            {
-	                move(path);
-	                SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwellingCheck));
-	            }
-	        }
-	        return path;
+                if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
+                {
+                    path = useDwelling(dwellingCheck, UnitType.Militia, Resource.Gold);
+                    if (path.Count != 0)
+                    {
+                        move(path);
+                        SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwellingCheck));
+                    }
+                }
+
+                if (dwellingCheck != null && dwellingCheck.CellType.SubCellType == SubCellType.DwellingRanged)
+                {
+                    path = useDwelling(dwellingCheck, UnitType.Ranged, Resource.Glass);
+                    if (path.Count != 0)
+                    {
+                        move(path);
+                        SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwellingCheck));
+                    }
+                }
+            }
 	    }
 
 	    private List<Cell> searchAvailableDwellings(List<Cell> finderCells)
