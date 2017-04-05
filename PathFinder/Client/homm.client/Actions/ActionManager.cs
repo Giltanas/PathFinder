@@ -209,11 +209,11 @@ namespace Homm.Client.Actions
                 subCellType = SubCellType.ResourceGlass;
             
             var cellList = new List<Cell>();
-            while (missingTreasury[Resource.Gold] >= 0 &&
-                finderCells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
-                && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
+            while (missingTreasury[Resource.Gold] > 0 && finderCells.Where(o => 
+            (o.CellType.SubCellType == SubCellType.ResourceGold || o.ResourcesValue > 0) 
+            && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
             {
-                cellList = fillResourceCells(cellList, SubCellType.ResourceGold, finderCells);
+                fillResourceCells(cellList, SubCellType.ResourceGold, finderCells);
                 foreach (var item in cellList)
                 {
                     missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
@@ -222,8 +222,8 @@ namespace Homm.Client.Actions
 
             if (!(resource == Resource.Gold))
             {
-                while (missingTreasury[resource] >= 0 &&
-                finderCells.Where(o => (o.CellType.SubCellType == subCellType)
+                while (missingTreasury[resource] > 0 && finderCells.Where(o => 
+                (o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
                 && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
                 {
                     fillResourceCells(cellList, subCellType, finderCells);
