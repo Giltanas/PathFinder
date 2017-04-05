@@ -208,65 +208,68 @@ namespace Homm.Client.Actions
             if (resource == Resource.Glass)
                 subCellType = SubCellType.ResourceGlass;
             
-            var cellList = new List<Cell>();
-            while (missingTreasury[Resource.Gold] > 0 && finderCells.Where(o => 
-            (o.CellType.SubCellType == SubCellType.ResourceGold || o.ResourcesValue > 0) 
-            && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
+            var resultCellsList = new List<Cell>();
+            var foundedCells = finderCells.Where(o => 
+                    (o.CellType.SubCellType == SubCellType.ResourceGold
+                    && o.ResourcesValue > 0) && !o.Value.Equals(Single.MaxValue) &&
+                    !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
+
+            while (missingTreasury[Resource.Gold] > 0 && foundedCells.Count != 0)
             {
-                fillResourceCells(cellList, SubCellType.ResourceGold, finderCells);
-                foreach (var item in cellList)
+                for (int i = 0; i < foundedCells.Count; i++)
                 {
-                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
+                    var cell = foundedCells.ElementAt(0);
+                    var localPath = _finder.GetMovesStraightToCell(cell);
+                    if (localPath.Count > ValidVerificationStepNumber) continue;
+                    resultCellsList.Add(cell);
+                    missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - cell.ResourcesValue;
                 }
+
+                foundedCells = finderCells.Where(o =>
+                        (o.CellType.SubCellType == SubCellType.ResourceGold
+                        || o.ResourcesValue > 0) && !o.Value.Equals(Single.MaxValue) &&
+                        !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
             }
 
-            if (!(resource == Resource.Gold))
+            if (resource != Resource.Gold)
             {
-                while (missingTreasury[resource] > 0 && finderCells.Where(o => 
-                (o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
-                && !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
+                foundedCells = finderCells.Where(o =>
+                        (o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
+                        && !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).
+                        OrderBy(o => o.Value).ToList();
+
+                while (missingTreasury[resource] > 0 && foundedCells.Count != 0)
                 {
-                    fillResourceCells(cellList, subCellType, finderCells);
-                    foreach (var item in cellList)
+                    for (int i = 0; i < foundedCells.Count; i++)
                     {
-                        missingTreasury[resource] = missingTreasury[resource] - item.ResourcesValue;
+                        var cell = foundedCells.ElementAt(0);
+                        var localPath = _finder.GetMovesStraightToCell(cell);
+                        if (localPath.Count > ValidVerificationStepNumber) continue;
+                        resultCellsList.Add(cell);
+                        missingTreasury[resource] = missingTreasury[resource] - cell.ResourcesValue;
                     }
+                    
+                    foundedCells = finderCells.Where(o =>
+                           (o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
+                           && !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).
+                           OrderBy(o => o.Value).ToList();
                 }
             }
 
             var cellPath = new List<Cell>();
-            if (cellList.Count > 0)
+            if (resultCellsList.Count > 0)
             {
-                cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), cellList[0]));
+                cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), resultCellsList[0]));
                
-                for (int y = 1; y < cellList.Count; y++)
+                for (int y = 1; y < resultCellsList.Count; y++)
                 {
-                    var finderNew = new Finder(finderCells, cellList[y]);
-                    cellPath.AddRange(finderNew.GetSmartPath(cellList[y - 1], cellList[y]));
+                    var finderNew = new Finder(finderCells, resultCellsList[y]);
+                    cellPath.AddRange(finderNew.GetSmartPath(resultCellsList[y - 1], resultCellsList[y]));
                 }
-                var finderToEnd = new Finder(finderCells, cellList[cellList.Count - 1]);
-                cellPath.AddRange(finderToEnd.GetSmartPath(cellList[cellList.Count - 1], dwelling));
+                var finderToEnd = new Finder(finderCells, resultCellsList[resultCellsList.Count - 1]);
+                cellPath.AddRange(finderToEnd.GetSmartPath(resultCellsList[resultCellsList.Count - 1], dwelling));
             }
             return cellPath;
-        }
-
-        private List<Cell> fillResourceCells(List<Cell> cellPath, SubCellType subCellType, 
-            List<Cell> finderCells)
-        {
-            var сellList = finderCells.Where(o => (o.CellType.SubCellType == subCellType)
-                                && !o.Value.Equals(Single.MaxValue) && !cellPath.Contains(o)).ToList();
-
-            for (int i = 0; i < сellList.Count; i++)
-            {
-                var cell = сellList.ElementAt(i);
-                var localPath =_finder.GetMovesStraightToCell(cell);
-                if (localPath.Count <= ValidVerificationStepNumber)
-                {
-                    cellPath.Add(cell);
-                    return cellPath;
-                }
-            }
-            return null;
         }
 
         private int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
