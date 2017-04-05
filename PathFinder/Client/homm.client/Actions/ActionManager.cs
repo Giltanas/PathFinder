@@ -50,7 +50,7 @@ namespace Homm.Client.Actions
 		public void UpdateMap()
 		{
 			Map.Clear();
-			Map = SensorData.Map.Objects.Select(item => item.ToCell()).ToList();
+			Map = SensorData.Map.Objects.Select(item => item.ToCell(SensorData.MyArmy)).ToList();
 			CurrentCell = SensorData.Location.CreateCell();
 
 			_finder = new Finder(Map,CurrentCell);
