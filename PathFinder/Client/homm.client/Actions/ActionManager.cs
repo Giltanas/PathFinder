@@ -155,12 +155,6 @@ namespace Homm.Client.Actions
                            && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).ToList();
         }
 
-        private List<Cell> searchAvailableResources(List<Cell> finderCells)
-        {
-            return finderCells.Where(i => (i.CellType.MainType == MainCellType.Resource)
-                           && !i.Value.Equals(Single.MaxValue)).ToList();
-        }
-
         private List<Cell> searchAvailableMines(List<Cell> finderCells)
         {
             return finderCells.Where(i => (i.CellType.MainType == MainCellType.Mine)
