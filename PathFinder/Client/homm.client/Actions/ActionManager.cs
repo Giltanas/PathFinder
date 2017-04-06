@@ -94,44 +94,51 @@ namespace Homm.Client.Actions
 	    {
             var path = new List<Cell>();
 	        var dwelling = getAvailableDwelling(_finder._cells);
-	       
-		    if (dwelling != null && dwelling.CellType.SubCellType == SubCellType.DwellingCavalry)
-            {
-                path = useDwelling(dwelling, UnitType.Cavalry, Resource.Ebony);
-                if (path.Count != 0)
-                {
-                    move(path);
-                    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwelling));
-                }
-            }
 
-            if (dwelling != null && dwelling.CellType.SubCellType == SubCellType.DwellingInfantry)
-            {
-                path = useDwelling(dwelling, UnitType.Infantry, Resource.Iron);
-                if (path.Count != 0)
-                {
-                    move(path);
-                    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwelling));
-                }
-            }
-
-            if (dwelling != null && dwelling.CellType.SubCellType == SubCellType.DwellingRanged)
-            {
-                path = useDwelling(dwelling, UnitType.Ranged, Resource.Glass);
-                if (path.Count != 0)
-                {
-                    move(path);
-                    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwelling));
-                }
-            }
-
-		    if (dwelling != null && dwelling.CellType.SubCellType == SubCellType.DwellingMilitia)
+		    if (dwelling == null) return;
+		    switch (dwelling.CellType.SubCellType)
 		    {
-			    path = useDwelling(dwelling, UnitType.Militia, Resource.Gold);
-			    if (path.Count != 0)
+			    case SubCellType.DwellingCavalry:
 			    {
-				    move(path);
-				    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwelling));
+				    path = useDwelling(dwelling, UnitType.Cavalry, Resource.Ebony);
+				    if (path.Count != 0)
+				    {
+					    move(path);
+					    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwelling));
+				    }
+				    break;
+			    }
+
+			    case SubCellType.DwellingInfantry:
+			    {
+				    path = useDwelling(dwelling, UnitType.Infantry, Resource.Iron);
+				    if (path.Count != 0)
+				    {
+					    move(path);
+					    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwelling));
+				    }
+				    break;
+			    }
+
+			    case SubCellType.DwellingRanged:
+			    {
+				    path = useDwelling(dwelling, UnitType.Ranged, Resource.Glass);
+				    if (path.Count != 0)
+				    {
+					    move(path);
+					    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwelling));
+				    }
+				    break;
+			    }
+			    case SubCellType.DwellingMilitia:
+			    {
+				    path = useDwelling(dwelling, UnitType.Militia, Resource.Gold);
+				    if (path.Count != 0)
+				    {
+					    move(path);
+					    SensorData = Client.HireUnits(getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwelling));
+				    }
+				    break;
 			    }
 		    }
 	    }
@@ -142,9 +149,7 @@ namespace Homm.Client.Actions
                            && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).OrderByDescending(i => i.Value).ToList();
 
 			if (availableDwellings.Count != 0)
-				return availableDwellings.FirstOrDefault(i => (i.CellType.SubCellType == SubCellType.DwellingCavalry
-		                         || i.CellType.SubCellType == SubCellType.DwellingInfantry
-		                         || i.CellType.SubCellType == SubCellType.DwellingRanged)) ??
+				return availableDwellings.FirstOrDefault(i => (i.CellType.SubCellType != SubCellType.DwellingMilitia)) ??
 							availableDwellings.FirstOrDefault();
 	        return null;
         }
@@ -206,13 +211,19 @@ namespace Homm.Client.Actions
             Cell dwelling, Resource resource, List<Cell> finderCells)
         {
             var subCellType = new SubCellType();
-            if (resource == Resource.Ebony)
-                subCellType = SubCellType.ResourceEbony;
-            if (resource == Resource.Iron)
-                subCellType = SubCellType.ResourceIron;
-            if (resource == Resource.Glass)
-                subCellType = SubCellType.ResourceGlass;
-            
+	        switch (resource)
+	        {
+			    case Resource.Ebony:
+					subCellType = SubCellType.ResourceEbony;
+					break;
+				case Resource.Iron:
+					subCellType = SubCellType.ResourceIron;
+					break;
+				case Resource.Glass:
+					subCellType = SubCellType.ResourceGlass;
+					break;
+			}
+
             var resultCellsList = new List<Cell>();
 			var foundedCells = finderCells.Where(o =>
 							 (o.CellType.SubCellType == SubCellType.ResourceGold
