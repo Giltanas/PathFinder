@@ -139,14 +139,13 @@ namespace Homm.Client.Actions
 	    private Cell getAvailableDwelling(List<Cell> finderCells)
         {
 	        var availableDwellings = finderCells.Where(i => (i.CellType.MainType == MainCellType.Dwelling)
-                           && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).ToList();
+                           && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).OrderByDescending(i => i.Value).ToList();
 
 			if (availableDwellings.Count != 0)
-				return availableDwellings.FirstOrDefault(i => i.Value.Equals(availableDwellings.Min(m => m.Value))
-		                    && (i.CellType.SubCellType == SubCellType.DwellingCavalry
+				return availableDwellings.FirstOrDefault(i => (i.CellType.SubCellType == SubCellType.DwellingCavalry
 		                         || i.CellType.SubCellType == SubCellType.DwellingInfantry
 		                         || i.CellType.SubCellType == SubCellType.DwellingRanged)) ??
-							availableDwellings.FirstOrDefault(i => i.Value.Equals(availableDwellings.Min(m => m.Value)));
+							availableDwellings.FirstOrDefault();
 	        return null;
         }
 
