@@ -104,8 +104,7 @@ namespace HommFinder
 
 		private Cell getCell(int x, int y)
 		{
-			var ret = _cells.SingleOrDefault(c => c.X == x && c.Y == y);
-			return ret;
+			return _cells.SingleOrDefault(c => c.X == x && c.Y == y);
 		}
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
