@@ -90,8 +90,6 @@ namespace Homm.Client.Helpers
 					case Resource.Iron:
 						oct.SubCellType = SubCellType.ResourceIron;
 						break;
-						oct.SubCellType = SubCellType.ResourceEbony;
-						break;
 
 				}
 			}
@@ -100,10 +98,6 @@ namespace Homm.Client.Helpers
 
 		public static TerrainCellType GetTerrainCellType(this MapObjectData mapObjectData, Dictionary<UnitType, int> myArmy = null)
 		{
-			if (mapObjectData.Location.X == 4 && mapObjectData.Location.Y == 5)
-			{
-				var a = 1;
-			}
 			if (mapObjectData.Wall != null)
 			{
 				return TerrainCellType.Block;
@@ -114,10 +108,6 @@ namespace Homm.Client.Helpers
 				{
 					return TerrainCellType.Block;
 				}
-			}
-			if (mapObjectData.Mine != null)
-			{
-				return TerrainCellType.Block;
 			}
 			switch (mapObjectData.Terrain)
 			{
