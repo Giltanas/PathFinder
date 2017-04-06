@@ -19,7 +19,7 @@ namespace Homm.Client.AILogic
 			UpdateMap();
 			workingWithMines();
 			workingWithDwellings();
-			figthForResource();
+			//figthForResource();
 		}
 
 	    public override bool CanIncreaseGamingPoints()
