@@ -22,7 +22,7 @@ namespace Homm.Client.Helpers
 			if (mapObjectData.ResourcePile != null)
 				resourcesValue = mapObjectData.ResourcePile.Amount;
 			
-			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType(), resourcesValue);
+			return new Cell(x, y, mapObjectData.GetTerrainCellType(myArmy), mapObjectData.GetObjectCellType(), resourcesValue) { EnemyArmy = mapObjectData.NeutralArmy.Army};
 		}
 
 		public static Cell CreateCell(this LocationInfo location)

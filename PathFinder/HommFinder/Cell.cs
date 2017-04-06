@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HoMM;
 
 namespace HommFinder
 {
@@ -13,7 +14,7 @@ namespace HommFinder
         //c# does not exist realization of extention properties so use field
         private int _resourcesValue;
         private double _priopity;
-		public bool ContainsEnemyArmy { get; set; }
+		public Dictionary<UnitType,int> EnemyArmy { get; set; }
         public Cell(int x, int y,   TerrainCellType terrainCellType = TerrainCellType.None, ObjectCellType objectCellType=null, int resourcesValue = 0)
         {
             X = x;

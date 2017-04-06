@@ -17,9 +17,8 @@ namespace HommFinder
 		private static readonly int[] dx0 = { 1, -1, 0, 1, -1, 0 };
 		private static readonly int[] dy0 = { 0, 0, 1, -1, -1, -1 };
 		private static readonly int[] dx1 = { 1, -1, 0, 1, -1, 0 };
-
 		private static readonly int[] dy1 = { 0, 0, 1, 1, 1, -1 };
-		private Dictionary<Resource, int> _plusResources;
+
 		public Finder(List<Cell> cells, Cell startCell)
 		{
 			Cells = cells;

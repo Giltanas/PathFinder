@@ -20,7 +20,7 @@ namespace Homm.Client.Actions
 
 			var enemyRespawn =
 				startCell.SameLocation(new Cell(0, 0)) ?
-				sensorData.Map.Objects.SingleOrDefault(o => o.Location.X == 13 && o.Location.Y == 13) :
+				sensorData.Map.Objects.SingleOrDefault(o => o.Location.X == sensorData.Map.Width - 1 && o.Location.Y == sensorData.Map.Height - 1) :
 				sensorData.Map.Objects.SingleOrDefault(o => o.Location.X == 0 && o.Location.Y == 0);
 			var mapType = MapType.Single;
 

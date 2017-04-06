@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using HoMM;
@@ -263,7 +264,12 @@ namespace Homm.Client.AILogic
             var steps = Converter.ConvertCellPathToDirection(path);
             for (var index = 0; index < steps.Count; index++)
             {
+                var containsArmy = path[index + 1].EnemyArmy != null;
                 SensorData = Client.Move(steps[index]);
+                if (containsArmy)
+                {
+                    return;
+                }
             }
         }
         public abstract bool CanIncreaseGamingPoints();
