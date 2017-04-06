@@ -125,13 +125,13 @@ namespace Homm.Client.AILogic
         protected List<Cell> useDwelling(Cell dwellingCheck, UnitType unitType, Resource resource)
         {
             var path = new List<Cell>();
-            var missingTreasury = existTreasuryForDwelling(dwellingCheck, unitType, resource);
+            var missingTreasury = getMissingTreasuryForDwelling(dwellingCheck, unitType, resource);
             path = missingTreasury.Count == 0 ? Finder.GetMovesStraightToCell(dwellingCheck) :
                 findResourcesForDwelling(missingTreasury, dwellingCheck, resource, Finder.Cells);
             return path;
         }
 
-        protected Dictionary<Resource, int> existTreasuryForDwelling(Cell dwellingCheck, UnitType unitType, Resource resource = new Resource())
+        protected Dictionary<Resource, int> getMissingTreasuryForDwelling(Cell dwellingCheck, UnitType unitType, Resource resource = new Resource())
         {
 
             var missingResources = new Dictionary<Resource, int>();
