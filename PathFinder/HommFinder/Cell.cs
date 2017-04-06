@@ -54,16 +54,15 @@ namespace HommFinder
         {
 
             var cell = obj as Cell;
-            if (cell != null)
-            {
-                if (cell.X == this.X && cell.Y == this.Y
-                    && cell.TerrainCellType == this.TerrainCellType
-                    && cell.CellType == this.CellType)
-                {
-                    return true;
-                }
-            }
-            return false;
+	        if (cell == null) return false;
+
+	        if (cell.X == this.X && cell.Y == this.Y
+	            && cell.TerrainCellType == this.TerrainCellType
+	            && cell.CellType == this.CellType)
+	        {
+		        return true;
+	        }
+	        return false;
         }
 
         public bool SameLocation(Cell cell)

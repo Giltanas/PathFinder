@@ -164,14 +164,8 @@ namespace Homm.Client.Actions
         {
             var path = new List<Cell>();
             var missingTreasury = existTreasuryForDwelling(dwellingCheck, unitType, resource);
-            if (missingTreasury.Count == 0)
-            {
-                path = _finder.GetMovesStraightToCell(dwellingCheck);
-            }
-            else
-            {
-	            path = findResourcesForDwelling(missingTreasury, dwellingCheck, resource, _finder._cells);
-            }
+            path = missingTreasury.Count == 0 ? _finder.GetMovesStraightToCell(dwellingCheck) : 
+				findResourcesForDwelling(missingTreasury, dwellingCheck, resource, _finder._cells);
             return path;
         }
 
@@ -225,10 +219,8 @@ namespace Homm.Client.Actions
 			}
 
             var resultCellsList = new List<Cell>();
-			var foundedCells = finderCells.Where(o =>
-							 (o.CellType.SubCellType == SubCellType.ResourceGold
-							 && o.ResourcesValue > 0) && !o.Value.Equals(Single.MaxValue) &&
-							 !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
+			var foundedCells = finderCells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold && o.ResourcesValue > 0) 
+						&& !o.Value.Equals(Single.MaxValue) &&!resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
 
 	        for (int i = 0; i < foundedCells.Count && missingTreasury[Resource.Gold] > 0; i++)
 	        {
@@ -239,10 +231,8 @@ namespace Homm.Client.Actions
 
 			if (resource != Resource.Gold)
 			{
-				foundedCells = finderCells.Where(o =>
-						(o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
-						&& !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).
-						OrderBy(o => o.Value).ToList();
+				foundedCells = finderCells.Where(o => (o.CellType.SubCellType == subCellType || o.ResourcesValue > 0)
+						&& !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
 
 				for (int i = 0; i < foundedCells.Count && missingTreasury[resource] > 0; i++)
 				{
@@ -253,19 +243,17 @@ namespace Homm.Client.Actions
 			}
 
 			var cellPath = new List<Cell>();
-            if (resultCellsList.Count > 0)
-            {
-                cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), resultCellsList[0]));
+	        if (resultCellsList.Count <= 0) return cellPath;
+	        cellPath.AddRange(_finder.GetSmartPath(SensorData.Location.CreateCell(), resultCellsList[0]));
                
-                for (int y = 1; y < resultCellsList.Count; y++)
-                {
-                    var finderNew = new Finder(finderCells, resultCellsList[y]);
-                    cellPath.AddRange(finderNew.GetSmartPath(resultCellsList[y - 1], resultCellsList[y]));
-                }
-                var finderToEnd = new Finder(finderCells, resultCellsList[resultCellsList.Count - 1]);
-                cellPath.AddRange(finderToEnd.GetSmartPath(resultCellsList[resultCellsList.Count - 1], dwelling));
-            }
-            return cellPath;
+	        for (int y = 1; y < resultCellsList.Count; y++)
+	        {
+		        var finderNew = new Finder(finderCells, resultCellsList[y]);
+		        cellPath.AddRange(finderNew.GetSmartPath(resultCellsList[y - 1], resultCellsList[y]));
+	        }
+	        var finderToEnd = new Finder(finderCells, resultCellsList[resultCellsList.Count - 1]);
+	        cellPath.AddRange(finderToEnd.GetSmartPath(resultCellsList[resultCellsList.Count - 1], dwelling));
+	        return cellPath;
         }
 
         private int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
@@ -310,13 +298,11 @@ namespace Homm.Client.Actions
 
 		private void move(List<Cell> path)
 		{
-			if (path.Count != 0)
+			if (path.Count == 0) return;
+			var steps = Converter.ConvertCellPathToDirection(path);
+			for (var index = 0; index < steps.Count; index++)
 			{
-				var steps = Converter.ConvertCellPathToDirection(path);
-				for (var index = 0; index < steps.Count; index++)
-				{
-					SensorData = Client.Move(steps[index]);
-				}
+				SensorData = Client.Move(steps[index]);
 			}
 		}
 	}
