@@ -13,6 +13,7 @@ namespace HommFinder
         //c# does not exist realization of extention properties so use field
         private int _resourcesValue;
         private double _priopity;
+		public bool ContainsEnemyArmy { get; set; }
         public Cell(int x, int y,   TerrainCellType terrainCellType = TerrainCellType.None, ObjectCellType objectCellType=null, int resourcesValue = 0)
         {
             X = x;

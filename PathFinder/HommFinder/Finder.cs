@@ -11,50 +11,49 @@ namespace HommFinder
 {
 	public class Finder
 	{
-		public List<Cell> _cells;
+		public List<Cell> Cells;
 		private Cell _startCell;
-<<<<<<< HEAD
-		const int ValidVerificationStepNumber = 5;
-		private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
-		private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
-		private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
-=======
-	    private static readonly int[] dx0 = new[] { 1, -1, 0, 1, -1, 0 };
-	    private static readonly int[] dy0 = new[] { 0, 0, 1, -1, -1, -1 };
-        private static readonly int[] dx1 = new[] { 1, -1, 0, 1, -1, 0 };
->>>>>>> refs/remotes/origin/master
-		private static readonly	int[] dy1 = new[] { 0, 0, 1, 1, 1, -1 };
+
+		private static readonly int[] dx0 = { 1, -1, 0, 1, -1, 0 };
+		private static readonly int[] dy0 = { 0, 0, 1, -1, -1, -1 };
+		private static readonly int[] dx1 = { 1, -1, 0, 1, -1, 0 };
+
+		private static readonly int[] dy1 = { 0, 0, 1, 1, 1, -1 };
 		private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
-			_cells = cells;
-			_startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
-			foreach (var cell in _cells)
+			Cells = cells;
+			_startCell = Cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
+			foreach (var cell in Cells)
 			{
 				cell.Refresh();
 			}
 			_startCell.NeedChangeValue(0);
 			sendWave(_startCell);
 		}
-		
-		public List<Cell> GetSmartPath(Cell startCell, Cell endCell, List<Cell> smartPath=null )
-		{
-			startCell = _cells.Find(c=> c.SameLocation(startCell));
-			endCell = _cells.Find(c => c.SameLocation(endCell));
 
-			if (startCell == null || endCell == null || endCell.TerrainCellType==TerrainCellType.Block)
+		public List<Cell> GetSmartPath(Cell endCell)
+		{
+			return GetSmartPath(_startCell,endCell);
+		}
+		public List<Cell> GetSmartPath(Cell startCell, Cell endCell, List<Cell> smartPath = null)
+		{
+			startCell = Cells.Find(c => c.SameLocation(startCell));
+			endCell = Cells.Find(c => c.SameLocation(endCell));
+
+			if (startCell == null || endCell == null || endCell.TerrainCellType == TerrainCellType.Block)
 			{
 				return null;
 			}
 
-			var moves = new Finder(_cells,startCell).GetMovesStraightToCell(endCell);
+			var moves = new Finder(Cells, startCell).GetMovesStraightToCell(endCell);
 			if (smartPath == null)
 			{
 				smartPath = new List<Cell>();
 			}
 			foreach (var move in moves)
 			{
-				
+
 				smartPath.Add(move);
 
 				if (move.Equals(endCell))
@@ -74,27 +73,22 @@ namespace HommFinder
 				}
 
 			}
-			return  smartPath;
+			return smartPath;
 		}
 
-		public bool CanDoSomething(Dictionary<Resource,int> myTreasure)
-		{
-			//Implement checking can do something to reach more points
-			return true;
-		}
-		public List<Cell> GetMovesStraightToCell(Cell endCell=null)
+		public List<Cell> GetMovesStraightToCell(Cell endCell = null)
 		{
 			if (endCell == null)
 			{
 				return new List<Cell>();
 			}
 
-			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
+			endCell = Cells.SingleOrDefault(c => c.SameLocation(endCell));
 
 			return endCell.Value == Single.MaxValue ?
-				new List<Cell>() : 
+				new List<Cell>() :
 				getMoves(_startCell,
-				_cells.SingleOrDefault(c => c.SameLocation(endCell)),
+				Cells.SingleOrDefault(c => c.SameLocation(endCell)),
 				new Stack<Cell>()).ToList();
 		}
 
@@ -117,11 +111,11 @@ namespace HommFinder
 
 		private Cell getCell(int x, int y)
 		{
-			return _cells.SingleOrDefault(c => c.X == x && c.Y == y);
+			return Cells.SingleOrDefault(c => c.X == x && c.Y == y);
 		}
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
-			cells.Push(_cells.Find(c=> c.SameLocation(endCell)));
+			cells.Push(Cells.Find(c => c.SameLocation(endCell)));
 			if (!endCell.Equals(startCell))
 			{
 				var nearCells = getNearCells(endCell);
