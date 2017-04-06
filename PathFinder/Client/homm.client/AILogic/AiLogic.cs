@@ -203,8 +203,8 @@ namespace Homm.Client.AILogic
                     missingTreasury[resource] = missingTreasury[resource] - cell.ResourcesValue;
                 }
             }
-
             var cellPath = new List<Cell>();
+            if (checkEnemyArmyWin(resultCellsList)) return cellPath;
             if (resultCellsList.Count <= 0) return cellPath;
             cellPath.AddRange(Finder.GetSmartPath(SensorData.Location.CreateCell(), resultCellsList[0]));
 
@@ -216,6 +216,17 @@ namespace Homm.Client.AILogic
             var finderToEnd = new Finder(finderCells, resultCellsList[resultCellsList.Count - 1]);
             cellPath.AddRange(finderToEnd.GetSmartPath(resultCellsList[resultCellsList.Count - 1], dwelling));
             return cellPath;
+        }
+
+	    protected bool checkEnemyArmyWin(List<Cell> resultCellsList)
+	    {
+            var enemyArmyCells = resultCellsList.FindAll(i => i.EnemyArmy.Count != 0).ToList();
+            var enemyStrength = new Dictionary<UnitType, int>();
+            foreach (var enemyArmyCell in enemyArmyCells)
+            {
+                enemyStrength.Concat(enemyArmyCell.EnemyArmy);
+            }
+	        return Combat.Resolve(new ArmiesPair(SensorData.MyArmy, enemyStrength)).IsDefenderWin;
         }
 
         protected int getAmountOfUnitsToBuy(SubCellType subCellType, Cell dwellingCheck)
