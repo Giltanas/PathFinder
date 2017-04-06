@@ -11,44 +11,49 @@ namespace HommFinder
 {
 	public class Finder
 	{
-		private readonly List<Cell> _cells;
-		private readonly Cell _startCell;
-		const int ValidVerificationStepNumber = 5;
-		private static readonly int[] dx0 =  { 1, -1, 0, 1, -1, 0 };
-		private static readonly int[] dy0 =  { 0, 0, 1, -1, -1, -1 };
-		private static readonly int[] dx1 =  { 1, -1, 0, 1, -1, 0 };
-		private static readonly	int[] dy1 =  { 0, 0, 1, 1, 1, -1 };
+		public List<Cell> Cells;
+		private Cell _startCell;
+
+		private static readonly int[] dx0 = { 1, -1, 0, 1, -1, 0 };
+		private static readonly int[] dy0 = { 0, 0, 1, -1, -1, -1 };
+		private static readonly int[] dx1 = { 1, -1, 0, 1, -1, 0 };
+
+		private static readonly int[] dy1 = { 0, 0, 1, 1, 1, -1 };
 		private Dictionary<Resource, int> _plusResources;
 		public Finder(List<Cell> cells, Cell startCell)
 		{
-			_cells = cells;
-			_startCell = _cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
-			foreach (var cell in _cells)
+			Cells = cells;
+			_startCell = Cells.Single(c => c.X == startCell.X && c.Y == startCell.Y);
+			foreach (var cell in Cells)
 			{
 				cell.Refresh();
 			}
 			_startCell.NeedChangeValue(0);
 			sendWave(_startCell);
 		}
-		
-		public List<Cell> GetSmartPath(Cell startCell, Cell endCell, List<Cell> smartPath=null )
-		{
-			startCell = _cells.Find(c=> c.SameLocation(startCell));
-			endCell = _cells.Find(c => c.SameLocation(endCell));
 
-			if (startCell == null || endCell == null || endCell.TerrainCellType==TerrainCellType.Block)
+		public List<Cell> GetSmartPath(Cell endCell)
+		{
+			return GetSmartPath(_startCell,endCell);
+		}
+		public List<Cell> GetSmartPath(Cell startCell, Cell endCell, List<Cell> smartPath = null)
+		{
+			startCell = Cells.Find(c => c.SameLocation(startCell));
+			endCell = Cells.Find(c => c.SameLocation(endCell));
+
+			if (startCell == null || endCell == null || endCell.TerrainCellType == TerrainCellType.Block)
 			{
 				return null;
 			}
 
-			var moves = new Finder(_cells,startCell).GetMovesStraightToCell(endCell);
+			var moves = new Finder(Cells, startCell).GetMovesStraightToCell(endCell);
 			if (smartPath == null)
 			{
 				smartPath = new List<Cell>();
 			}
 			foreach (var move in moves)
 			{
-				
+
 				smartPath.Add(move);
 
 				if (move.Equals(endCell))
@@ -68,214 +73,23 @@ namespace HommFinder
 				}
 
 			}
-			return  smartPath;
+			return smartPath;
 		}
-		public List<Cell> GetMovesStraightToCell(Cell endCell=null)
+
+		public List<Cell> GetMovesStraightToCell(Cell endCell = null)
 		{
 			if (endCell == null)
 			{
 				return new List<Cell>();
 			}
 
-			endCell = _cells.SingleOrDefault(c=> c.SameLocation(endCell));
+			endCell = Cells.SingleOrDefault(c => c.SameLocation(endCell));
 
 			return endCell.Value == Single.MaxValue ?
-				new List<Cell>() : 
+				new List<Cell>() :
 				getMoves(_startCell,
-				_cells.SingleOrDefault(c => c.SameLocation(endCell)),
+				Cells.SingleOrDefault(c => c.SameLocation(endCell)),
 				new Stack<Cell>()).ToList();
-		}
-
- 
-		
-		public List<Cell> SearchAvailableDwellings( )
-		{
-			return _cells.Where(i => (i.CellType.MainType == MainCellType.Dwelling)
-						   && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue>0)).ToList();
-		}
-
-		public List<Cell> SearchAvailableResources()
-		{
-			return _cells.Where(i => (i.CellType.MainType == MainCellType.Resource)
-						   && !i.Value.Equals(Single.MaxValue)).ToList();
-		}
-
-		public List<Cell> SearchAvailableMines()
-		{
-			return _cells.Where(i => (i.CellType.MainType == MainCellType.Mine)
-						   && !i.Value.Equals(Single.MaxValue)).ToList();
-		}
-
-        public List<Cell> CheckDwelling(Cell dwellingCheck, Dictionary<Resource, int> myTreasury, UnitType unitType, Resource resource)
-        {
-            var path = new List<Cell>();
-            var missingTreasury = existTreasuryForDwelling(dwellingCheck, myTreasury, unitType, resource);
-            if (missingTreasury.Count == 0)
-            {
-                path = GetMovesStraightToCell(dwellingCheck);
-            }
-            else
-            {
-                //TODO:: check resources near path
-                var localPath = findResourcesForDwelling(missingTreasury, dwellingCheck, resource);
-                if (localPath.Count < ValidVerificationStepNumber)
-                    path = localPath;
-            }
-            return path;
-        }
-       
-        public List<Cell> CheckDwellingMilitia(Cell dwellingCheck, Dictionary<Resource, int> myTreasury)
-		{
-			var path = new List<Cell>();
-			var missingTreasury = existTreasuryForDwelling(dwellingCheck, myTreasury, UnitType.Militia);
-			if (missingTreasury.Count == 0)
-			{
-				path = GetMovesStraightToCell(dwellingCheck);
-			}  
-			else
-			{
-				//TODO:: check resources near path
-				var localPath = findResourcesForDwellingMilitia(missingTreasury, dwellingCheck);
-				if (localPath.Count != 0)
-				   path = localPath;
-			}
-
-			return path;
-		}
-
-		private Dictionary<Resource, int> existTreasuryForDwelling(Cell dwellingCheck,
-            Dictionary<Resource, int > myTreasury, UnitType unitType, Resource resource = new Resource())
-		{
-
-		    var missingResources = new Dictionary<Resource, int>();
-
-		    if (dwellingCheck.CellType.SubCellType == SubCellType.DwellingMilitia)
-		    {
-		        if (myTreasury[Resource.Gold] >=
-		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold])
-		        {
-		            return new Dictionary<Resource, int>();
-		        }
-		        missingResources.Add(Resource.Gold,
-		            UnitsConstants.Current.UnitCost[UnitType.Militia][Resource.Gold] -
-		            myTreasury[Resource.Gold]);
-		    }
-		    else
-		    {
-                if (myTreasury[Resource.Gold] >=
-                UnitsConstants.Current.UnitCost[unitType][Resource.Gold] &&
-                myTreasury[resource] >=
-                UnitsConstants.Current.UnitCost[unitType][resource])
-                {
-                    return new Dictionary<Resource, int>();
-                }
-
-                missingResources.Add(Resource.Gold,
-                    UnitsConstants.Current.UnitCost[unitType][Resource.Gold] -
-                    myTreasury[Resource.Gold]);
-
-                missingResources.Add(resource,
-                    UnitsConstants.Current.UnitCost[unitType][resource] -
-                    myTreasury[resource]);
-            }			
-		    
-			return missingResources;
-		}
-
-		private List<Cell> findResourcesForDwellingMilitia(Dictionary<Resource, int> missingTreasury, Cell dwelling)
-		{
-			var goldCellList = new List<Cell>();
-			while (missingTreasury[Resource.Gold] >= 0 &&
-				_cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
-				&& !o.Value.Equals(Single.MaxValue) && !goldCellList.Contains(o)).ToList().Count != 0)
-			{
-				findResources(goldCellList, SubCellType.ResourceGold);
-				foreach (var item in goldCellList)
-				{
-					missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
-				}
-			}
-
-			var goldCellPath = new List<Cell>();
-		    if (goldCellList.Count > 0)
-		    {
-               // goldCellPath.AddRange(GetSmartPath(goldCellList[0]));
-                for (int y = 1; y < goldCellList.Count; y++)
-                {
-                    var finderNew = new Finder(_cells, goldCellList[y]);
-                    goldCellPath.AddRange(finderNew.GetSmartPath(goldCellList[y-1],goldCellList[y]));
-                }
-                var finderToEnd = new Finder(_cells, goldCellList[goldCellList.Count - 1]);
-                goldCellPath.AddRange(finderToEnd.GetSmartPath(goldCellList[goldCellList.Count - 1], dwelling));
-            }   
-			return goldCellPath;
-		}
-
-		private List<Cell> findResourcesForDwelling(Dictionary<Resource, int> missingTreasury, Cell dwelling, Resource resource)
-		{
-			var subCellType = new SubCellType();
-			if (resource == Resource.Ebony)
-				subCellType = SubCellType.ResourceEbony;
-			if (resource == Resource.Iron)
-				subCellType = SubCellType.ResourceIron;
-			if (resource == Resource.Glass)
-				subCellType = SubCellType.ResourceGlass;
-
-
-			var cellList = new List<Cell>();
-			while (missingTreasury[Resource.Gold] >= 0 &&
-				_cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold)
-				&& !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
-			{
-				findResources(cellList, SubCellType.ResourceGold);
-				foreach (var item in cellList)
-				{
-					missingTreasury[Resource.Gold] = missingTreasury[Resource.Gold] - item.ResourcesValue;
-				}
-			}
-
-			while (missingTreasury[resource] >= 0 &&
-				_cells.Where(o => (o.CellType.SubCellType == subCellType)
-				&& !o.Value.Equals(Single.MaxValue) && !cellList.Contains(o)).ToList().Count != 0)
-			{
-				findResources(cellList, subCellType);
-				foreach (var item in cellList)
-				{
-					missingTreasury[resource] = missingTreasury[resource] - item.ResourcesValue;
-				}
-			}
-
-			var cellPath = new List<Cell>();
-			if (cellList.Count > 0)
-			{
-				//cellPath.AddRange(GetMovesStraightToCell(cellList[0]));
-				for (int y = 1; y < cellList.Count; y++)
-				{
-					var finderNew = new Finder(_cells, cellList[y]);
-					cellPath.AddRange(finderNew.GetSmartPath(cellList[y-1], cellList[y]));
-				}
-				var finderToEnd = new Finder(_cells, cellList[cellList.Count - 1]);
-				cellPath.AddRange(finderToEnd.GetSmartPath(cellList[cellList.Count - 1],dwelling));
-			}
-			return cellPath;
-		}
-
-		private List<Cell> findResources(List<Cell> cellPath, SubCellType subCellType)
-	    {
-			var сellList = _cells.Where(o => (o.CellType.SubCellType == subCellType)
-								&& !o.Value.Equals(Single.MaxValue) && !cellPath.Contains(o)).ToList();
-
-			for (int i = 0; i < сellList.Count; i++)
-			{
-				var cell = сellList.ElementAt(i);
-				var localPath = GetMovesStraightToCell(cell);
-				if (localPath.Count <= ValidVerificationStepNumber)
-				{
-					cellPath.Add(cell);
-					return cellPath;
-				}
-			}
-			return null;
 		}
 
 		private List<Cell> getNearCells(Cell cell)
@@ -297,12 +111,11 @@ namespace HommFinder
 
 		private Cell getCell(int x, int y)
 		{
-			var ret = _cells.SingleOrDefault(c => c.X == x && c.Y == y);
-			return ret;
+			return Cells.SingleOrDefault(c => c.X == x && c.Y == y);
 		}
 		private Stack<Cell> getMoves(Cell startCell, Cell endCell, Stack<Cell> cells)
 		{
-			cells.Push(_cells.Find(c=> c.SameLocation(endCell)));
+			cells.Push(Cells.Find(c => c.SameLocation(endCell)));
 			if (!endCell.Equals(startCell))
 			{
 				var nearCells = getNearCells(endCell);

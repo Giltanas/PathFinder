@@ -53,9 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ActionManager.cs" />
+    <Compile Include="AILogic\AiLogic.cs" />
+    <Compile Include="AILogic\SinglePlayAiLogic.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Homm.Client.Program.cs" />
+    <Compile Include="Interfaces\IAiLogic.cs" />
     <Compile Include="Interfaces\IOutPutPrinter.cs" />
     <Compile Include="OutputPrinter\CmdOutPutPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

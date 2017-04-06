@@ -26,7 +26,7 @@ namespace Homm.Client
 			var client = new HommClient();
 
 			//client.OnSensorDataReceived += Print;
-			client.OnInfo += OnInfo;
+			//client.OnInfo += OnInfo;
 			
 			var sensorData = client.Configurate(
 				ip, port, CvarcTag,
@@ -50,13 +50,10 @@ namespace Homm.Client
 				// Помните, что на сервере выбор стороны осуществляется случайным образом, поэтому ваш код
 				// должен работать одинаково хорошо в обоих случаях.
 			);
+	
+			//var outPutPrinter = new CmdOutPutPrinter();
 
-
-
-			
-			var outPutPrinter = new CmdOutPutPrinter();
-
-			outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
+			//outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
 			var listCells = sensorData.Map.Objects.Select(item => item.ToCell()).ToList();
 			var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
 
@@ -71,10 +68,10 @@ namespace Homm.Client
 			//}
 
 			var actionManager = new ActionManager(client, sensorData);
-            //TODO: remove this cicle
-            while (true)
-            {
-                actionManager.Play();
+			//TODO: remove this cicle
+			while (true)
+			{
+				actionManager.Play();
 			}
 			client.Exit();
 		}
@@ -118,17 +115,11 @@ namespace Homm.Client
 		//		.FirstOrDefault()?.ToString() ?? "Nothing";
 		//}
 
-
-		static void OnInfo(string infoMessage)
-		{
-			Console.ForegroundColor = ConsoleColor.Green;
-			//Console.WriteLine(infoMessage);
-			Console.ResetColor();
-		}
-
-
-
-
-
+		//static void OnInfo(string infoMessage)
+		//{
+		//	Console.ForegroundColor = ConsoleColor.Green;
+		//	//Console.WriteLine(infoMessage);
+		//	Console.ResetColor();
+		//}
 	}
 }
