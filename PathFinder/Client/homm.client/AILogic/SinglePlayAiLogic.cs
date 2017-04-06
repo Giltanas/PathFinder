@@ -7,7 +7,7 @@ using Homm.Client.Interfaces;
 
 namespace Homm.Client.AILogic
 {
-	class SinglePlayAiLogic : AiLogic
+    internal class SinglePlayAiLogic : AiLogic
 	{
 		public override void MakeDecisions()
 		{
@@ -21,5 +21,10 @@ namespace Homm.Client.AILogic
 			workingWithDwellings();
 			figthForResource();
 		}
+
+	    public override bool CanIncreaseGamingPoints()
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

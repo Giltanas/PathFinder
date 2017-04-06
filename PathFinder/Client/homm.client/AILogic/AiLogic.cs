@@ -46,7 +46,6 @@ namespace Homm.Client.AILogic
 		}
 
 
-
 		protected void workingWithMines()
 		{
 			var path = new List<Cell>();
@@ -283,21 +282,10 @@ namespace Homm.Client.AILogic
 					SensorData = Client.Move(step);
 					if (path[index + 1].ContainsEnemyArmy)
 					{
-
+                        UpdateMap();
 						return;
 					}
 				}
-			}
-		}
-
-		protected void aiPlayLogic()
-		{
-			if (canDoSomthing())
-			{
-				UpdateMap();
-				workingWithMines();
-				workingWithDwellings();
-				figthForResource();
 			}
 		}
 
@@ -310,16 +298,11 @@ namespace Homm.Client.AILogic
 			{
 				move(Finder.GetSmartPath(nearestGoldMine));
 			}
-			//implement finding other needed mines or resources 
+			//TODO:: implement finding other needed mines or resources 
 		}
 
-		protected bool canDoSomthing()
-		{
-			//TODO:: implement logic
-			return true;
-		}
-
-		public abstract void MakeDecisions();
+	    public abstract bool CanIncreaseGamingPoints();
+        public abstract void MakeDecisions();
 		public abstract void Act();
 	}
 }
