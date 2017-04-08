@@ -4,27 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Homm.Client.Interfaces;
+using HommFinder;
+using HoMM;
+using HoMM.ClientClasses;
 
 namespace Homm.Client.AILogic
 {
     internal class SinglePlayAiLogic : AiLogic
 	{
-		public override void MakeDecisions()
-		{
-			throw new NotImplementedException();
-		}
-
-		public override void Act()
-		{
-			UpdateMap();
-			workingWithMines();
-			workingWithDwellings();
-			//figthForResource();
-		}
-
-	    public override bool CanIncreaseGamingPoints()
+	    public SinglePlayAiLogic(HommClient client, HommSensorData sensorData) : base(client, sensorData)
 	    {
-	        throw new NotImplementedException();
+	    }
+
+	    public sealed override void MakeDecisions()
+		{
+
+            workingWithMines();
+
+            workingWithDwellings();
+        }
+
+		public sealed override void Act(List<Cell> path)
+		{
+			
+		}
+
+	    public sealed override void IncreaseGamingPoints()
+	    {
+	        
 	    }
 	}
 }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Actions\ActionManager.cs" />
     <Compile Include="AILogic\AiLogic.cs" />
+    <Compile Include="AILogic\DualPlayAiLogic.cs" />
     <Compile Include="AILogic\SinglePlayAiLogic.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\Extensions.cs" />

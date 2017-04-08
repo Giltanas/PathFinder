@@ -36,7 +36,7 @@ namespace Homm.Client.Actions
 			{
 				case MapType.Single:
 				{
-					AiLogic = new SinglePlayAiLogic(){ };
+					AiLogic = new SinglePlayAiLogic(client, sensorData);
 					break;
 				}
 			}
@@ -44,7 +44,7 @@ namespace Homm.Client.Actions
 		//TODO: change signature of this method
 		public void Play()
 		{
-			AiLogic.Act();
+			AiLogic.MakeDecisions();
 		}
 	}
 

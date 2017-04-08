@@ -51,21 +51,6 @@ namespace Homm.Client
 				// должен работать одинаково хорошо в обоих случаях.
 			);
 	
-			//var outPutPrinter = new CmdOutPutPrinter();
-
-			//outPutPrinter.PrintMap(sensorData.Map.Objects,sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
-			var listCells = sensorData.Map.Objects.Select(item => item.ToCell()).ToList();
-			var pathFinder = new Finder(listCells, new Cell(sensorData.Location.X,sensorData.Location.Y));
-
-			//var a = pathFinder.GetMoves(sensorData.Map.Objects.Single(o => o.Location.X == 10 && o.Location.Y == 10).ToCell());
-
-			//outPutPrinter.PrintPath(sensorData.Map.Objects, a, sensorData.MyArmy, sensorData.Map.Width, sensorData.Map.Height );
-			//var b = Converter.ConvertCellPathToDirection(a);
-
-			//foreach (var item in b)
-			//{
-			//	client.Move(item);
-			//}
 
 			var actionManager = new ActionManager(client, sensorData);
 			//TODO: remove this cycle
