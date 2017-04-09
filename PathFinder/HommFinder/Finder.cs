@@ -42,7 +42,7 @@ namespace HommFinder
 
 			if (startCell == null || endCell == null || endCell.TerrainCellType == TerrainCellType.Block)
 			{
-				return null;
+				return new List<Cell>();
 			}
 
 			var moves = new Finder(Cells, startCell).GetMovesStraightToCell(endCell);
@@ -61,7 +61,7 @@ namespace HommFinder
 				}
 
 				var nearCells = getNearCells(move).FindAll(c => c.CellType.MainType == MainCellType.Resource);
-				foreach (var resourceCell in nearCells.Where(resourceCell => resourceCell != null && !smartPath.Contains(resourceCell)))
+				foreach (var resourceCell in nearCells.Where(resourceCell => !smartPath.Contains(resourceCell)))
 				{
 					if (resourceCell.Equals(endCell))
 					{
@@ -77,14 +77,13 @@ namespace HommFinder
 
 		public List<Cell> GetMovesStraightToCell(Cell endCell = null)
 		{
-			if (endCell == null)
-			{
-				return new List<Cell>();
-			}
-
 			endCell = Cells.SingleOrDefault(c => c.SameLocation(endCell));
 
-			return endCell.Value == Single.MaxValue ?
+            if (endCell == null)
+            {
+                return new List<Cell>();
+            }
+            return endCell.Value.Equals(Single.MaxValue) ?
 				new List<Cell>() :
 				getMoves(_startCell,
 				Cells.SingleOrDefault(c => c.SameLocation(endCell)),
