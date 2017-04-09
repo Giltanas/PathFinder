@@ -22,10 +22,14 @@ namespace Homm.Client.AILogic
 
         public override void IncreaseGamingPoints()
         {
-
-            workingWithMines();
-            
-            workingWithDwellings();
+            var a = workingWithMines();
+            UpdateMap();
+            var b = workingWithDwellings();
+            UpdateMap();
+            if (a.Count == 0 && b.Count == 0)
+            {
+                Client.Wait(2);
+            }
         }
 
         public sealed override void MakeDecisions()
@@ -44,14 +48,24 @@ namespace Homm.Client.AILogic
 
         public sealed override void Act(List<Cell> path)
         {
+            if (path.Count == 0) return;
             var steps = Converter.ConvertCellPathToDirection(path);
-            foreach (var direction in steps)
+            for (var index = 0; index < steps.Count; index++)
             {
-                if (SensorData.WorldCurrentTime - _decisionTime >=2)
+                if (SensorData.WorldCurrentTime - _decisionTime >= 2.0f)
                 {
-                    MakeDecisions();
+                    UpdateMap();
+                    _decisionTime = SensorData.WorldCurrentTime;
+                    return;
                 }
-                moveOneStep(direction);
+                var containsArmy = path[index + 1].EnemyArmy != null;
+                SensorData = Client.Move(steps[index]);
+                if (containsArmy)
+                {
+                    UpdateMap();
+                    _decisionTime = SensorData.WorldCurrentTime;
+                    return;
+                }
             }
         }
     }
