@@ -57,6 +57,7 @@ namespace Homm.Client.Helpers
 				if (x == 1 && y == 0)
 				{
 					direction.Add(cells[i - 1].X % 2 == 0 ? Direction.RightDown : Direction.RightUp);
+                    continue;
 				}
 			}
 			return direction;

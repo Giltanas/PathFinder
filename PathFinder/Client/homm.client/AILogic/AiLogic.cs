@@ -35,12 +35,12 @@ namespace Homm.Client.AILogic
 			Finder = new Finder(Map, CurrentCell);
 		}
 
-	    protected AiLogic(HommClient client, HommSensorData sensorData)
-	    {
-	        SensorData = sensorData;
-	        Client = client;
-            UpdateMap();
-        }
+		protected AiLogic(HommClient client, HommSensorData sensorData)
+		{
+			SensorData = sensorData;
+			Client = client;
+			UpdateMap();
+		}
 
 		protected void workingWithMines()
 		{
@@ -65,73 +65,82 @@ namespace Homm.Client.AILogic
 		protected void workingWithDwellings()
 		{
 			var path = new List<Cell>();
-			var dwelling = getAvailableDwelling(Finder.Cells);
+			var dwellings = getAvailableDwellings(Finder.Cells);
 
-			if (dwelling == null) return;
-			switch (dwelling.CellType.SubCellType)
-			{
-				case SubCellType.DwellingCavalry:
-					{
-						path = useDwelling(dwelling, UnitType.Cavalry, Resource.Ebony);
-						if (path.Count != 0)
-						{
-							movePath(path);
-							var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwelling);
-							if (unitsCount > 0)
-								SensorData = Client.HireUnits(unitsCount);
-						}
-						break;
-					}
+			if (dwellings == null || dwellings.Count ==0) return;
+		    foreach (var dwelling in dwellings)
+		    {
 
-				case SubCellType.DwellingInfantry:
-					{
-						path = useDwelling(dwelling, UnitType.Infantry, Resource.Iron);
-						if (path.Count != 0)
-						{
-							movePath(path);
-							var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwelling);
-							if (unitsCount > 0)
-								SensorData = Client.HireUnits(unitsCount);
-						}
-						break;
-					}
+		        switch (dwelling.CellType.SubCellType)
+		        {
+		            case SubCellType.DwellingCavalry:
+		            {
+		                path = useDwelling(dwelling, UnitType.Cavalry, Resource.Ebony);
+		                if (path.Count != 0)
+		                {
+		                    movePath(path);
+		                    var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingCavalry, dwelling);
+		                    if (unitsCount > 0)
+		                        SensorData = Client.HireUnits(unitsCount);
+		                }
+		                break;
+		            }
 
-				case SubCellType.DwellingRanged:
-					{
-						path = useDwelling(dwelling, UnitType.Ranged, Resource.Glass);
-						if (path.Count != 0)
-						{
-							movePath(path);
-							var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwelling);
-							if (unitsCount >0)
-							SensorData = Client.HireUnits(unitsCount);
-						}
-						break;
-					}
-				case SubCellType.DwellingMilitia:
-					{
-						path = useDwelling(dwelling, UnitType.Militia, Resource.Gold);
-						if (path.Count != 0)
-						{
-							movePath(path);
-							var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwelling);
-							if (unitsCount > 0)
-								SensorData = Client.HireUnits(unitsCount);
-						}
-						break;
-					}
-			}
+		            case SubCellType.DwellingInfantry:
+		            {
+		                path = useDwelling(dwelling, UnitType.Infantry, Resource.Iron);
+		                if (path.Count != 0)
+		                {
+		                    movePath(path);
+		                    var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingInfantry, dwelling);
+		                    if (unitsCount > 0)
+		                        SensorData = Client.HireUnits(unitsCount);
+		                }
+		                break;
+		            }
+
+		            case SubCellType.DwellingRanged:
+		            {
+		                path = useDwelling(dwelling, UnitType.Ranged, Resource.Glass);
+		                if (path.Count != 0)
+		                {
+		                    movePath(path);
+		                    var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingRanged, dwelling);
+		                    if (unitsCount > 0)
+		                        SensorData = Client.HireUnits(unitsCount);
+		                }
+		                break;
+		            }
+		            case SubCellType.DwellingMilitia:
+		            {
+		                path = useDwelling(dwelling, UnitType.Militia, Resource.Gold);
+		                if (path.Count != 0)
+		                {
+		                    movePath(path);
+		                    var unitsCount = getAmountOfUnitsToBuy(SubCellType.DwellingMilitia, dwelling);
+		                    if (unitsCount > 0)
+		                        SensorData = Client.HireUnits(unitsCount);
+		                }
+		                break;
+		            }
+		        }
+                UpdateMap();
+            }
 		}
 
-		protected Cell getAvailableDwelling(List<Cell> finderCells)
+		protected List<Cell> getAvailableDwellings(List<Cell> finderCells)
 		{
 			var availableDwellings = finderCells.Where(i => (i.CellType.MainType == MainCellType.Dwelling)
-						   && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).OrderByDescending(i => i.Value).ToList();
+						   && !i.Value.Equals(Single.MaxValue) && (i.ResourcesValue > 0)).OrderBy(i => i.Value).ToList();
 
-			if (availableDwellings.Count != 0)
-				return availableDwellings.FirstOrDefault(i => (i.CellType.SubCellType != SubCellType.DwellingMilitia)) ??
-							availableDwellings.FirstOrDefault();
-			return null;
+		    if (availableDwellings.Count != 0)
+		    {
+		        var notMilitiaDwellings =
+		            availableDwellings.Where(i => (i.CellType.SubCellType != SubCellType.DwellingMilitia)).ToList();
+
+                return notMilitiaDwellings.Count >0 ? notMilitiaDwellings : availableDwellings;
+		    }
+		    return null;
 		}
 
 		protected List<Cell> searchAvailableMines(List<Cell> finderCells)
@@ -145,7 +154,7 @@ namespace Homm.Client.AILogic
 			var path = new List<Cell>();
 			var missingTreasury = getMissingTreasuryForDwelling(dwellingCheck, unitType, resource);
 			path = missingTreasury.Count == 0 ? Finder.GetMovesStraightToCell(dwellingCheck) :
-				findResourcesForDwelling(missingTreasury, dwellingCheck, resource, Finder.Cells);
+				findResourcesForDwelling(missingTreasury, dwellingCheck, resource);
 			return path;
 		}
 
@@ -182,7 +191,7 @@ namespace Homm.Client.AILogic
 		}
 
 		protected List<Cell> findResourcesForDwelling(Dictionary<Resource, int> missingTreasury,
-			Cell dwelling, Resource resource, List<Cell> finderCells)
+			Cell dwelling, Resource resource)
 		{
 			var subCellType = new SubCellType();
 			switch (resource)
@@ -199,7 +208,7 @@ namespace Homm.Client.AILogic
 			}
 
 			var resultCellsList = new List<Cell>();
-			var foundedCells = finderCells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold && o.ResourcesValue > 0)
+			var foundedCells = Finder.Cells.Where(o => (o.CellType.SubCellType == SubCellType.ResourceGold && o.ResourcesValue > 0)
 						&& !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
 
 			for (int i = 0; i < foundedCells.Count && missingTreasury[Resource.Gold] > 0; i++)
@@ -211,7 +220,12 @@ namespace Homm.Client.AILogic
 
 			if (resource != Resource.Gold)
 			{
-				foundedCells = finderCells.Where(o => (o.CellType.SubCellType == subCellType && o.ResourcesValue > 0)
+				var resourceFinder = Finder;
+				if (resultCellsList.Count > 0)
+				{
+					resourceFinder = new Finder(Finder.Cells, resultCellsList[0]);
+				}
+				foundedCells = resourceFinder.Cells.Where(o => (o.CellType.SubCellType == subCellType && o.ResourcesValue > 0)
 						&& !o.Value.Equals(Single.MaxValue) && !resultCellsList.Contains(o)).OrderBy(o => o.Value).ToList();
 
 				for (int i = 0; i < foundedCells.Count && missingTreasury[resource] > 0; i++)
@@ -229,10 +243,13 @@ namespace Homm.Client.AILogic
 
 			for (int y = 1; y < resultCellsList.Count; y++)
 			{
-				var finderNew = new Finder(finderCells, resultCellsList[y]);
-				cellPath.AddRange(finderNew.GetSmartPath(resultCellsList[y - 1], resultCellsList[y]));
+				if (!cellPath.Contains(resultCellsList[y]))
+				{
+					var finderNew = new Finder(Finder.Cells, resultCellsList[y]);
+					cellPath.AddRange(finderNew.GetSmartPath(resultCellsList[y - 1], resultCellsList[y]));
+				}
 			}
-			var finderToEnd = new Finder(finderCells, resultCellsList[resultCellsList.Count - 1]);
+			var finderToEnd = new Finder(Finder.Cells, resultCellsList[resultCellsList.Count - 1]);
 			cellPath.AddRange(finderToEnd.GetSmartPath(resultCellsList[resultCellsList.Count - 1], dwelling));
 			return cellPath;
 		}
@@ -298,11 +315,11 @@ namespace Homm.Client.AILogic
 				SensorData = Client.Move(steps[index]);
 				if (containsArmy)
 				{
-                    UpdateMap();
+					UpdateMap();
 					return;
 				}
 			}
-            UpdateMap();
+			UpdateMap();
 		}
 
 		protected void moveOneStep(Direction direction)
