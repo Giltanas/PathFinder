@@ -147,9 +147,14 @@ namespace Homm.Client.AILogic
 
 		protected List<Cell> searchAvailableMines(List<Cell> finderCells)
 		{
-			return finderCells.Where(i => (i.CellType.MainType == MainCellType.Mine)
-						   && !i.Value.Equals(Single.MaxValue)).ToList();
-		}
+            var result = finderCells.Where(i => (i.CellType.MainType == MainCellType.Mine)
+                          && i.CellType.SubCellType == SubCellType.MineGold
+                          && !i.Value.Equals(Single.MaxValue)).ToList();
+            if (result.Count == 0)
+                result = finderCells.Where(i => (i.CellType.MainType == MainCellType.Mine)
+                            && !i.Value.Equals(Single.MaxValue)).ToList();
+            return result;
+    }
 
 		protected List<Cell> useDwelling(Cell dwellingCheck, UnitType unitType, Resource resource)
 		{
