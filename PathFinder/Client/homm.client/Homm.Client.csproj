@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Tatiana\AppData\Local\Temp\vs486C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Giltanas\AppData\Local\Temp\vs437A.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Tatiana\AppData\Local\Temp\vs486C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Giltanas\AppData\Local\Temp\vs437A.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
